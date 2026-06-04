@@ -1,0 +1,51 @@
+name: MediReg 규제 모니터링 크롤링
+
+on:
+  schedule:
+    # 매주 월요일 오전 9시 (KST = UTC+9, 즉 UTC 00:00)
+    - cron: "0 0 * * 1"
+  workflow_dispatch:  # 수동 실행 버튼
+
+permissions:
+  contents: write  # data/ 파일을 커밋하기 위해 필요
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: crawler/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r crawler/requirements.txt
+
+      - name: Run crawlers
+        run: python crawler/run_all.py
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet data/ && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit updated data
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "MediReg Bot"
+          git config user.email "actions@github.com"
+          git add data/
+          NEW_COUNT=$(python -c "import json; m=json.load(open('data/meta.json')); print(m.get('new_items',0))")
+          git commit -m "chore: 규제 데이터 업데이트 (신규 ${NEW_COUNT}건) [$(date +'%Y-%m-%d')]"
+          git push
+
+      - name: No changes
+        if: steps.changes.outputs.changed == 'false'
+        run: echo "변경된 규제 항목이 없습니다."

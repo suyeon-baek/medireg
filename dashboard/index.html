@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediReg — 의료기기 규정 관리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0f1a;--bg2:#0d1525;--bg3:#111827;--bg4:#0f1c2e;
+  --border:#1e2d45;--border2:#2d4a6a;
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#475569;--text4:#334155;
+  --blue:#38bdf8;--blue-bg:#0c2035;--blue-b:#1e3a5f;
+  --green:#4ade80;--green-bg:#0f2010;--green-b:#166534;
+  --amber:#fb923c;--amber-bg:#2a1a0a;--amber-b:#3a2a0a;
+  --purple:#818cf8;--purple-bg:#1a1a2e;--purple-b:#2d2d5f;
+  --red:#f87171;--red-bg:#2a0f0f;--red-b:#4a1a1a;
+}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Plex Sans KR',sans-serif;font-size:14px;line-height:1.6;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+/* Layout */
+.app{display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+.topbar{display:flex;align-items:center;gap:14px;padding:0 20px;height:52px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
+.logo{font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:500;color:var(--blue);letter-spacing:.04em;white-space:nowrap;}
+.logo em{color:var(--text3);font-style:normal;}
+.topbar-sep{width:1px;height:20px;background:var(--border);}
+.free-badge{font-size:10px;font-family:'IBM Plex Mono',monospace;padding:2px 8px;border-radius:3px;background:var(--green-bg);color:var(--green);border:1px solid var(--green-b);letter-spacing:.04em;}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.save-indicator{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;display:flex;align-items:center;gap:5px;}
+.save-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+
+.body{display:flex;flex:1;overflow:hidden;}
+
+/* Sidebar */
+.sidebar{width:220px;flex-shrink:0;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+.nav-section{padding:14px 0 6px;}
+.nav-label{font-size:10px;font-weight:500;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;padding:0 16px;margin-bottom:4px;font-family:'IBM Plex Mono',monospace;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;font-size:13px;color:var(--text2);cursor:pointer;border-left:2px solid transparent;transition:all .12s;user-select:none;}
+.nav-item:hover{background:#131e30;color:var(--text);}
+.nav-item.active{background:var(--blue-bg);color:var(--blue);border-left-color:var(--blue);}
+.nav-item i{font-size:16px;opacity:.8;flex-shrink:0;}
+.nav-badge{margin-left:auto;font-size:10px;font-family:'IBM Plex Mono',monospace;padding:1px 6px;border-radius:3px;}
+.nb-blue{background:var(--blue-bg);color:var(--blue);}
+.nb-green{background:var(--green-bg);color:var(--green);}
+.nb-amber{background:var(--amber-bg);color:var(--amber);}
+
+/* Main */
+.main{flex:1;display:flex;overflow:hidden;}
+.panel{display:none;flex:1;flex-direction:column;overflow:hidden;}
+.panel.active{display:flex;}
+
+/* Panel header */
+.ph{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.ph-title{font-size:13px;color:var(--text2);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;}
+.ph-right{margin-left:auto;display:flex;gap:8px;align-items:center;}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:'IBM Plex Mono',monospace;padding:5px 12px;border-radius:5px;cursor:pointer;border:1px solid var(--border);color:var(--text2);background:transparent;transition:all .12s;letter-spacing:.02em;}
+.btn:hover{background:var(--bg3);border-color:var(--border2);color:var(--text);}
+.btn.primary{background:var(--blue-bg);border-color:var(--blue-b);color:var(--blue);}
+.btn.primary:hover{background:#153050;}
+.btn.danger{background:var(--red-bg);border-color:var(--red-b);color:var(--red);}
+.btn.success{background:var(--green-bg);border-color:var(--green-b);color:var(--green);}
+
+/* Country pill */
+.cpill{font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:500;padding:2px 8px;border-radius:3px;letter-spacing:.03em;flex-shrink:0;}
+.cpill.kr{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-b);}
+.cpill.us{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-b);}
+.cpill.eu{background:var(--green-bg);color:var(--green);border:1px solid var(--green-b);}
+.cpill.int{background:#1a1a0a;color:#facc15;border:1px solid #2a2a0a;}
+
+/* ── DASHBOARD ── */
+.dash-body{flex:1;overflow-y:auto;padding:20px;}
+.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px;}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
+.stat-val{font-size:26px;font-weight:500;color:var(--text);font-family:'IBM Plex Mono',monospace;line-height:1.2;}
+.stat-lbl{font-size:11px;color:var(--text3);margin-top:4px;}
+.dash-section-title{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
+.update-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:13px 16px;margin-bottom:8px;cursor:pointer;transition:all .12s;}
+.update-card:hover{border-color:var(--border2);}
+.update-card.new-item{border-color:var(--green-b);background:var(--green-bg);}
+.update-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.update-title{font-size:13px;font-weight:500;color:var(--text);}
+.update-body{font-size:12px;color:var(--text2);line-height:1.6;}
+.update-meta{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-top:7px;display:flex;gap:12px;align-items:center;}
+.new-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);flex-shrink:0;}
+.new-tag{font-size:9px;font-family:'IBM Plex Mono',monospace;padding:1px 6px;border-radius:3px;background:var(--green-bg);color:var(--green);border:1px solid var(--green-b);}
+
+/* ── SEARCH / LIST ── */
+.search-wrap{padding:14px 20px 10px;flex-shrink:0;}
+.search-bar{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;padding:9px 14px;}
+.search-bar i{color:var(--text3);font-size:16px;}
+.search-input{background:none;border:none;outline:none;font-size:13px;color:var(--text);width:100%;font-family:'IBM Plex Sans KR',sans-serif;}
+.search-input::placeholder{color:var(--text3);}
+.filter-row{display:flex;gap:6px;margin-top:8px;align-items:center;}
+.filter-btn{font-size:11px;font-family:'IBM Plex Mono',monospace;padding:3px 10px;border-radius:4px;cursor:pointer;border:1px solid var(--border);color:var(--text3);background:transparent;transition:all .12s;}
+.filter-btn:hover{border-color:var(--border2);color:var(--text2);}
+.filter-btn.active-kr{border-color:var(--blue);color:var(--blue);background:var(--blue-bg);}
+.filter-btn.active-us{border-color:var(--purple);color:var(--purple);background:var(--purple-bg);}
+.filter-btn.active-eu{border-color:var(--green);color:var(--green);background:var(--green-bg);}
+.filter-btn.active-int{border-color:#854d0e;color:#facc15;background:#1a1a0a;}
+.filter-btn.active-all{border-color:var(--border2);color:var(--text);background:var(--bg3);}
+.reg-list{flex:1;overflow-y:auto;padding:0 20px 16px;}
+.reg-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:13px 16px;margin-bottom:8px;cursor:pointer;transition:all .12s;}
+.reg-card:hover{border-color:var(--border2);background:var(--bg4);}
+.reg-card.selected{border-color:var(--blue);background:var(--blue-bg);}
+.reg-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.reg-name{font-size:13px;font-weight:500;color:var(--text);}
+.reg-summary{font-size:12px;color:var(--text2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.reg-meta{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-top:7px;display:flex;gap:10px;}
+.tag-chip{font-size:10px;padding:1px 7px;border-radius:3px;background:var(--bg3);border:1px solid var(--border);color:var(--text3);}
+
+/* Detail pane */
+.detail-pane{width:380px;flex-shrink:0;border-left:1px solid var(--border);background:var(--bg2);display:flex;flex-direction:column;overflow:hidden;}
+.detail-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text3);}
+.detail-empty i{font-size:36px;opacity:.25;}
+.detail-empty p{font-size:12px;font-family:'IBM Plex Mono',monospace;}
+.detail-header{padding:16px;border-bottom:1px solid var(--border);flex-shrink:0;}
+.detail-body{flex:1;overflow-y:auto;padding:16px;}
+.detail-title{font-size:15px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.4;}
+.detail-section{margin-bottom:16px;}
+.detail-label{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;}
+.detail-content{font-size:12px;color:var(--text2);line-height:1.7;white-space:pre-wrap;}
+.detail-actions{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;}
+
+/* ── ADD/EDIT FORM ── */
+.form-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center;}
+.form-overlay.open{display:flex;}
+.form-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;width:560px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
+.form-header{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--border);}
+.form-title{font-size:14px;font-weight:500;color:var(--text);font-family:'IBM Plex Mono',monospace;}
+.form-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-label{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase;}
+.form-input,.form-select,.form-textarea{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-size:13px;color:var(--text);font-family:'IBM Plex Sans KR',sans-serif;outline:none;transition:border-color .15s;width:100%;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--blue);}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text3);}
+.form-select{appearance:none;cursor:pointer;}
+.form-select option{background:var(--bg3);}
+.form-textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-footer{display:flex;gap:8px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--border);}
+.tag-input-wrap{display:flex;flex-wrap:wrap;gap:5px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:6px 8px;min-height:38px;align-items:center;}
+.tag-input-wrap.focus{border-color:var(--blue);}
+.tag-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:3px;background:var(--bg4);border:1px solid var(--border);color:var(--text2);}
+.tag-pill button{background:none;border:none;color:var(--text3);cursor:pointer;font-size:12px;line-height:1;padding:0;}
+.tag-raw-input{background:none;border:none;outline:none;font-size:12px;color:var(--text);font-family:'IBM Plex Sans KR',sans-serif;flex:1;min-width:80px;}
+.tag-raw-input::placeholder{color:var(--text4);}
+
+/* ── UPDATES MANAGE ── */
+.upd-list{flex:1;overflow-y:auto;padding:16px;}
+.upd-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:13px 16px;margin-bottom:8px;}
+.upd-card.unread{border-color:var(--green-b);background:var(--green-bg);}
+.upd-card-top{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.upd-title{font-size:13px;font-weight:500;color:var(--text);}
+.upd-body{font-size:12px;color:var(--text2);line-height:1.6;}
+.upd-meta{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-top:7px;display:flex;gap:10px;}
+
+/* ── CALENDAR ── */
+.cal-group-title{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;padding:10px 2px 6px;border-bottom:1px solid var(--border);margin-bottom:8px;margin-top:4px;}
+.cal-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:11px 14px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start;transition:border-color .12s;}
+.cal-item.overdue{border-color:var(--red-b);background:var(--red-bg);}
+.cal-item.soon{border-color:var(--amber-b);background:var(--amber-bg);}
+.cal-item.upcoming{border-color:var(--blue-b);}
+.cal-date-box{display:flex;flex-direction:column;align-items:center;min-width:40px;background:var(--bg3);border-radius:6px;padding:6px 8px;font-family:'IBM Plex Mono',monospace;flex-shrink:0;}
+.cal-date-day{font-size:18px;font-weight:500;color:var(--text);line-height:1.1;}
+.cal-date-mon{font-size:10px;color:var(--text3);margin-top:2px;}
+.cal-item-body{flex:1;min-width:0;}
+.cal-item-top{display:flex;gap:6px;align-items:center;margin-bottom:4px;flex-wrap:wrap;}
+.cal-item-title{font-size:13px;font-weight:500;color:var(--text);}
+.cal-item-note{font-size:12px;color:var(--text2);line-height:1.6;margin-top:2px;}
+.cal-type-pill{font-size:10px;font-family:'IBM Plex Mono',monospace;padding:2px 7px;border-radius:3px;background:var(--bg3);border:1px solid var(--border2);color:var(--text3);}
+.cal-days-left{font-size:10px;font-family:'IBM Plex Mono',monospace;margin-left:auto;white-space:nowrap;flex-shrink:0;}
+.cal-filter-bar{padding:10px 20px;border-bottom:1px solid var(--border);display:flex;gap:6px;align-items:center;flex-shrink:0;}
+
+/* Empty */
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text3);}
+.empty-state i{font-size:40px;opacity:.2;}
+.empty-state p{font-size:12px;font-family:'IBM Plex Mono',monospace;}
+.empty-state .hint{font-size:11px;color:var(--text4);}
+
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:12px;color:var(--text2);font-family:'IBM Plex Mono',monospace;z-index:999;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* Confirm modal */
+.confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:center;justify-content:center;}
+.confirm-overlay.open{display:flex;}
+.confirm-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:24px;width:320px;text-align:center;}
+.confirm-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px;}
+.confirm-msg{font-size:12px;color:var(--text2);margin-bottom:20px;line-height:1.6;}
+.confirm-btns{display:flex;gap:8px;justify-content:center;}
+
+/* ── DOC TYPE PILLS ── */
+.dtype-pill{font-size:10px;font-family:'IBM Plex Mono',monospace;padding:2px 8px;border-radius:3px;letter-spacing:.03em;flex-shrink:0;}
+.dtype-law{background:#1a0a2e;color:#c084fc;border:1px solid #3b1f5e;}
+.dtype-guidance{background:#0a1a2a;color:#60a5fa;border:1px solid #1e3a5f;}
+.dtype-standard{background:#071a0f;color:#34d399;border:1px solid #065f46;}
+.dtype-imdrf{background:#1a1a07;color:#fbbf24;border:1px solid #2d2d00;}
+
+/* ── PHASE PILL ── */
+.phase-pill{font-size:10px;font-family:'IBM Plex Mono',monospace;padding:2px 7px;border-radius:3px;background:var(--bg3);border:1px solid var(--border2);color:var(--text3);}
+
+/* ── EXTRA FILTER ROWS ── */
+.filter-row2{display:flex;gap:6px;margin-top:5px;align-items:center;flex-wrap:wrap;}
+.filter-label{font-size:10px;color:var(--text4);font-family:'IBM Plex Mono',monospace;white-space:nowrap;}
+.filter-btn.active-law{border-color:#c084fc;color:#c084fc;background:#1a0a2e;}
+.filter-btn.active-guidance{border-color:var(--blue);color:var(--blue);background:var(--blue-bg);}
+.filter-btn.active-standard{border-color:var(--green);color:var(--green);background:var(--green-bg);}
+.filter-btn.active-imdrf{border-color:#fbbf24;color:#fbbf24;background:#1a1a07;}
+.filter-btn.active-phase{border-color:var(--amber);color:var(--amber);background:var(--amber-bg);}
+.tag-filter-bar{display:flex;align-items:center;gap:5px;margin-top:5px;}
+.tag-filter-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-family:'IBM Plex Mono',monospace;padding:2px 8px;border-radius:4px;background:var(--bg3);border:1px solid var(--blue-b);color:var(--blue);}
+.tag-filter-chip button{background:none;border:none;color:var(--blue);cursor:pointer;font-size:13px;padding:0;line-height:1;opacity:.7;}
+
+/* ── RELATED STANDARDS ── */
+.related-chip{font-size:10px;padding:2px 8px;border-radius:3px;background:var(--bg4);border:1px solid var(--border2);color:var(--blue);cursor:pointer;font-family:'IBM Plex Mono',monospace;transition:all .1s;}
+.related-chip:hover{border-color:var(--blue);background:var(--blue-bg);}
+
+/* ── PER-REG NOTE ── */
+.reg-note-wrap{padding:10px 16px;border-top:1px solid var(--border);}
+.reg-note-label{font-size:10px;color:var(--text3);font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center;}
+.reg-note-saved{font-size:10px;font-family:'IBM Plex Mono',monospace;color:var(--green);}
+.reg-note-area{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--text2);font-family:'IBM Plex Sans KR',sans-serif;outline:none;resize:none;line-height:1.6;transition:border-color .15s;min-height:65px;max-height:110px;}
+.reg-note-area:focus{border-color:var(--blue);}
+
+/* ── RECENT SEARCH ── */
+.search-recent{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px;align-items:center;}
+.search-recent-label{font-size:10px;color:var(--text4);font-family:'IBM Plex Mono',monospace;}
+.search-recent-chip{font-size:10px;font-family:'IBM Plex Mono',monospace;padding:2px 8px;border-radius:3px;background:var(--bg3);border:1px solid var(--border);color:var(--text3);cursor:pointer;transition:all .1s;}
+.search-recent-chip:hover{border-color:var(--border2);color:var(--text2);}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="logo">MediReg<em>.io</em></div>
+    <div class="topbar-sep"></div>
+    <span class="free-badge">✓ 완전 무료</span>
+    <span style="font-size:12px;color:var(--text3);">· 인터넷 불필요 · 내 컴퓨터에만 저장</span>
+    <div class="topbar-right">
+      <div class="save-indicator"><div class="save-dot"></div><span id="saveStatus">자동 저장 중</span></div>
+      <div class="save-indicator" style="margin-left:8px;color:var(--blue);"><i class="ti ti-cloud-download" style="font-size:13px;"></i><span id="liveStatus">—</span></div>
+      <button class="btn" onclick="exportData()"><i class="ti ti-download"></i> 백업</button>
+      <button class="btn primary" onclick="importData()"><i class="ti ti-upload"></i> 불러오기</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)">
+    </div>
+  </div>
+
+  <div class="body">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="nav-section">
+        <div class="nav-label">메인</div>
+        <div class="nav-item active" onclick="nav('dashboard',this)"><i class="ti ti-layout-dashboard"></i>대시보드</div>
+        <div class="nav-item" onclick="nav('regulations',this)"><i class="ti ti-file-description"></i>규정 데이터베이스 <span class="nav-badge nb-blue" id="regCount">0</span></div>
+        <div class="nav-item" onclick="nav('updates',this)"><i class="ti ti-bell"></i>업데이트 관리 <span class="nav-badge nb-green" id="newUpdCount">0</span></div>
+        <div class="nav-item" onclick="nav('calendar',this)"><i class="ti ti-calendar-event"></i>규정 캘린더 <span class="nav-badge nb-amber" id="upcomingCount">0</span></div>
+        <div class="nav-item" onclick="nav('monitoring',this)"><i class="ti ti-radar"></i>규정 모니터링 <span class="nav-badge nb-amber" id="monitorBadge" style="display:none;"></span></div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label">빠른 필터</div>
+        <div class="nav-item" onclick="filterByCountry('KR')"><i class="ti ti-map-pin"></i>한국 (MFDS)</div>
+        <div class="nav-item" onclick="filterByCountry('US')"><i class="ti ti-map-pin"></i>미국 (FDA)</div>
+        <div class="nav-item" onclick="filterByCountry('EU')"><i class="ti ti-map-pin"></i>EU (MDR)</div>
+        <div class="nav-item" onclick="filterByCountry('INT')"><i class="ti ti-world"></i>국제 표준 (ISO/IEC)</div>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label">사용 방법</div>
+        <div class="nav-item" style="font-size:12px;color:var(--text3);cursor:default;flex-direction:column;align-items:flex-start;gap:2px;">
+          <span>① 규정 데이터베이스에 내용 직접 추가</span>
+        </div>
+        <div class="nav-item" style="font-size:12px;color:var(--text3);cursor:default;flex-direction:column;align-items:flex-start;gap:2px;">
+          <span>② 업데이트 탭에 개정 내용 기록</span>
+        </div>
+        <div class="nav-item" style="font-size:12px;color:var(--text3);cursor:default;flex-direction:column;align-items:flex-start;gap:2px;">
+          <span>③ 백업 버튼으로 정기 저장 권장</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="ph">
+          <i class="ti ti-layout-dashboard" style="color:var(--text3);font-size:16px;"></i>
+          <span class="ph-title">// 대시보드</span>
+        </div>
+        <div class="dash-body">
+          <div class="dash-grid" id="dashStats"></div>
+          <div class="dash-section-title">최신 업데이트</div>
+          <div id="dashUpdates"></div>
+          <div class="dash-section-title" style="margin-top:16px;">최근 추가한 규정</div>
+          <div id="dashRecentRegs"></div>
+        </div>
+      </div>
+
+      <!-- REGULATIONS -->
+      <div class="panel" id="panel-regulations">
+        <div class="ph">
+          <i class="ti ti-file-description" style="color:var(--text3);font-size:16px;"></i>
+          <span class="ph-title">// 규정 데이터베이스</span>
+          <div class="ph-right">
+            <button class="btn primary" onclick="openAddForm()"><i class="ti ti-plus"></i> 규정 추가</button>
+          </div>
+        </div>
+        <div class="search-wrap">
+          <div class="search-bar">
+            <i class="ti ti-search"></i>
+            <input class="search-input" id="searchInput" placeholder="규정명, 번호, 키워드 검색... (예: 62304, SaMD, 사이버보안)" oninput="renderRegList()" onblur="if(this.value.trim().length>=2)addRecentSearch(this.value.trim())">
+          </div>
+          <div class="search-recent" id="recentSearchRow" style="display:none;">
+            <span class="search-recent-label">최근:</span>
+            <span id="recentSearchChips"></span>
+          </div>
+          <div class="filter-row">
+            <span class="filter-label">국가:</span>
+            <button class="filter-btn active-all" id="fb-ALL" onclick="setFilter('ALL')">전체</button>
+            <button class="filter-btn" id="fb-KR" onclick="setFilter('KR')">KR</button>
+            <button class="filter-btn" id="fb-US" onclick="setFilter('US')">US</button>
+            <button class="filter-btn" id="fb-EU" onclick="setFilter('EU')">EU</button>
+            <button class="filter-btn" id="fb-INT" onclick="setFilter('INT')">국제표준</button>
+          </div>
+          <div class="filter-row2">
+            <span class="filter-label">유형:</span>
+            <button class="filter-btn active-all" id="fd-ALL" onclick="setDoctypeFilter('ALL')">전체</button>
+            <button class="filter-btn" id="fd-law" onclick="setDoctypeFilter('law')">법령·규정</button>
+            <button class="filter-btn" id="fd-guidance" onclick="setDoctypeFilter('guidance')">고시·가이드라인</button>
+            <button class="filter-btn" id="fd-standard" onclick="setDoctypeFilter('standard')">국제표준</button>
+            <button class="filter-btn" id="fd-imdrf" onclick="setDoctypeFilter('imdrf')">IMDRF</button>
+          </div>
+          <div class="filter-row2">
+            <span class="filter-label">단계:</span>
+            <button class="filter-btn active-all" id="fp-ALL" onclick="setPhaseFilter('ALL')">전체</button>
+            <button class="filter-btn" id="fp-설계" onclick="setPhaseFilter('설계')">설계</button>
+            <button class="filter-btn" id="fp-검증" onclick="setPhaseFilter('검증')">검증</button>
+            <button class="filter-btn" id="fp-인허가" onclick="setPhaseFilter('인허가')">인허가</button>
+            <button class="filter-btn" id="fp-사후관리" onclick="setPhaseFilter('사후관리')">사후관리</button>
+          </div>
+          <div class="tag-filter-bar" id="tagFilterBar" style="display:none;">
+            <span class="filter-label">태그:</span>
+            <span class="tag-filter-chip"><span id="tagFilterText"></span><button onclick="clearTagFilter()">×</button></span>
+          </div>
+        </div>
+        <div style="display:flex;flex:1;overflow:hidden;">
+          <div class="reg-list" id="regList"></div>
+          <div class="detail-pane" id="detailPane">
+            <div class="detail-empty" id="detailEmpty">
+              <i class="ti ti-file-search"></i>
+              <p>규정을 선택하면</p>
+              <p>상세 내용이 표시됩니다</p>
+            </div>
+            <div id="detailContent" style="display:none;flex:1;flex-direction:column;overflow:hidden;display:none;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPDATES -->
+      <div class="panel" id="panel-updates">
+        <div class="ph">
+          <i class="ti ti-bell" style="color:var(--text3);font-size:16px;"></i>
+          <span class="ph-title">// 업데이트 관리</span>
+          <div class="ph-right">
+            <button class="btn" onclick="markAllRead()"><i class="ti ti-checks"></i> 전체 읽음</button>
+            <button class="btn primary" onclick="openAddUpdate()"><i class="ti ti-plus"></i> 업데이트 추가</button>
+          </div>
+        </div>
+        <div class="upd-list" id="updList"></div>
+      </div>
+
+      <!-- CALENDAR -->
+      <div class="panel" id="panel-calendar">
+        <div class="ph">
+          <i class="ti ti-calendar-event" style="color:var(--text3);font-size:16px;"></i>
+          <span class="ph-title">// 규정 검토 캘린더</span>
+          <div class="ph-right">
+            <span style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;" id="calSummary"></span>
+            <button class="btn primary" onclick="openAddDeadline()"><i class="ti ti-plus"></i> 데드라인 추가</button>
+          </div>
+        </div>
+        <div class="cal-filter-bar">
+          <span class="filter-label">보기:</span>
+          <button class="filter-btn active-all" id="cv-ALL" onclick="setCalView('ALL')">전체</button>
+          <button class="filter-btn" id="cv-30" onclick="setCalView('30')">30일 내</button>
+          <button class="filter-btn" id="cv-90" onclick="setCalView('90')">90일 내</button>
+          <button class="filter-btn" id="cv-180" onclick="setCalView('180')">180일 내</button>
+        </div>
+        <div class="upd-list" id="calList"></div>
+      </div>
+
+      <!-- MONITORING -->
+      <div class="panel" id="panel-monitoring">
+        <div class="ph">
+          <i class="ti ti-radar" style="color:var(--text3);font-size:16px;"></i>
+          <span class="ph-title">// 규정 모니터링</span>
+          <div class="ph-right">
+            <span style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;" id="monitorSummary"></span>
+            <button class="btn" onclick="openAllSources()"><i class="ti ti-external-link"></i> 전체 열기</button>
+            <button class="btn primary" id="notifBtn" onclick="toggleNotification()"><i class="ti ti-bell"></i> 알림 설정</button>
+          </div>
+        </div>
+        <div style="padding:10px 20px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg2);">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;">검토 주기:</span>
+            <div style="display:flex;gap:4px;">
+              <button class="filter-btn" id="iv-7" onclick="setMonitorInterval(7)">7일</button>
+              <button class="filter-btn" id="iv-14" onclick="setMonitorInterval(14)">14일</button>
+              <button class="filter-btn active-all" id="iv-30" onclick="setMonitorInterval(30)">30일</button>
+              <button class="filter-btn" id="iv-60" onclick="setMonitorInterval(60)">60일</button>
+              <button class="filter-btn" id="iv-90" onclick="setMonitorInterval(90)">90일</button>
+            </div>
+            <span style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-left:auto;">※ 직접 방문 후 확인 완료를 눌러 추적하세요</span>
+          </div>
+        </div>
+        <div style="flex:1;overflow-y:auto;padding:16px;" id="monitorList"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Add Regulation Form -->
+<div class="form-overlay" id="addFormOverlay">
+  <div class="form-box">
+    <div class="form-header">
+      <i class="ti ti-plus" style="color:var(--text3);font-size:16px;"></i>
+      <span class="form-title" id="formTitle">// 규정 추가</span>
+      <button onclick="closeForm()" style="margin-left:auto;background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="form-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">국가/기관 *</label>
+          <select class="form-select" id="fCountry">
+            <option value="KR">🇰🇷 한국 (MFDS)</option>
+            <option value="US">🇺🇸 미국 (FDA)</option>
+            <option value="EU">🇪🇺 EU (MDR/IVDR)</option>
+            <option value="INT">🌐 국제 표준 (ISO/IEC)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">문서 유형</label>
+          <select class="form-select" id="fDoctype">
+            <option value="law">법령·규정</option>
+            <option value="guidance">고시·가이드라인</option>
+            <option value="standard">국제표준 (ISO/IEC)</option>
+            <option value="imdrf">IMDRF 가이던스</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">주제 분류</label>
+          <select class="form-select" id="fType">
+            <option value="안전기준">안전 기준</option>
+            <option value="소프트웨어">소프트웨어 (SaMD)</option>
+            <option value="사이버보안">사이버보안</option>
+            <option value="성능기준">성능 기준</option>
+            <option value="품질">품질 시스템</option>
+            <option value="인허가">인허가 절차</option>
+            <option value="임상">임상 요건</option>
+            <option value="사후관리">사후 관리</option>
+            <option value="기타">기타</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">중요도</label>
+          <select class="form-select" id="fPriority">
+            <option value="높음">🔴 높음</option>
+            <option value="중간" selected>🟡 중간</option>
+            <option value="낮음">🟢 낮음</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">규정/규격명 *</label>
+        <input class="form-input" id="fName" placeholder="예: IEC 62304:2006+AMD1:2015 — 의료기기 소프트웨어 수명주기">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">버전/개정일</label>
+          <input class="form-input" id="fVersion" placeholder="예: 2024.11 개정, Ed.2">
+        </div>
+        <div class="form-group">
+          <label class="form-label">적용 단계 (쉼표로 구분)</label>
+          <input class="form-input" id="fPhase" placeholder="예: 설계, 검증, 인허가">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">핵심 요약 *</label>
+        <textarea class="form-textarea" id="fSummary" placeholder="이 규정의 핵심 내용을 요약하세요..." style="min-height:90px;"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">주요 조항 및 세부 내용</label>
+        <textarea class="form-textarea" id="fDetail" placeholder="조항별 세부 내용, 실무 적용 시 주의사항 등을 자유롭게 작성하세요..." style="min-height:100px;"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">관련 표준 (쉼표로 구분)</label>
+        <input class="form-input" id="fRelated" placeholder="예: ISO 14971, IEC 62366-1, IEC 81001-5-1">
+      </div>
+      <div class="form-group">
+        <label class="form-label">출처 링크</label>
+        <input class="form-input" id="fLink" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">태그 (쉼표로 구분)</label>
+        <input class="form-input" id="fTags" placeholder="예: SaMD, 소프트웨어, 수명주기, IEC62304">
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn" onclick="closeForm()">취소</button>
+      <button class="btn primary" onclick="saveRegulation()"><i class="ti ti-check"></i> 저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Update Form -->
+<div class="form-overlay" id="addUpdateOverlay">
+  <div class="form-box" style="width:480px;">
+    <div class="form-header">
+      <i class="ti ti-bell" style="color:var(--text3);font-size:16px;"></i>
+      <span class="form-title" id="updFormTitle">// 업데이트 추가</span>
+      <button onclick="closeUpdateForm()" style="margin-left:auto;background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="form-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">국가/기관 *</label>
+          <select class="form-select" id="ufCountry">
+            <option value="KR">🇰🇷 한국 (MFDS)</option>
+            <option value="US">🇺🇸 미국 (FDA)</option>
+            <option value="EU">🇪🇺 EU</option>
+            <option value="INT">🌐 국제표준</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">날짜 *</label>
+          <input class="form-input" id="ufDate" type="date">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">제목 *</label>
+        <input class="form-input" id="ufTitle" placeholder="예: MDR Annex I 사이버보안 요건 추가">
+      </div>
+      <div class="form-group">
+        <label class="form-label">내용 요약 *</label>
+        <textarea class="form-textarea" id="ufBody" placeholder="개정/업데이트 내용을 요약하세요..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">출처 링크</label>
+        <input class="form-input" id="ufLink" placeholder="https://...">
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn" onclick="closeUpdateForm()">취소</button>
+      <button class="btn primary" onclick="saveUpdate()"><i class="ti ti-check"></i> 저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Deadline Form -->
+<div class="form-overlay" id="addDeadlineOverlay">
+  <div class="form-box" style="width:440px;">
+    <div class="form-header">
+      <i class="ti ti-calendar-event" style="color:var(--text3);font-size:16px;"></i>
+      <span class="form-title">// 데드라인 추가</span>
+      <button onclick="closeDeadlineForm()" style="margin-left:auto;background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="form-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">국가/기관 *</label>
+          <select class="form-select" id="dlCountry">
+            <option value="KR">🇰🇷 한국 (MFDS)</option>
+            <option value="US">🇺🇸 미국 (FDA)</option>
+            <option value="EU">🇪🇺 EU</option>
+            <option value="INT">🌐 국제</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">유형</label>
+          <select class="form-select" id="dlType">
+            <option value="전환기한">전환 기한</option>
+            <option value="검토예정">검토 예정</option>
+            <option value="개정예정">개정 예정</option>
+            <option value="제출마감">제출 마감</option>
+            <option value="기타">기타</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">날짜 *</label>
+        <input class="form-input" id="dlDate" type="date">
+      </div>
+      <div class="form-group">
+        <label class="form-label">제목 *</label>
+        <input class="form-input" id="dlTitle" placeholder="예: IVDR Class D 전환 기한">
+      </div>
+      <div class="form-group">
+        <label class="form-label">메모</label>
+        <textarea class="form-textarea" id="dlNote" placeholder="관련 내용, 준비사항 등을 기록하세요..."></textarea>
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn" onclick="closeDeadlineForm()">취소</button>
+      <button class="btn primary" onclick="saveDeadline()"><i class="ti ti-check"></i> 저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-title" id="confirmTitle">삭제하시겠습니까?</div>
+    <div class="confirm-msg" id="confirmMsg">이 작업은 되돌릴 수 없습니다.</div>
+    <div class="confirm-btns">
+      <button class="btn" onclick="closeConfirm()">취소</button>
+      <button class="btn danger" id="confirmOkBtn">삭제</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────
+let DB = {
+  regulations: [],
+  updates: [],
+  deadlines: [],
+  notes: {}
+};
+
+const SEED_REGS = [
+  // ── 기존 핵심 규정 (링크 수정) ──────────────────────────────
+  { id:1, country:'EU', doctype:'law', type:'안전기준', name:'MDR 2017/745 — Annex I (GSPR)', version:'2024.11 개정', phase:'설계,검증,인허가', summary:'의료기기가 충족해야 할 일반 안전·성능 요건(GSPR)을 규정합니다. 23개 요건으로 구성되며, 기기의 설계·제조·성능·라벨링 전반에 걸친 요건을 포함합니다.', detail:'1. 일반 요건 (§1): 기기는 의도된 목적에 따라 설계·제조되어야 하며 환자 안전을 위협하지 않아야 함\n2. 위험관리 (§3): ISO 14971 기반 위험관리 체계 구축 필수\n3. 사이버보안 (§17.2): 2024년 개정으로 소프트웨어 포함 기기의 사이버보안 수명주기 문서화 의무화\n4. 임상 평가 (§§19-22): MDR Annex XIV에 따른 임상 평가 수행', relatedStds:'ISO 14971, IEC 62304, ISO 13485, IEC 81001-5-1', link:'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017R0745', priority:'높음', tags:'GSPR,안전,성능,MDR,사이버보안', date:'2024-11-15' },
+  { id:2, country:'US', doctype:'law', type:'품질', name:'21 CFR Part 820 — QMS Regulation (QMSR)', version:'2024.02 시행', phase:'설계,인허가,사후관리', summary:'ISO 13485에 맞춰 개정된 품질경영시스템(QMS) 규정입니다. 기존 QSR을 대체하며 2024년 2월부터 최종 시행되었습니다.', detail:'주요 변경사항:\n- ISO 13485:2016 기반으로 전면 개정\n- 설계 이력 파일(DHF) → 기술 파일(Technical File) 개념으로 확장\n- 위험 기반 접근법 강화\n- 공급업체 관리 요건 강화\n\n전환 기간: 2024년 2월 2일 시행, 2026년 2월까지 전환 완료', relatedStds:'ISO 13485, ISO 14971', link:'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820', priority:'높음', tags:'QMS,QMSR,ISO13485,품질', date:'2024-09-10' },
+  { id:3, country:'KR', doctype:'guidance', type:'인허가', name:'의료기기법 — 기술문서 작성 요령', version:'2023.12', phase:'인허가', summary:'국내 의료기기 허가 시 제출해야 하는 기술문서의 작성 기준 및 요령을 규정합니다. 식약처 고시로 운영됩니다.', detail:'필수 제출 항목:\n1. 기기 개요 (용도, 원리, 구성)\n2. 성능 및 안전 자료\n3. 전기기계적 안전 시험 성적서 (IEC 60601-1 등)\n4. 생물학적 안전 자료 (ISO 10993)\n5. 위험관리 보고서 (ISO 14971)\n6. 임상시험자료 또는 임상문헌 자료\n7. 라벨 및 사용설명서', relatedStds:'IEC 60601-1, ISO 14971, ISO 13485, ISO 10993', link:'https://www.mfds.go.kr/brd/m_218/list.do', priority:'높음', tags:'기술문서,허가,식약처,MFDS', date:'2024-08-20' },
+  { id:4, country:'INT', doctype:'standard', type:'품질', name:'ISO 13485:2016 — 의료기기 품질경영시스템', version:'2016 (현행)', phase:'설계,검증,인허가,사후관리', summary:'의료기기 설계, 개발, 생산, 설치 및 서비스에 관한 품질경영시스템의 요건을 규정하는 국제표준입니다. FDA QMS 및 EU MDR 모두 이 표준을 기반으로 합니다.', detail:'주요 조항:\n4장: QMS 일반 요건\n5장: 경영진 책임\n6장: 자원 관리\n7장: 제품 실현 (설계·개발, 구매, 생산)\n8장: 측정·분석·개선\n\n적용 범위: 의료기기 제조업체 및 공급업체', relatedStds:'ISO 14971, IEC 62304, IEC 62366-1', link:'https://www.iso.org/standard/59752.html', priority:'높음', tags:'ISO13485,QMS,품질', date:'2024-07-01' },
+  { id:5, country:'INT', doctype:'standard', type:'안전기준', name:'IEC 60601-1:2005+AMD2:2020 — 전기 안전 일반 요건', version:'3판+AMD2 (2020)', phase:'설계,검증', summary:'전기를 사용하는 의료기기의 일반 안전 및 필수 성능 요건을 규정하는 핵심 국제표준입니다.', detail:'구조:\n- 60601-1: 일반 요건 (모든 전기 의료기기)\n- 60601-1-x: Collateral Standards (일반 요건의 부속)\n- 60601-2-x: Particular Standards (특정 기기 유형)\n\nAmd2 주요 변경: PEMS(프로그래머블 전기 의료 시스템) 요건 강화, 사용적합성 요건 개선\n\n국내: KC 60601-1로 제정 운영', relatedStds:'IEC 60601-1-2, IEC 60601-1-6, IEC 60601-1-8, ISO 14971', link:'https://webstore.iec.ch/en/searchresult?searchTxt=60601-1', priority:'높음', tags:'IEC60601,전기안전,PEMS', date:'2024-06-15' },
+
+  // ── 소프트웨어 / SaMD ────────────────────────────────────────
+  { id:6, country:'INT', doctype:'standard', type:'소프트웨어', name:'IEC 62304:2006+AMD1:2015 — 의료기기 소프트웨어 수명주기', version:'2006+AMD1 (2015)', phase:'설계,검증', summary:'의료기기 소프트웨어의 개발, 유지보수, 위험관리에 필요한 수명주기 요건을 규정하는 핵심 SaMD 국제표준입니다. 모든 SaMD 개발에 필수 적용됩니다.', detail:'소프트웨어 안전등급 분류:\n- Class A: 위험 없음 (장애 발생 시 위해 없음)\n- Class B: 중간 위험 (경미한 위해 가능)\n- Class C: 높은 위험 (사망 또는 심각한 위해 가능)\n\n주요 프로세스:\n1. 소프트웨어 개발 계획\n2. 소프트웨어 요구사항 분석\n3. 소프트웨어 아키텍처 설계\n4. 소프트웨어 상세 설계\n5. 소프트웨어 구현\n6. 소프트웨어 통합 및 통합 테스트\n7. 소프트웨어 시스템 테스트\n8. 소프트웨어 출시\n9. 소프트웨어 유지보수', relatedStds:'ISO 14971, IEC 62366-1, ISO 13485, IEC 81001-5-1', link:'https://webstore.iec.ch/en/searchresult?searchTxt=62304', priority:'높음', tags:'IEC62304,소프트웨어,SaMD,수명주기', date:'2025-01-10' },
+  { id:7, country:'INT', doctype:'imdrf', type:'소프트웨어', name:'IMDRF SaMD N10 — 핵심 정의 (Key Definitions)', version:'2013.12', phase:'설계,인허가', summary:'SaMD(소프트웨어 단독 의료기기)의 핵심 정의와 프레임워크를 제시하는 IMDRF 기초 문서입니다. SaMD 해당 여부 판단의 기준이 됩니다.', detail:'핵심 정의:\n- SaMD: 하나 이상의 의료 목적을 위해 설계된 소프트웨어로, 하드웨어 의료기기의 일부가 아닌 것\n- 의료 목적: 질병 예방·진단·모니터링·치료·경감\n\nSaMD 해당 여부 판단:\n1. 소프트웨어인가?\n2. 독립적으로 동작하는가?\n3. 의료 목적으로 사용되는가?\n\n→ 3가지 모두 해당 시 SaMD', relatedStds:'IMDRF N23, IMDRF N41, IEC 62304', link:'https://www.imdrf.org/documents/software-medical-device-samd-key-definitions', priority:'높음', tags:'IMDRF,SaMD,정의,N10', date:'2025-01-10' },
+  { id:8, country:'INT', doctype:'imdrf', type:'소프트웨어', name:'IMDRF SaMD N23 — 위험 분류 프레임워크', version:'2014.09', phase:'설계,인허가', summary:'SaMD의 위험 분류 기준을 제시합니다. 의료 정보의 중요성(significant/critical/informing)과 의료 상황(critical/serious/non-serious)을 조합해 I~IV 등급으로 분류합니다.', detail:'위험 분류 매트릭스:\n\n의료 상황 vs 정보 중요성:\n- Critical situation + Critical output → Class IV (최고위험)\n- Critical situation + Serious output → Class III\n- Serious situation + Critical output → Class III\n- 기타 조합 → Class II 또는 Class I\n\n실무 적용:\n- Class IV: 즉각적 치료 결정에 직접 영향\n- Class III: 치료 결정에 영향, 진단 지원\n- Class II: 차선 치료 지원, 일반 웰니스\n- Class I: 위험 낮음', relatedStds:'IMDRF N10, IMDRF N41, IEC 62304, ISO 14971', link:'https://www.imdrf.org/documents/software-medical-device-possible-framework-risk-categorization-and-corresponding-considerations', priority:'높음', tags:'IMDRF,SaMD,위험분류,N23', date:'2025-01-10' },
+  { id:9, country:'INT', doctype:'imdrf', type:'소프트웨어', name:'IMDRF SaMD N41 — AI/ML 기반 SaMD 용어 및 개념', version:'2021.07', phase:'설계,인허가', summary:'AI/ML 기반 SaMD에 적용되는 핵심 용어, 정의, 개념을 정리한 IMDRF 기초 문서입니다. 규제 기관과 제조사 간 공통 언어 확립을 목적으로 합니다.', detail:'주요 정의:\n- ML-enabled MD: 기계학습 알고리즘이 포함된 의료기기\n- Predetermined change control plan (PCCP): 사전 승인된 변경 관리 계획\n- Intended use context: AI 사용 환경 및 대상 환자군\n- Training data: 모델 학습에 사용된 데이터\n- Validation data: 모델 성능 검증에 사용된 독립 데이터\n\n핵심 원칙:\n- 투명성 (Transparency)\n- 공정성 (Equity)\n- 안전성 (Safety)', relatedStds:'IMDRF N10, IMDRF N23, IEC 62304, FDA AI/ML Action Plan', link:'https://www.imdrf.org/documents/machine-learning-enabled-medical-devices-key-terms-and-definitions', priority:'높음', tags:'IMDRF,AI,ML,SaMD,N41', date:'2025-01-10' },
+  { id:10, country:'US', doctype:'guidance', type:'소프트웨어', name:'FDA Guidance — Software as a Medical Device (2023)', version:'2023 최종본', phase:'설계,인허가', summary:'FDA의 SaMD 규제 접근법과 허가 경로를 안내하는 핵심 가이던스입니다. SaMD 해당 여부, 위험등급, 제출 요건을 설명합니다.', detail:'주요 내용:\n1. SaMD vs. Software in a Medical Device (SiMD) 구분\n2. 위험 기반 접근법: IMDRF N23 프레임워크 준용\n3. 허가 경로:\n   - 510(k): 예측 소프트웨어, 낮은 위험 SaMD\n   - De Novo: 신규 유형 낮은-중간 위험\n   - PMA: 높은 위험 SaMD\n4. CDS(Clinical Decision Support) 소프트웨어 구분\n5. TPLC(Total Product Life Cycle) 접근법', relatedStds:'IEC 62304, IMDRF N10, IMDRF N23, ISO 14971', link:'https://www.fda.gov/medical-devices/digital-health-center-excellence/software-medical-device-samd', priority:'높음', tags:'FDA,SaMD,소프트웨어,가이던스', date:'2025-01-10' },
+  { id:11, country:'US', doctype:'guidance', type:'소프트웨어', name:'FDA AI/ML-Based SaMD Action Plan (2021)', version:'2021.01', phase:'설계,인허가', summary:'FDA가 AI/ML 기반 SaMD에 대한 규제 프레임워크 개발 계획을 발표한 문서입니다. PCCP(사전 변경 관리 계획) 개념을 도입했습니다.', detail:'5대 실행 계획:\n1. Good Machine Learning Practice (GMLP) 개발\n2. Transparency 강화 (환자, 의료인 대상)\n3. Real-World Performance 모니터링\n4. Tailored regulatory framework 구축\n5. 국제 조화 (IMDRF 등)\n\nPCCP (Predetermined Change Control Plan):\n- AI 모델의 지속 학습·업데이트를 사전 승인\n- 알고리즘 변경 시 재허가 부담 완화', relatedStds:'FDA SaMD Guidance, IMDRF N41, IEC 62304', link:'https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-and-machine-learning-software-medical-device', priority:'높음', tags:'FDA,AI,ML,SaMD,PCCP', date:'2025-01-10' },
+  { id:12, country:'KR', doctype:'guidance', type:'소프트웨어', name:'식약처 — 의료기기 소프트웨어 허가·심사 가이드라인', version:'2023 개정', phase:'설계,인허가', summary:'국내 의료기기 소프트웨어(SaMD 포함)의 허가·심사 시 적용되는 기준과 제출 자료를 규정합니다. IEC 62304 기반 수명주기 문서 제출을 요구합니다.', detail:'주요 심사 기준:\n1. 소프트웨어 안전등급 분류 (IEC 62304 기준)\n2. 소프트웨어 개발 수명주기 문서\n   - 소프트웨어 개발 계획서\n   - 소프트웨어 요구사항 명세서\n   - 소프트웨어 검증 보고서\n3. 사이버보안 요건 (별도 가이드라인)\n4. 사용적합성 (IEC 62366-1)\n5. 위험관리 (ISO 14971)\n\nAI·ML 기기: 별도 AI 가이드라인 적용', relatedStds:'IEC 62304, ISO 14971, IEC 62366-1, IEC 81001-5-1', link:'https://www.mfds.go.kr/brd/m_218/list.do', priority:'높음', tags:'식약처,SaMD,소프트웨어,허가', date:'2025-01-10' },
+  { id:13, country:'KR', doctype:'guidance', type:'소프트웨어', name:'식약처 — AI 의료기기 허가심사 가이드라인', version:'2024 개정', phase:'설계,인허가', summary:'AI·ML 기반 의료기기의 국내 허가·심사 기준을 규정합니다. 지속 학습(Continuously Learning) 알고리즘의 변경 관리 절차를 포함합니다.', detail:'주요 심사 항목:\n1. 의도된 사용 목적 및 대상 환자군\n2. 훈련/검증/테스트 데이터셋 정보\n3. 알고리즘 성능 검증 방법\n4. 지속 학습 알고리즘의 변경 관리\n5. 편향성(Bias) 분석\n6. 사이버보안 요건\n\n제출 자료:\n- 알고리즘 개발 보고서\n- 임상 성능 검증 자료\n- 소프트웨어 수명주기 문서', relatedStds:'IEC 62304, ISO 14971, IMDRF N41, FDA AI/ML Action Plan', link:'https://www.mfds.go.kr/brd/m_218/list.do', priority:'높음', tags:'식약처,AI,ML,SaMD,허가', date:'2025-01-10' },
+
+  // ── 전기·전자 안전 (Collateral Standards) ───────────────────
+  { id:14, country:'INT', doctype:'standard', type:'안전기준', name:'IEC 60601-1-2:2014+AMD1:2020 — EMC (전자기 적합성)', version:'4판+AMD1 (2020)', phase:'설계,검증', summary:'전기 의료기기의 전자기 적합성(EMC) 요건을 규정합니다. IEC 60601-1의 Collateral Standard로, 방사·전도 방해와 내성(Immunity) 요건을 포함합니다.', detail:'주요 요건:\n방해(Emission):\n- 방사 방해 (Radiated Emissions)\n- 전도 방해 (Conducted Emissions)\n\n내성(Immunity):\n- 정전기 방전 (ESD)\n- 방사 전자기장 내성\n- 전기적 과도현상 (EFT/Burst)\n- 서지 (Surge)\n- 전도 방해 내성\n- 전원 주파수 자계 내성\n- 전압 강하·단절 내성\n\n홈헬스케어 환경: 더 엄격한 내성 요건 적용', relatedStds:'IEC 60601-1, IEC 60601-1-11, ISO 14971', link:'https://webstore.iec.ch/en/searchresult?searchTxt=60601-1-2', priority:'높음', tags:'IEC60601,EMC,전자기,내성', date:'2025-01-10' },
+  { id:15, country:'INT', doctype:'standard', type:'안전기준', name:'IEC 60601-1-6:2010+AMD2:2020 — 사용적합성 (Usability)', version:'3판+AMD2 (2020)', phase:'설계,검증', summary:'의료기기의 사용적합성 엔지니어링 프로세스를 IEC 62366-1과 연계하여 규정합니다. IEC 60601-1의 필수 Collateral Standard입니다.', detail:'IEC 62366-1과의 관계:\n- IEC 60601-1-6은 IEC 60601-1 기기에 대해 IEC 62366-1 적용을 요구\n- 별도 시험 추가 없이 IEC 62366-1 준수 시 IEC 60601-1-6 충족\n\n주요 프로세스:\n1. 사용 명세서 (Intended Use, User Profile)\n2. 사용 오류 위험 분석\n3. 형성적 평가 (Formative Evaluation)\n4. 총괄 평가 (Summative Evaluation)\n5. 사용적합성 파일', relatedStds:'IEC 62366-1, IEC 60601-1, ISO 14971', link:'https://webstore.iec.ch/en/searchresult?searchTxt=60601-1-6', priority:'높음', tags:'IEC60601,사용적합성,Usability,UE', date:'2025-01-10' },
+  { id:16, country:'INT', doctype:'standard', type:'안전기준', name:'IEC 60601-1-8:2006+AMD2:2020 — 경보 시스템', version:'2판+AMD2 (2020)', phase:'설계,검증', summary:'의료기기 경보 시스템의 안전 요건과 성능을 규정합니다. 경보 신호의 우선순위, 청각·시각 신호 특성, 경보 관리 시스템을 다룹니다.', detail:'경보 우선순위:\n- High Priority: 즉각 대응 필요 (빨간색, 빠른 반복 신호)\n- Medium Priority: 신속 대응 필요 (노란색, 느린 반복 신호)\n- Low Priority: 주의 요함 (청록색, 단속 신호)\n\n주요 요건:\n1. 청각 경보 신호 패턴 (IEC 60601-1-8 Part 1)\n2. 시각 경보 신호 색상\n3. 경보 일시정지 (Pause/Inactivation)\n4. 경보 상태 표시\n5. 분산 경보 시스템', relatedStds:'IEC 60601-1, ISO 14971, IEC 62133', link:'https://webstore.iec.ch/en/searchresult?searchTxt=60601-1-8', priority:'중간', tags:'IEC60601,경보,Alarm,경보시스템', date:'2025-01-10' },
+
+  // ── 사이버보안 ────────────────────────────────────────────────
+  { id:17, country:'US', doctype:'guidance', type:'사이버보안', name:'FDA — 의료기기 사이버보안 최종 가이던스 (2023)', version:'2023.09 최종본', phase:'설계,인허가,사후관리', summary:'의료기기 사이버보안에 관한 FDA 최종 가이던스입니다. QMS 내 사이버보안 통합, Premarket 제출 요건, SBOM(소프트웨어 자재 명세서) 제출을 요구합니다.', detail:'주요 요건:\n1. 사이버보안 위험관리: ISO 14971 기반\n2. SBOM (Software Bill of Materials) 제출 의무화\n3. 취약점 모니터링 및 패치 계획\n4. 사이버보안 아키텍처 문서\n5. 침투 테스트 (Pen Testing)\n6. Coordinated Vulnerability Disclosure (CVD) 절차\n\n적용 대상:\n- 네트워크 연결 의료기기\n- 소프트웨어를 포함하는 의료기기\n- SaMD', relatedStds:'IEC 81001-5-1, IEC 62304, MDR Annex I §17.2', link:'https://www.fda.gov/media/171867/download', priority:'높음', tags:'FDA,사이버보안,SBOM,보안', date:'2025-01-10' },
+  { id:18, country:'INT', doctype:'standard', type:'사이버보안', name:'IEC 81001-5-1:2021 — 의료기기 사이버보안', version:'1판 (2021)', phase:'설계,검증,사후관리', summary:'의료기기·시스템의 소프트웨어 보안 활동을 규정하는 국제표준입니다. IEC 62443 산업 사이버보안 표준을 의료기기에 맞게 적용합니다.', detail:'주요 내용:\n1. 보안 위험 관리 (Security Risk Management)\n2. 보안 요구사항 (Security Requirements)\n3. 보안 구현 (Secure Implementation)\n4. 보안 검증 및 확인 (Security V&V)\n5. 보안 출시 및 유지보수\n\nSBOM 요건:\n- 소프트웨어 구성 요소 목록 작성\n- 오픈소스·서드파티 소프트웨어 관리\n- 취약점 추적 (CVE 모니터링)\n\nMDR 2017/745 §17.2와 연계 적용', relatedStds:'IEC 62304, IEC 62443, ISO 14971, FDA 사이버보안 가이던스', link:'https://webstore.iec.ch/en/searchresult?searchTxt=81001-5-1', priority:'높음', tags:'IEC81001,사이버보안,SBOM,보안', date:'2025-01-10' },
+  { id:19, country:'KR', doctype:'guidance', type:'사이버보안', name:'식약처 — 의료기기 사이버보안 허가심사 가이드라인', version:'2024 개정', phase:'설계,인허가', summary:'국내 의료기기 사이버보안 허가·심사 기준을 규정합니다. 네트워크 연결 기기 및 소프트웨어 포함 기기에 적용됩니다.', detail:'주요 심사 항목:\n1. 사이버보안 위험관리 계획\n2. 소프트웨어 자재 명세서 (SBOM)\n3. 보안 아키텍처 (네트워크 다이어그램 포함)\n4. 암호화 및 인증 방식\n5. 취약점 패치 계획\n6. 사이버보안 사후관리 계획\n\n적용 기기:\n- 네트워크(유·무선) 연결 의료기기\n- 소프트웨어 탑재 의료기기\n- SaMD', relatedStds:'IEC 81001-5-1, IEC 62304, MDR Annex I §17.2', link:'https://www.mfds.go.kr/brd/m_218/list.do', priority:'높음', tags:'식약처,사이버보안,SBOM,허가', date:'2025-01-10' },
+
+  // ── 위험관리 / 사용적합성 ─────────────────────────────────────
+  { id:20, country:'INT', doctype:'standard', type:'안전기준', name:'ISO 14971:2019 — 의료기기 위험관리', version:'3판 (2019)', phase:'설계,검증,인허가,사후관리', summary:'의료기기의 위험을 식별·평가·관리하는 프로세스를 규정하는 핵심 국제표준입니다. 모든 의료기기 규제에서 기본 요건으로 요구됩니다.', detail:'위험관리 프로세스:\n1. 위험관리 계획 수립\n2. 위험 분석 (위험 식별, 위험 추정)\n3. 위험 평가\n4. 위험 통제 (위험 저감)\n5. 잔류 위험의 전체 잔류 위험 평가\n6. 생산 및 생산 후 정보 검토\n\n3판 주요 변경:\n- 위험-이익 분석 명확화\n- 합리적으로 예측 가능한 오용(Reasonably Foreseeable Misuse) 강조\n- ISO/TR 24971 기술 보고서와 함께 사용 권장', relatedStds:'IEC 62304, IEC 62366-1, ISO 13485, IEC 60601-1', link:'https://www.iso.org/standard/72704.html', priority:'높음', tags:'ISO14971,위험관리,Risk,안전', date:'2025-01-10' },
+  { id:21, country:'INT', doctype:'standard', type:'안전기준', name:'IEC 62366-1:2015+AMD1:2020 — 사용적합성 엔지니어링', version:'1판+AMD1 (2020)', phase:'설계,검증', summary:'의료기기의 사용 관련 위험을 최소화하기 위한 사용적합성(Usability) 엔지니어링 프로세스를 규정합니다. UI 설계부터 사용자 테스트까지 전 과정을 다룹니다.', detail:'핵심 프로세스:\n1. 사용 명세서 작성\n   - 의도된 사용(Intended Use)\n   - 사용자 프로파일\n   - 사용 환경\n2. 사용 관련 위험 분석 (ISO 14971 연계)\n3. 사용적합성 요구사항 도출\n4. 형성적 평가 (Formative Usability Evaluation)\n5. 총괄 평가 (Summative Usability Evaluation)\n\nAMD1 변경: 소프트웨어 UI 요건 명확화', relatedStds:'ISO 14971, IEC 60601-1-6, IEC 62304, ISO 13485', link:'https://webstore.iec.ch/en/searchresult?searchTxt=62366-1', priority:'높음', tags:'IEC62366,사용적합성,Usability,UE', date:'2025-01-10' },
+
+  // ── 한국 (KR) 추가 규정 ──────────────────────────────────────
+  { id:22, country:'KR', doctype:'law', type:'안전기준', name:'식약처 — 전기·기계적 안전에 관한 공통기준규격', version:'2023 개정', phase:'설계,검증,인허가', summary:'국내 전기 의료기기에 적용되는 전기·기계적 안전 공통기준규격입니다. IEC 60601-1을 국내 규격으로 제정한 것으로, KC 60601-1 인증의 법적 근거입니다.', detail:'적용 범위:\n- 교류 전원 또는 내부 전원 의료기기\n- 전기를 사용하는 모든 의료기기\n\n주요 요건 (IEC 60601-1 기반):\n1. 감전 보호 (적용 부위 분류: B, BF, CF)\n2. 기계적 위험 보호\n3. 방사 위험 보호\n4. 화재·고온 위험 보호\n5. 필수 성능 (Essential Performance)\n\n인증 방법:\n- KC 인증 (한국 의무 인증)\n- IEC 60601-1 시험 성적서 활용 가능', relatedStds:'IEC 60601-1, IEC 60601-1-2, ISO 14971', link:'https://www.law.go.kr/LSW/admRulLsInfoP.do?admRulSeq=2100000220948', priority:'높음', tags:'식약처,전기안전,KC인증,공통기준', date:'2025-01-10' },
+
+  // ── EU 추가 규정 ─────────────────────────────────────────────
+  { id:23, country:'EU', doctype:'law', type:'소프트웨어', name:'EU AI Act (2024) — 의료기기 관련 조항', version:'2024.08 발효', phase:'설계,인허가', summary:'EU 인공지능 규정으로, 의료기기 AI 시스템은 고위험(High-Risk) AI로 분류되어 별도 적합성 평가를 요구합니다. MDR/IVDR과 병행 적용됩니다.', detail:'의료기기 AI Act 적용:\n- 고위험 AI 시스템으로 분류 (Annex III)\n- MDR/IVDR 기기 중 AI 탑재 기기 해당\n\n주요 요건:\n1. 위험관리 시스템 구축\n2. 데이터 거버넌스\n3. 기술 문서 작성\n4. 투명성 및 정보 제공\n5. 인간 감독(Human Oversight) 체계\n6. 견고성·정확성·사이버보안\n\n전환 기간:\n- 2026년 8월부터 고위험 AI 요건 적용\n- MDR CE 마크와 함께 AI Act 적합성 선언 필요', relatedStds:'MDR 2017/745, IMDRF N41, IEC 62304, ISO 14971', link:'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32024R1689', priority:'높음', tags:'EU,AI Act,인공지능,고위험AI', date:'2025-01-10' },
+
+  // ── 생물학적 안전 ─────────────────────────────────────────────
+  { id:24, country:'INT', doctype:'standard', type:'안전기준', name:'ISO 10993-1:2018 — 의료기기 생물학적 평가 원칙', version:'2018 (현행)', phase:'설계,검증,인허가', summary:'인체와 접촉하는 의료기기의 생물학적 안전성(생체적합성) 평가 원칙과 시험 전략을 규정하는 국제표준입니다. 모든 인체 접촉 기기에 필수 적용됩니다.', detail:'접촉 분류:\n■ 표면 접촉: 피부, 점막, 손상/침습 표면\n■ 외부 연통: 혈액·조직·뼈 등에 간접 접촉\n■ 이식: 조직/뼈, 혈액과 직접 접촉\n\n접촉 기간:\n- 일시적: 24시간 이하\n- 단기: 24시간 초과 ~ 30일\n- 장기: 30일 초과\n\n주요 시험 항목:\n1. 세포독성 (ISO 10993-5)\n2. 감작성 (ISO 10993-10)\n3. 피부 자극·점막 자극 (ISO 10993-10)\n4. 전신 독성 — 급성 (ISO 10993-11)\n5. 아급성·아만성·만성 독성\n6. 유전독성 (ISO 10993-3)\n7. 이식 반응 (ISO 10993-6)\n8. 혈액적합성 (ISO 10993-4)\n\n2018판 주요 변경:\n- 위험 기반 접근법 강화\n- 화학적 특성 규명 (ISO 10993-18) 강조\n- 동물 시험 최소화 원칙 (3Rs)', relatedStds:'ISO 14971, ISO 13485, IEC 60601-1', link:'https://www.iso.org/standard/68936.html', priority:'높음', tags:'ISO10993,생물학적평가,생체적합성,Biocompatibility', date:'2025-02-10' },
+
+  // ── EU IVDR ──────────────────────────────────────────────────
+  { id:25, country:'EU', doctype:'law', type:'인허가', name:'IVDR 2017/746 — EU 체외진단의료기기 규정', version:'2022.05 적용, 전환 진행 중', phase:'설계,인허가,사후관리', summary:'EU 체외진단의료기기(IVD)에 대한 포괄적 규제 프레임워크입니다. MDR과 함께 EU 의료기기 규제의 양대 축을 이루며 기기 분류 체계가 A~D로 전면 개편되었습니다.', detail:'기기 분류 (위험도 기반):\n- Class A: 낮은 위험 (일반 검체 용기, 세척 솔루션) — 자가 선언\n- Class B: 중간 위험 (혈당 측정기, 임신 테스트) — NB 관여\n- Class C: 높은 위험 (HIV·HCV 검사, 종양 표지자) — NB 관여\n- Class D: 최고 위험 (혈액형 검사, HIV 확인 검사) — NB + EU 참조 실험실\n\n전환 일정:\n- 2022.05: IVDR 정식 적용\n- 2027.12: Class D 전환 완료\n- 2028.12: Class C 전환 완료\n- 2029.12: Class B/A 전환 완료\n\nMDR 대비 주요 변경:\n- 기기 분류 체계 전면 개편\n- 성능 평가 요건 강화\n- 제조업체 등록 및 EUDAMED 의무화\n- 인증 기관(NB) 관여 대폭 확대', relatedStds:'MDR 2017/745, ISO 13485, ISO 14971, IEC 62304', link:'https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32017R0746', priority:'높음', tags:'IVDR,EU,체외진단,IVD,EUDAMED', date:'2025-02-15' },
+
+  // ── 한국 GMP ─────────────────────────────────────────────────
+  { id:26, country:'KR', doctype:'law', type:'품질', name:'의료기기 제조 및 품질관리 기준 (GMP 고시)', version:'2024 개정', phase:'설계,인허가,사후관리', summary:'국내 의료기기 제조업체가 준수해야 하는 GMP(Good Manufacturing Practice) 기준입니다. ISO 13485에 기반하며 식약처 정기 감사의 핵심 기준입니다.', detail:'주요 요구사항:\n1. 품질경영시스템 구축\n   - 품질 매뉴얼, 절차서, 지침서\n   - 경영 검토 및 내부 감사\n2. 설계 개발 관리\n   - 설계 입력/출력/검토/검증/유효성 확인\n   - 설계 이력 파일(DHF)\n3. 구매 및 외주 관리\n   - 공급업체 승인 및 평가 체계\n4. 생산 및 서비스 제공\n   - 청정실 관리 (ISO 14644)\n   - 멸균 공정 관리 및 유효성 확인\n5. CAPA (시정조치 및 예방조치)\n\n감사 체계:\n- 제조업체: 3년 주기 정기 감사\n- 3등급 고위험 기기: 2년 주기\n- 해외 제조소: 서류 심사 + 필요 시 현장 감사', relatedStds:'ISO 13485, ISO 14971, ISO 11135, ISO 11137', link:'https://www.mfds.go.kr/brd/m_218/list.do', priority:'높음', tags:'GMP,식약처,품질관리,제조,ISO13485', date:'2025-02-20' },
+
+  // ── IEC 60601-1-11 홈헬스케어 ────────────────────────────────
+  { id:27, country:'INT', doctype:'standard', type:'안전기준', name:'IEC 60601-1-11:2015+AMD1:2020 — 홈헬스케어 환경', version:'2판+AMD1 (2020)', phase:'설계,검증', summary:'가정 의료 환경에서 사용되는 의료기기에 대한 추가 요건을 규정하는 IEC 60601-1 Collateral Standard입니다. 비전문 사용자를 고려한 강화된 안전 및 사용적합성 요건을 포함합니다.', detail:'적용 범위:\n- 가정 환경에서 사용하는 전기 의료기기\n- 비전문 의료인(환자, 간병인)이 조작하는 기기\n\n주요 추가 요건:\n1. 강화된 EMC 요건 (주거 환경 전자기 간섭 고려)\n2. 강화된 절연 및 감전 보호 (비전문 사용자)\n3. 기계적 견고성 강화 (낙하, 충격 등)\n4. 강화된 사용적합성 (IEC 62366-1 연계)\n5. 운반·보관 환경 요건 (온습도 범위 확장)\n6. 라벨링 요건 강화 (비전문 사용자 이해 가능)\n\n적용 기기 예시:\n- 혈당 측정기\n- 혈압계\n- 산소 농축기 (가정용)\n- 인공호흡기 (가정용)\n- 수유 펌프\n- 이동형 투석 장치', relatedStds:'IEC 60601-1, IEC 60601-1-2, IEC 60601-1-6, IEC 62366-1, ISO 14971', link:'https://webstore.iec.ch/en/searchresult?searchTxt=60601-1-11', priority:'중간', tags:'IEC60601,홈헬스케어,가정용,HomeHealthcare', date:'2025-03-01' },
+
+  // ── FDA PCCP ─────────────────────────────────────────────────
+  { id:28, country:'US', doctype:'guidance', type:'소프트웨어', name:'FDA — AI/ML PCCP 가이던스 (2024 최종본)', version:'2024.12 최종본', phase:'설계,인허가,사후관리', summary:'AI/ML 기반 의료기기의 사전 변경 관리 계획(PCCP: Predetermined Change Control Plan)에 관한 FDA 최종 가이던스입니다. 알고리즘 성능 개선을 위한 사전 승인 변경 경로를 제공합니다.', detail:'PCCP의 3대 구성 요소:\n\n1. SPS (Software Performance Specifications)\n   - 변경 전·후 알고리즘 성능 목표 및 기준\n   - 모니터링 지표 (AUC, sensitivity, specificity 등)\n   - 실세계 성능 데이터 수집 계획\n\n2. MP (Modification Protocol)\n   - 허용된 변경 범위 및 유형 (재학습, 파인튜닝 등)\n   - 변경 검증 방법론\n   - FDA 사전 검토 불필요 범위 명시\n\n3. Impact Assessment\n   - 변경 시 임상 영향 평가\n   - 위험 기반 검토 프로세스\n\n핵심 장점:\n- PCCP 승인 범위 내 변경 시 추가 510(k) 불필요\n- RWP (Real-World Performance) 모니터링 의무화\n- 드리프트(Model Drift) 감지 체계 구축', relatedStds:'FDA AI/ML Action Plan, IEC 62304, ISO 14971, IMDRF N41', link:'https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial', priority:'높음', tags:'FDA,AI,ML,PCCP,변경관리,SaMD', date:'2025-03-10' },
+
+  // ── EU MDCG 사이버보안 ───────────────────────────────────────
+  { id:29, country:'EU', doctype:'guidance', type:'사이버보안', name:'MDCG 2019-16 Rev.2 — MDR/IVDR 사이버보안 가이던스', version:'2023.10 Rev.2', phase:'설계,인허가', summary:'EU MDR/IVDR 하에서 의료기기 사이버보안 요건을 해석하고 이행하는 방법을 안내하는 MDCG 가이던스입니다. MDR Annex I §17.2 이행의 핵심 참조 문서입니다.', detail:'주요 내용:\n1. 사이버보안 위험관리\n   - MDR GSPR §17.2와 ISO 14971 연계\n   - IEC 81001-5-1 적용 방법\n2. 기술 문서 요건\n   - 보안 아키텍처 (네트워크 다이어그램)\n   - SBOM (소프트웨어 자재 명세서)\n   - 취약점 관리 계획 (패치 포함)\n3. Postmarket 사이버보안 모니터링\n   - CVE 모니터링\n   - 취약점 공개 정책 (VDP)\n   - 인시던트 대응 절차\n4. 상호운용성 및 통합 시스템\n   - 의료기기 네트워크 보안\n   - EHR/HIS 연동 기기 요건\n\n적용 대상:\n- 소프트웨어 포함 기기\n- 유·무선 네트워크 연결 기기\n- IT 인프라와 통합되는 기기', relatedStds:'MDR 2017/745, IEC 81001-5-1, IEC 62304, IEC 62443', link:'https://health.ec.europa.eu/document/download/41e8fa45-67b0-4f2f-b7a0-4e2f7f5ea26c_en', priority:'높음', tags:'MDCG,EU,사이버보안,MDR,IVDR,SBOM', date:'2025-03-15' },
+
+  // ── 식약처 사용적합성 ─────────────────────────────────────────
+  { id:30, country:'KR', doctype:'guidance', type:'안전기준', name:'식약처 — 사용적합성 엔지니어링 가이드라인', version:'2023 개정', phase:'설계,검증', summary:'국내 의료기기 허가 심사 시 요구되는 사용적합성(Usability) 엔지니어링 적용 방법을 안내하는 식약처 가이드라인입니다. IEC 62366-1 기반으로 작성되었습니다.', detail:'주요 내용:\n1. 사용적합성 계획 수립\n   - 적용 범위 및 기기 복잡도 결정\n2. 사용자 요구사항 분석\n   - 사용자 프로파일 (전문가/비전문가)\n   - 사용 환경 분석\n   - 사용 절차 분석\n3. 위험 기반 평가\n   - 사용 오류 식별 (Use Error)\n   - 사용 관련 위험과 ISO 14971 연계\n4. 형성적 평가 (Formative Evaluation)\n   - 프로토타입/목업 사용성 평가\n   - 전문가 휴리스틱 평가\n5. 총괄 평가 (Summative Evaluation)\n   - 실제 대표 사용자 대상 시험\n   - 합격 기준 및 결과 분석\n\n제출 자료:\n- 사용적합성 계획서\n- 사용적합성 엔지니어링 파일 요약\n- 총괄 평가 보고서', relatedStds:'IEC 62366-1, ISO 14971, IEC 60601-1-6', link:'https://www.mfds.go.kr/brd/m_218/list.do', priority:'중간', tags:'식약처,사용적합성,Usability,UE,허가', date:'2025-04-01' },
+
+  // ── 식약처 PMS ───────────────────────────────────────────────
+  { id:31, country:'KR', doctype:'law', type:'사후관리', name:'의료기기법 — 이상사례 보고 및 안전대책 (PMS)', version:'2024 개정', phase:'사후관리', summary:'국내 의료기기 판매 후 이상사례 보고 의무, 안전성 정보 수집 및 신속 안전대책 절차를 규정합니다. 판매 후 시장 감시(PMS)의 법적 근거입니다.', detail:'보고 의무자:\n- 제조업체 및 수입업체\n- 의료기관 (의무 보고)\n\n보고 기한:\n- 사망·중대 위해: 인지 후 15일 이내 신속보고\n- 기타 이상사례: 30일 이내 정기보고\n\n보고 내용:\n1. 기기 정보 (UDI, 모델명, 제조번호)\n2. 환자 정보 (연령, 성별, 적응증)\n3. 이상사례 내용 및 결과\n4. 인과관계 평가\n5. 시정 조치 계획\n\n안전대책:\n- 자발적 리콜 (제조업체 주도)\n- 식약처 명령 리콜\n- 판매 중지 명령\n- 사용상의 주의사항 개정\n\nUDI (고유기기식별코드):\n- 의료기기 추적 관리 체계\n- 2023년부터 단계적 의무화', relatedStds:'ISO 13485, ISO 14971, MDR 2017/745 Article 87', link:'https://www.mfds.go.kr/brd/m_218/list.do', priority:'높음', tags:'식약처,PMS,이상사례,보고,사후관리,UDI', date:'2025-04-10' },
+
+  // ── IMDRF PMCF ───────────────────────────────────────────────
+  { id:32, country:'INT', doctype:'imdrf', type:'사후관리', name:'IMDRF N87 — 판매 후 임상 추적관찰 (PMCF)', version:'2022.10', phase:'인허가,사후관리', summary:'판매 후 임상 추적관찰(Post-Market Clinical Follow-up)의 원칙과 방법론을 제시하는 IMDRF 가이던스입니다. EU MDR의 PMCF 요건 이행에 직접 활용됩니다.', detail:'PMCF의 목적:\n- 판매 후 장기적 안전성·성능 데이터 수집\n- 예상치 못한 위험의 조기 발견\n- 임상 평가 지속적 업데이트\n\nPMCF 방법:\n1. 문헌 검색 (체계적 문헌 고찰)\n2. 임상 데이터베이스 및 레지스트리 분석\n3. 의료인·환자 설문 조사\n4. PMCF 연구 (전향적 추적관찰 연구)\n\nPMCF 보고:\n- 연간 업데이트 (PSUR에 반영)\n- PMCF 평가 보고서 (PMCFER)\n\nEU MDR 연계:\n- MDR Annex XIV Part B 요건\n- SSCP (Summary of Safety and Clinical Performance)\n- PSUR (Periodic Safety Update Report)', relatedStds:'MDR 2017/745, ISO 14971, IMDRF N56', link:'https://www.imdrf.org/documents/post-market-clinical-follow-up-studies', priority:'중간', tags:'IMDRF,PMCF,임상추적,사후관리,N87,PSUR', date:'2025-04-15' },
+
+  // ── FDA 이상사례 보고 ────────────────────────────────────────
+  { id:33, country:'US', doctype:'law', type:'사후관리', name:'21 CFR Part 803 — 의료기기 이상사례 보고 (MDR)', version:'현행', phase:'사후관리', summary:'미국 의료기기 이상사례 보고(Medical Device Reporting) 규정입니다. 사망·중상·오작동 발생 시 FDA에 보고 의무를 규정하며 eMDR 전자 보고 시스템을 사용합니다.', detail:'보고 의무자:\n- 제조업체 (Manufacturer)\n- 수입업체 (Importer)\n- 기기 사용 시설 (병원, 클리닉 등)\n\n보고 기한:\n- 사망 또는 중상: 인지 후 30일 이내\n- 오작동 (재발 시 사망/중상 가능성): 30일 이내\n- 시급한 공중보건 위험: 5일 이내\n\n보고 양식:\n- FDA Form 3500A\n- eMDR 전자 보고 시스템 필수 (2015년부터)\n\n관련 제도:\n- MAUDE Database: FDA 공개 MDR 데이터베이스\n- MedSun: FDA 네트워크 병원 자발적 보고 프로그램\n- Sentinel System: FDA 의료기기 안전 능동 감시', relatedStds:'21 CFR Part 820, ISO 13485, ISO 14971', link:'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-803', priority:'높음', tags:'FDA,MDR,이상사례,보고,사후관리,eMDR', date:'2025-05-01' },
+];
+
+const SEED_DEADLINES = [
+  { id:1, title:'FDA QMSR 전환 완료 기한', date:'2026-02-02', country:'US', type:'전환기한', note:'21 CFR Part 820 개정(QMSR) 전환 완료. ISO 13485 기반 QMS 구축 및 문서 정비 필요.' },
+  { id:2, title:'EU AI Act — 고위험 AI 요건 적용 시작', date:'2026-08-02', country:'EU', type:'전환기한', note:'Annex III 고위험 AI (의료기기 포함) 요건 전면 적용. MDR CE 마크 기기 중 AI 탑재 기기 해당.' },
+  { id:3, title:'IVDR Class D 기기 전환 기한', date:'2027-12-31', country:'EU', type:'전환기한', note:'EU IVDR 2017/746 전환 완료 마감. Class D (최고위험) 체외진단 기기.' },
+  { id:4, title:'IVDR Class C 기기 전환 기한', date:'2028-12-31', country:'EU', type:'전환기한', note:'EU IVDR Class C 체외진단 기기의 전환 마감일.' },
+  { id:5, title:'IVDR Class B/A 기기 전환 기한', date:'2029-12-31', country:'EU', type:'전환기한', note:'EU IVDR Class B, A 체외진단 기기의 최종 전환 마감일.' },
+];
+
+const SEED_UPDATES = [
+  { id: 1, country:'EU', title:'MDR Annex I — 사이버보안 요건 강화', body:'소프트웨어가 포함된 의료기기에 대해 사이버보안 수명주기 전반의 문서화가 의무화되었습니다. GSPR 17.2항이 신설되었으며, IEC 81001-5-1 표준 적용이 권고됩니다.', date:'2025-01-15', link:'', unread:true },
+  { id: 2, country:'US', title:'FDA 21 CFR Part 820 — QMS 규정 최종 시행', body:'ISO 13485에 맞춰 개정된 QMS 규정(Quality Management System Regulation)이 2024년 2월부터 최종 시행됩니다. 기존 QSR 대비 설계 통제 및 공급업체 관리 요건이 강화되었습니다.', date:'2024-12-10', link:'https://www.fda.gov', unread:true },
+  { id: 3, country:'KR', title:'식약처 AI 의료기기 허가 가이드라인 개정', body:'AI·ML 기반 의료기기에 대한 허가 및 심사 가이드라인이 개정되었습니다. 지속 학습(Continuously Learning) 알고리즘에 대한 관리 방안 및 변경 관리 절차가 구체화되었습니다.', date:'2024-11-22', link:'https://www.mfds.go.kr', unread:true },
+  { id: 4, country:'EU', title:'IVDR 전환 기간 연장 최종 확정', body:'EU IVDR 전환 기간이 기기 클래스별로 연장되었습니다. Class D: 2027년 12월, Class C: 2028년 12월, Class B/A: 2029년 12월까지 전환 완료해야 합니다.', date:'2024-10-05', link:'', unread:false },
+  { id: 5, country:'US', title:'FDA 510(k) 프로그램 현대화 가이던스 발표', body:'FDA가 510(k) 심사 프로그램 현대화 관련 최종 가이던스를 발표했습니다. 실질적 동등성(SE) 판단 기준이 명확화되고, Q-Sub 프로그램 활용이 강화되었습니다.', date:'2024-09-18', link:'', unread:false },
+  { id: 6, country:'US', title:'FDA AI/ML PCCP 최종 가이던스 발표', body:'FDA가 AI/ML 기반 의료기기의 사전 변경 관리 계획(PCCP)에 관한 최종 가이던스를 발표했습니다. 승인된 PCCP 범위 내 알고리즘 업데이트에 대해 추가 510(k) 제출 없이 변경 가능하며, 실세계 성능(RWP) 모니터링이 의무화됩니다.', date:'2024-12-15', link:'https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial', unread:true },
+  { id: 7, country:'EU', title:'EU AI Act — 고위험 AI 요건 2026년 8월 적용 확정', body:'EU AI Act의 고위험 AI 시스템(의료기기 포함) 요건이 2026년 8월부터 전면 적용됩니다. MDR CE 마크 기기 중 AI 탑재 기기는 AI Act 적합성 평가를 병행 수행해야 하며, EU 집행위원회의 이행 가이던스가 공개되었습니다.', date:'2025-02-20', link:'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai', unread:true },
+  { id: 8, country:'INT', title:'IEC 62304 Ed.2 공개 초안(DIS) 배포 — AI·애자일 요건 추가 예정', body:'IEC 62304 의료기기 소프트웨어 수명주기 표준의 2판(Edition 2) 공개 초안이 IEC 회원국에 배포되어 의견 수렴 중입니다. AI/ML 소프트웨어, 애자일 개발 방법론, 클라우드 기반 SaMD 요건이 추가될 예정입니다. 최종 발행은 2027년경 예상됩니다.', date:'2025-03-20', link:'https://www.iec.ch/tc62', unread:false },
+  { id: 9, country:'KR', title:'식약처 — 디지털 의료기기 규제 혁신 방안 발표', body:'식품의약품안전처가 AI·디지털 의료기기의 신속 허가를 위한 규제 혁신 방안을 발표했습니다. 혁신 의료기기 패스트트랙 확대, 실세계증거(RWE) 기반 허가 가이드라인 개발, 지속 학습 AI의 변경 관리 간소화가 주요 내용입니다.', date:'2025-04-10', link:'https://www.mfds.go.kr', unread:false },
+  { id:10, country:'EU', title:'IVDR Class D — EU 참조 실험실 지정 완료', body:'EU IVDR 전환 절차의 일환으로, Class D 체외진단 기기의 적합성 평가에 필요한 EU 참조 실험실(EURL) 지정이 완료되었습니다. 2027년 12월 전환 기한을 앞두고 제조업체들은 인증 기관(NB) 조기 접촉이 권고됩니다.', date:'2025-05-05', link:'https://health.ec.europa.eu', unread:false },
+];
+
+// ── Init ──────────────────────────────────────────────────────
+function load() {
+  const saved = localStorage.getItem('medireg_db');
+  if (saved) {
+    try {
+      DB = JSON.parse(saved);
+      if (!DB.notes) DB.notes = {};
+      if (!DB.deadlines) DB.deadlines = SEED_DEADLINES;
+      // 마이그레이션: 새 시드 규정이 없으면 자동 추가
+      const existingIds = new Set(DB.regulations.map(r => r.id));
+      const missing = SEED_REGS.filter(r => !existingIds.has(r.id));
+      if (missing.length > 0) {
+        DB.regulations = [...DB.regulations, ...missing];
+        save();
+      }
+    } catch(e) {
+      DB = { regulations: SEED_REGS, updates: SEED_UPDATES, deadlines: SEED_DEADLINES, notes: {} };
+    }
+  } else {
+    DB.regulations = SEED_REGS;
+    DB.updates = SEED_UPDATES;
+    DB.deadlines = SEED_DEADLINES;
+    DB.notes = {};
+  }
+  renderAll();
+  renderRecentSearches();
+  loadMonitorConfig();
+}
+
+function save() {
+  localStorage.setItem('medireg_db', JSON.stringify(DB));
+  const el = document.getElementById('saveStatus');
+  el.textContent = '저장됨 ' + new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+  setTimeout(()=>{ el.textContent='자동 저장 중'; }, 2000);
+}
+
+function renderAll() {
+  renderDashboard();
+  renderRegList();
+  renderUpdList();
+  renderCalendar();
+  updateCounts();
+}
+
+// ── Navigation ────────────────────────────────────────────────
+let currentFilter = 'ALL';
+let currentDoctypeFilter = 'ALL';
+let currentPhaseFilter = 'ALL';
+let activeTagFilter = null;
+let editingId = null;
+let editingUpdId = null;
+let selectedRegId = null;
+let noteTimers = {};
+
+function nav(panel, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-' + panel).classList.add('active');
+  if (el) el.classList.add('active');
+  if (panel === 'regulations') renderRegList();
+  if (panel === 'updates') renderUpdList();
+  if (panel === 'calendar') renderCalendar();
+}
+
+// ── Dashboard ─────────────────────────────────────────────────
+function renderDashboard() {
+  const unread = DB.updates.filter(u=>u.unread).length;
+  const byCountry = {};
+  DB.regulations.forEach(r=>{ byCountry[r.country]=(byCountry[r.country]||0)+1; });
+
+  document.getElementById('dashStats').innerHTML = `
+    <div class="stat-card"><div class="stat-val">${DB.regulations.length}</div><div class="stat-lbl">저장된 규정 수</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:var(--green)">${unread}</div><div class="stat-lbl">새 업데이트</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:var(--blue)">${byCountry['KR']||0}</div><div class="stat-lbl">한국 규정</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:var(--purple)">${byCountry['US']||0}</div><div class="stat-lbl">미국 규정</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:var(--green)">${byCountry['EU']||0}</div><div class="stat-lbl">EU 규정</div></div>
+    <div class="stat-card"><div class="stat-val" style="color:#facc15">${byCountry['INT']||0}</div><div class="stat-lbl">국제 표준</div></div>
+  `;
+
+  const updHtml = DB.updates.slice(0,3).map(u=>`
+    <div class="update-card ${u.unread?'new-item':''}">
+      <div class="update-top">${pillHtml(u.country)}${u.unread?'<div class="new-dot"></div><span class="new-tag">NEW</span>':''}<div class="update-title">${u.title}</div></div>
+      <div class="update-body">${u.body.slice(0,100)}...</div>
+      <div class="update-meta"><span>${u.date}</span></div>
+    </div>`).join('');
+  document.getElementById('dashUpdates').innerHTML = updHtml || '<div style="color:var(--text3);font-size:12px;padding:8px 0;">업데이트 내역이 없습니다</div>';
+
+  const regHtml = DB.regulations.slice().reverse().slice(0,3).map(r=>`
+    <div class="reg-card" onclick="openRegDetail(${r.id}); nav('regulations', document.querySelector('[onclick*=regulations]'))">
+      <div class="reg-top">${pillHtml(r.country)}<div class="reg-name">${r.name}</div></div>
+      <div class="reg-summary">${r.summary}</div>
+      <div class="reg-meta"><span>${r.type}</span><span>${r.date}</span></div>
+    </div>`).join('');
+  document.getElementById('dashRecentRegs').innerHTML = regHtml || '<div style="color:var(--text3);font-size:12px;padding:8px 0;">규정을 추가해보세요</div>';
+}
+
+// ── Regulations ───────────────────────────────────────────────
+const DTYPE_META = {
+  law:      { cls:'dtype-law',      label:'법령·규정' },
+  guidance: { cls:'dtype-guidance', label:'고시·가이드라인' },
+  standard: { cls:'dtype-standard', label:'국제표준' },
+  imdrf:    { cls:'dtype-imdrf',    label:'IMDRF' }
+};
+
+function dtypePillHtml(doctype) {
+  if (!doctype || !DTYPE_META[doctype]) return '';
+  const { cls, label } = DTYPE_META[doctype];
+  return `<span class="dtype-pill ${cls}">${label}</span>`;
+}
+
+function setDoctypeFilter(f) {
+  currentDoctypeFilter = f;
+  document.querySelectorAll('[id^="fd-"]').forEach(b => {
+    b.className = 'filter-btn';
+    if (b.id === 'fd-' + f) b.classList.add(f === 'ALL' ? 'active-all' : ('active-' + f));
+  });
+  renderRegList();
+}
+
+function setPhaseFilter(f) {
+  currentPhaseFilter = f;
+  document.querySelectorAll('[id^="fp-"]').forEach(b => {
+    b.className = 'filter-btn';
+    if (b.id === 'fp-' + f) b.classList.add(f === 'ALL' ? 'active-all' : 'active-phase');
+  });
+  renderRegList();
+}
+
+function setTagFilter(tag) {
+  activeTagFilter = tag;
+  document.getElementById('tagFilterBar').style.display = tag ? 'flex' : 'none';
+  if (tag) document.getElementById('tagFilterText').textContent = tag;
+  renderRegList();
+}
+
+function clearTagFilter() {
+  activeTagFilter = null;
+  document.getElementById('tagFilterBar').style.display = 'none';
+  renderRegList();
+}
+
+// ── Per-regulation Notes ──────────────────────────────────────
+function saveRegNote(id) {
+  if (!DB.notes) DB.notes = {};
+  const el = document.getElementById('regNote-' + id);
+  if (!el) return;
+  DB.notes[id] = el.value;
+  clearTimeout(noteTimers[id]);
+  noteTimers[id] = setTimeout(() => {
+    save();
+    const lbl = document.getElementById('regNoteSaved-' + id);
+    if (lbl) { lbl.style.display = ''; setTimeout(() => { if (lbl) lbl.style.display = 'none'; }, 1500); }
+  }, 500);
+}
+
+// ── Recent Search ─────────────────────────────────────────────
+const RECENT_KEY = 'medireg_recent';
+let recentSearches = [];
+try { recentSearches = JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch(e) { recentSearches = []; }
+
+function addRecentSearch(q) {
+  if (!q || q.length < 2) return;
+  recentSearches = [q, ...recentSearches.filter(s => s !== q)].slice(0, 6);
+  localStorage.setItem(RECENT_KEY, JSON.stringify(recentSearches));
+  renderRecentSearches();
+}
+
+function renderRecentSearches() {
+  const row = document.getElementById('recentSearchRow');
+  const chips = document.getElementById('recentSearchChips');
+  if (!row || !recentSearches.length) { if(row) row.style.display = 'none'; return; }
+  row.style.display = 'flex';
+  chips.innerHTML = recentSearches.map(s =>
+    `<span class="search-recent-chip" onclick="applyRecent(${JSON.stringify(s)})">${s}</span>`
+  ).join('');
+}
+
+function applyRecent(q) {
+  const inp = document.getElementById('searchInput');
+  if (inp) { inp.value = q; renderRegList(); }
+}
+
+function pillHtml(country) {
+  const map = { KR:'kr', US:'us', EU:'eu', INT:'int' };
+  const label = { KR:'KR', US:'US', EU:'EU', INT:'INT' };
+  return `<span class="cpill ${map[country]||'int'}">${label[country]||country}</span>`;
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('[id^="fb-"]').forEach(b=>b.className='filter-btn');
+  const clsMap = {ALL:'active-all',KR:'active-kr',US:'active-us',EU:'active-eu',INT:'active-int'};
+  document.getElementById('fb-'+f).classList.add(clsMap[f]);
+  renderRegList();
+}
+
+function filterByCountry(c) {
+  nav('regulations', null);
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  setFilter(c);
+}
+
+function renderRegList() {
+  const q = (document.getElementById('searchInput')?.value||'').toLowerCase().trim();
+  let list = DB.regulations;
+  if (currentFilter !== 'ALL') list = list.filter(r=>r.country===currentFilter);
+  if (currentDoctypeFilter !== 'ALL') list = list.filter(r=>(r.doctype||'')===currentDoctypeFilter);
+  if (currentPhaseFilter !== 'ALL') list = list.filter(r=>(r.phase||'').includes(currentPhaseFilter));
+  if (activeTagFilter) list = list.filter(r=>(r.tags||'').toLowerCase().includes(activeTagFilter.toLowerCase()));
+  if (q) list = list.filter(r=>
+    r.name.toLowerCase().includes(q) ||
+    r.summary.toLowerCase().includes(q) ||
+    (r.detail||'').toLowerCase().includes(q) ||
+    (r.tags||'').toLowerCase().includes(q) ||
+    (r.relatedStds||'').toLowerCase().includes(q)
+  );
+  const container = document.getElementById('regList');
+  if (!list.length) {
+    container.innerHTML = `<div class="empty-state" style="padding-top:60px;"><i class="ti ti-file-off"></i><p>검색 결과가 없습니다</p><p class="hint">다른 키워드나 필터를 시도해보세요</p></div>`;
+    return;
+  }
+  container.innerHTML = list.map(r=>{
+    const tags = (r.tags||'').split(',').filter(Boolean).slice(0,3).map(t=>`<span class="tag-chip" style="cursor:pointer;" title="태그 필터" onclick="event.stopPropagation();setTagFilter('${t.trim().replace(/'/g,"\\'")}')">${t.trim()}</span>`).join('');
+    const priColor = r.priority==='높음'?'var(--red)':r.priority==='중간'?'var(--amber)':'var(--green)';
+    const dtPill = r.doctype ? dtypePillHtml(r.doctype) : '';
+    return `<div class="reg-card ${selectedRegId===r.id?'selected':''}" onclick="openRegDetail(${r.id})">
+      <div class="reg-top">${pillHtml(r.country)}${dtPill}<div class="reg-name">${r.name}</div>
+      <span style="margin-left:auto;font-size:10px;color:${priColor};font-family:'IBM Plex Mono',monospace;flex-shrink:0;">${r.priority||''}</span></div>
+      <div class="reg-summary">${r.summary}</div>
+      <div class="reg-meta"><span>${r.type}</span><span>${r.version||''}</span><span>${r.date}</span><div style="margin-left:auto;display:flex;gap:4px;">${tags}</div></div>
+    </div>`;
+  }).join('');
+}
+
+function openRegDetail(id) {
+  selectedRegId = id;
+  const r = DB.regulations.find(x=>x.id===id);
+  if (!r) return;
+  renderRegList();
+  document.getElementById('detailEmpty').style.display = 'none';
+  const dc = document.getElementById('detailContent');
+  dc.style.display = 'flex';
+  const priColor = r.priority==='높음'?'var(--red)':r.priority==='중간'?'var(--amber)':'var(--green)';
+  const phaseTags = (r.phase||'').split(',').filter(Boolean).map(p=>`<span class="phase-pill">${p.trim()}</span>`).join('');
+  const relatedChips = (r.relatedStds||'').split(',').filter(Boolean).map(s=>{
+    const st = s.trim();
+    return `<span class="related-chip" onclick="applyRecent(${JSON.stringify(st)});nav('regulations',null);">${st}</span>`;
+  }).join('');
+  dc.innerHTML = `
+    <div class="detail-header">
+      <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;align-items:center;">
+        ${pillHtml(r.country)}${r.doctype?dtypePillHtml(r.doctype):''}
+        <span class="tag-chip">${r.type}</span>
+        <span style="font-size:10px;color:${priColor};font-family:'IBM Plex Mono',monospace;margin-left:auto;">${r.priority||''}</span>
+      </div>
+      <div class="detail-title">${r.name}</div>
+      <div style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;margin-top:2px;">${r.version||''} · ${r.date}</div>
+      ${phaseTags?`<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:7px;">${phaseTags}</div>`:''}
+    </div>
+    <div class="detail-body">
+      <div class="detail-section">
+        <div class="detail-label">핵심 요약</div>
+        <div class="detail-content">${r.summary}</div>
+      </div>
+      ${r.detail?`<div class="detail-section"><div class="detail-label">주요 내용</div><div class="detail-content">${r.detail}</div></div>`:''}
+      ${relatedChips?`<div class="detail-section"><div class="detail-label">관련 표준</div><div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;">${relatedChips}</div></div>`:''}
+      ${r.tags?`<div class="detail-section"><div class="detail-label">태그</div><div style="display:flex;flex-wrap:wrap;gap:5px;">${r.tags.split(',').filter(Boolean).map(t=>`<span class="tag-chip" style="cursor:pointer;" onclick="setTagFilter('${t.trim().replace(/'/g,"\\'")}')">${t.trim()}</span>`).join('')}</div></div>`:''}
+      ${r.link?`<div class="detail-section"><div class="detail-label">출처</div><a href="${r.link}" target="_blank" style="font-size:12px;color:var(--blue);word-break:break-all;">${r.link}</a></div>`:''}
+    </div>
+    <div class="reg-note-wrap">
+      <div class="reg-note-label">개인 노트 <span class="reg-note-saved" id="regNoteSaved-${id}" style="display:none;">✓ 저장됨</span></div>
+      <textarea class="reg-note-area" id="regNote-${id}" placeholder="실무 포인트, 검토 내용, 적용 시 주의사항..." oninput="saveRegNote(${id})"></textarea>
+    </div>
+    <div class="detail-actions">
+      <button class="btn primary" onclick="openEditForm(${r.id})"><i class="ti ti-edit"></i> 수정</button>
+      <button class="btn danger" onclick="deleteReg(${r.id})"><i class="ti ti-trash"></i> 삭제</button>
+    </div>`;
+  const noteEl = document.getElementById('regNote-' + id);
+  if (noteEl) noteEl.value = (DB.notes && DB.notes[id]) || '';
+}
+
+// ── Form ──────────────────────────────────────────────────────
+function openAddForm() {
+  editingId = null;
+  document.getElementById('formTitle').textContent = '// 규정 추가';
+  ['fCountry','fDoctype','fType','fName','fVersion','fPhase','fSummary','fDetail','fRelated','fLink','fTags'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el.tagName==='SELECT') el.selectedIndex=0; else el.value='';
+  });
+  document.getElementById('fPriority').value='중간';
+  document.getElementById('addFormOverlay').classList.add('open');
+}
+
+function openEditForm(id) {
+  const r = DB.regulations.find(x=>x.id===id);
+  if (!r) return;
+  editingId = id;
+  document.getElementById('formTitle').textContent = '// 규정 수정';
+  document.getElementById('fCountry').value = r.country;
+  document.getElementById('fDoctype').value = r.doctype||'standard';
+  document.getElementById('fType').value = r.type;
+  document.getElementById('fName').value = r.name;
+  document.getElementById('fVersion').value = r.version||'';
+  document.getElementById('fPhase').value = r.phase||'';
+  document.getElementById('fSummary').value = r.summary;
+  document.getElementById('fDetail').value = r.detail||'';
+  document.getElementById('fRelated').value = r.relatedStds||'';
+  document.getElementById('fLink').value = r.link||'';
+  document.getElementById('fPriority').value = r.priority||'중간';
+  document.getElementById('fTags').value = r.tags||'';
+  document.getElementById('addFormOverlay').classList.add('open');
+}
+
+function closeForm() { document.getElementById('addFormOverlay').classList.remove('open'); }
+
+function saveRegulation() {
+  const name = document.getElementById('fName').value.trim();
+  const summary = document.getElementById('fSummary').value.trim();
+  if (!name || !summary) { showToast('규정명과 핵심 요약은 필수 입력입니다'); return; }
+  const origDate = editingId ? ((DB.regulations.find(x=>x.id===editingId)||{}).date||new Date().toISOString().slice(0,10)) : new Date().toISOString().slice(0,10);
+  const obj = {
+    id: editingId || Date.now(),
+    country: document.getElementById('fCountry').value,
+    doctype: document.getElementById('fDoctype').value,
+    type: document.getElementById('fType').value,
+    name, version: document.getElementById('fVersion').value,
+    phase: document.getElementById('fPhase').value,
+    summary, detail: document.getElementById('fDetail').value,
+    relatedStds: document.getElementById('fRelated').value,
+    link: document.getElementById('fLink').value,
+    priority: document.getElementById('fPriority').value,
+    tags: document.getElementById('fTags').value,
+    date: origDate
+  };
+  if (editingId) {
+    const idx = DB.regulations.findIndex(x=>x.id===editingId);
+    DB.regulations[idx] = obj;
+    showToast('✓ 규정이 수정되었습니다');
+  } else {
+    DB.regulations.unshift(obj);
+    showToast('✓ 규정이 추가되었습니다');
+  }
+  save(); renderAll();
+  closeForm();
+  selectedRegId = obj.id;
+  openRegDetail(obj.id);
+}
+
+function deleteReg(id) {
+  showConfirm('규정을 삭제하시겠습니까?', '삭제된 규정은 복구할 수 없습니다.', ()=>{
+    DB.regulations = DB.regulations.filter(x=>x.id!==id);
+    selectedRegId = null;
+    document.getElementById('detailEmpty').style.display='';
+    document.getElementById('detailContent').style.display='none';
+    save(); renderAll();
+    showToast('규정이 삭제되었습니다');
+  });
+}
+
+// ── Updates ───────────────────────────────────────────────────
+function renderUpdList() {
+  const container = document.getElementById('updList');
+  if (!DB.updates.length) {
+    container.innerHTML = `<div class="empty-state"><i class="ti ti-bell-off"></i><p>업데이트 내역이 없습니다</p></div>`;
+    return;
+  }
+  container.innerHTML = DB.updates.map(u=>`
+    <div class="upd-card ${u.unread?'unread':''}">
+      <div class="upd-card-top">${pillHtml(u.country)}${u.unread?'<div class="new-dot"></div><span class="new-tag">NEW</span>':''}<div class="upd-title">${u.title}</div>
+      <button onclick="deleteUpd(${u.id})" style="margin-left:auto;background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;"><i class="ti ti-trash"></i></button></div>
+      <div class="upd-body">${u.body}</div>
+      <div class="upd-meta">
+        <span>${u.date}</span>
+        ${u.link?`<a href="${u.link}" target="_blank" style="color:var(--blue);">원문 보기 →</a>`:''}
+        ${u.unread?`<span style="margin-left:auto;cursor:pointer;color:var(--text3);" onclick="markRead(${u.id})">읽음 처리</span>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function openAddUpdate() {
+  editingUpdId = null;
+  document.getElementById('updFormTitle').textContent = '// 업데이트 추가';
+  ['ufCountry','ufTitle','ufBody','ufLink'].forEach(id=>{
+    const el = document.getElementById(id);
+    if (el.tagName==='SELECT') el.selectedIndex=0; else el.value='';
+  });
+  document.getElementById('ufDate').value = new Date().toISOString().slice(0,10);
+  document.getElementById('addUpdateOverlay').classList.add('open');
+}
+
+function closeUpdateForm() { document.getElementById('addUpdateOverlay').classList.remove('open'); }
+
+function saveUpdate() {
+  const title = document.getElementById('ufTitle').value.trim();
+  const body = document.getElementById('ufBody').value.trim();
+  if (!title || !body) { showToast('제목과 내용은 필수 입력입니다'); return; }
+  const obj = {
+    id: Date.now(),
+    country: document.getElementById('ufCountry').value,
+    title, body,
+    date: document.getElementById('ufDate').value,
+    link: document.getElementById('ufLink').value,
+    unread: true
+  };
+  DB.updates.unshift(obj);
+  save(); renderAll();
+  closeUpdateForm();
+  showToast('✓ 업데이트가 추가되었습니다');
+}
+
+function markRead(id) {
+  const u = DB.updates.find(x=>x.id===id);
+  if (u) { u.unread=false; save(); renderUpdList(); updateCounts(); }
+}
+
+function markAllRead() {
+  DB.updates.forEach(u=>u.unread=false);
+  save(); renderUpdList(); updateCounts();
+  showToast('모두 읽음 처리되었습니다');
+}
+
+function deleteUpd(id) {
+  DB.updates = DB.updates.filter(x=>x.id!==id);
+  save(); renderUpdList(); updateCounts();
+  showToast('삭제되었습니다');
+}
+
+// ── Calendar ──────────────────────────────────────────────────
+let calView = 'ALL';
+const MONTH_KR = ['','1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'];
+
+function setCalView(v) {
+  calView = v;
+  document.querySelectorAll('[id^="cv-"]').forEach(b => b.className = 'filter-btn');
+  document.getElementById('cv-' + v).classList.add('active-all');
+  renderCalendar();
+}
+
+function renderCalendar() {
+  const container = document.getElementById('calList');
+  if (!container) return;
+  const today = new Date(); today.setHours(0,0,0,0);
+  let items = (DB.deadlines||[]).map(d => ({...d, _dt: new Date(d.date)}));
+  if (calView !== 'ALL') {
+    const cutoff = new Date(today);
+    cutoff.setDate(cutoff.getDate() + parseInt(calView));
+    items = items.filter(d => d._dt <= cutoff);
+  }
+  items.sort((a,b) => a._dt - b._dt);
+
+  const overdue = items.filter(d => d._dt < today).length;
+  const soon30  = items.filter(d => d._dt >= today && (d._dt - today) / 86400000 <= 30).length;
+  const sumEl = document.getElementById('calSummary');
+  if (sumEl) {
+    const parts = [];
+    if (overdue) parts.push(`<span style="color:var(--red);">지연 ${overdue}건</span>`);
+    if (soon30)  parts.push(`<span style="color:var(--amber);">30일 내 ${soon30}건</span>`);
+    sumEl.innerHTML = parts.join(' &nbsp;·&nbsp; ');
+  }
+
+  if (!items.length) {
+    container.innerHTML = `<div class="empty-state"><i class="ti ti-calendar-off"></i><p>등록된 데드라인이 없습니다</p><p class="hint">+ 데드라인 추가 버튼으로 일정을 등록하세요</p></div>`;
+    return;
+  }
+
+  const groups = {};
+  items.forEach(d => {
+    const key = d.date.slice(0,7);
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(d);
+  });
+
+  container.innerHTML = Object.entries(groups).map(([ym, list]) => {
+    const [y, m] = ym.split('-');
+    const header = `<div class="cal-group-title">${y}년 ${MONTH_KR[+m]}</div>`;
+    const cards = list.map(d => {
+      const diff = Math.round((d._dt - today) / 86400000);
+      const cls  = d._dt < today ? 'overdue' : diff <= 30 ? 'soon' : diff <= 90 ? 'upcoming' : '';
+      const dLabel = d._dt < today
+        ? `<span style="color:var(--red);">${Math.abs(diff)}일 경과</span>`
+        : diff === 0 ? `<span style="color:var(--amber);">오늘</span>`
+        : `<span style="color:${diff<=30?'var(--amber)':diff<=90?'var(--blue)':'var(--text3)'};">D-${diff}</span>`;
+      const day = d.date.slice(8,10);
+      const mon = MONTH_KR[+d.date.slice(5,7)];
+      return `<div class="cal-item ${cls}">
+        <div class="cal-date-box"><div class="cal-date-day">${day}</div><div class="cal-date-mon">${mon}</div></div>
+        <div class="cal-item-body">
+          <div class="cal-item-top">${pillHtml(d.country)}<span class="cal-type-pill">${d.type}</span><div class="cal-item-title">${d.title}</div><span class="cal-days-left">${dLabel}</span></div>
+          ${d.note ? `<div class="cal-item-note">${d.note}</div>` : ''}
+        </div>
+        <button onclick="deleteDeadline(${d.id})" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;flex-shrink:0;padding-left:8px;"><i class="ti ti-trash"></i></button>
+      </div>`;
+    }).join('');
+    return header + cards;
+  }).join('');
+}
+
+function openAddDeadline() {
+  document.getElementById('dlDate').value = new Date().toISOString().slice(0,10);
+  document.getElementById('dlTitle').value = '';
+  document.getElementById('dlNote').value = '';
+  document.getElementById('dlCountry').selectedIndex = 0;
+  document.getElementById('dlType').selectedIndex = 0;
+  document.getElementById('addDeadlineOverlay').classList.add('open');
+}
+function closeDeadlineForm() { document.getElementById('addDeadlineOverlay').classList.remove('open'); }
+
+function saveDeadline() {
+  const title = document.getElementById('dlTitle').value.trim();
+  const date  = document.getElementById('dlDate').value;
+  if (!title || !date) { showToast('날짜와 제목은 필수 입력입니다'); return; }
+  if (!DB.deadlines) DB.deadlines = [];
+  DB.deadlines.push({
+    id: Date.now(),
+    title, date,
+    country: document.getElementById('dlCountry').value,
+    type:    document.getElementById('dlType').value,
+    note:    document.getElementById('dlNote').value.trim()
+  });
+  DB.deadlines.sort((a,b) => a.date.localeCompare(b.date));
+  save(); renderCalendar(); updateCounts();
+  closeDeadlineForm();
+  showToast('✓ 데드라인이 추가되었습니다');
+}
+
+function deleteDeadline(id) {
+  DB.deadlines = (DB.deadlines||[]).filter(d => d.id !== id);
+  save(); renderCalendar(); updateCounts();
+  showToast('삭제되었습니다');
+}
+
+// ── Counts ────────────────────────────────────────────────────
+function updateCounts() {
+  document.getElementById('regCount').textContent = DB.regulations.length;
+  const newUpd = DB.updates.filter(u=>u.unread).length;
+  document.getElementById('newUpdCount').textContent = newUpd;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const cutoff = new Date(today); cutoff.setDate(cutoff.getDate()+30);
+  const upcoming = (DB.deadlines||[]).filter(d=>{ const dt=new Date(d.date); return dt>=today && dt<=cutoff; }).length;
+  const uel = document.getElementById('upcomingCount');
+  if (uel) uel.textContent = upcoming || '';
+}
+
+// ── Confirm ───────────────────────────────────────────────────
+let confirmCallback = null;
+function showConfirm(title, msg, cb) {
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMsg').textContent = msg;
+  confirmCallback = cb;
+  document.getElementById('confirmOverlay').classList.add('open');
+  document.getElementById('confirmOkBtn').onclick = ()=>{ closeConfirm(); cb(); };
+}
+function closeConfirm() { document.getElementById('confirmOverlay').classList.remove('open'); }
+
+// ── Export / Import ───────────────────────────────────────────
+function exportData() {
+  const blob = new Blob([JSON.stringify(DB, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'medireg_backup_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✓ 백업 파일이 다운로드되었습니다');
+}
+
+function importData() { document.getElementById('importFile').click(); }
+
+function handleImport(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!data.regulations || !data.updates) throw new Error('형식 오류');
+      showConfirm('데이터를 불러오시겠습니까?', '현재 데이터가 백업 파일로 교체됩니다.', ()=>{
+        DB = data;
+        if (!DB.notes) DB.notes = {};
+        if (!DB.deadlines) DB.deadlines = [];
+        save(); renderAll();
+        showToast('✓ 데이터가 불러와졌습니다');
+      });
+    } catch(err) { showToast('올바른 백업 파일이 아닙니다'); }
+    e.target.value = '';
+  };
+  reader.readAsText(file);
+}
+
+// ── Toast ─────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// ── Monitoring ────────────────────────────────────────────────
+const MONITOR_SOURCES = [
+  { id:'mfds',      country:'KR',  name:'식품의약품안전처 (MFDS)',         desc:'의료기기 고시, 가이드라인, 허가·심사 정보 업데이트',                 url:'https://www.mfds.go.kr/brd/m_218/list.do' },
+  { id:'fda_md',    country:'US',  name:'FDA 의료기기 가이던스',            desc:'FDA 의료기기 최신 가이던스 및 정책 발표 (SaMD, AI, 사이버보안 포함)', url:'https://www.fda.gov/medical-devices/guidance-documents-medical-devices-and-radiation-emitting-products' },
+  { id:'fda_dh',    country:'US',  name:'FDA 디지털헬스 센터 (DHCoE)',      desc:'AI/ML SaMD, PCCP, 디지털치료제 관련 FDA 최신 발표',                 url:'https://www.fda.gov/medical-devices/digital-health-center-excellence' },
+  { id:'ec_health', country:'EU',  name:'EU 의료기기 규정 (EC Health)',      desc:'MDR, IVDR, MDCG 가이던스 최신 업데이트',                            url:'https://health.ec.europa.eu/medical-devices-sector/new-regulations_en' },
+  { id:'mdcg',      country:'EU',  name:'MDCG 가이던스 문서',               desc:'MDR/IVDR 해석 및 구현 MDCG 가이던스 목록',                          url:'https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en' },
+  { id:'iso_tc210', country:'INT', name:'ISO TC 210 (의료기기 품질)',        desc:'ISO 13485, ISO 14971, ISO 10993 등 의료기기 품질 표준',              url:'https://www.iso.org/committee/54912/x/catalogue/' },
+  { id:'iec_tc62',  country:'INT', name:'IEC TC 62 (전기 의료기기)',         desc:'IEC 60601, 62304, 81001 등 전기 의료기기 표준',                      url:'https://www.iec.ch/tc62' },
+  { id:'imdrf',     country:'INT', name:'IMDRF 가이던스 문서',              desc:'국제 의료기기 규제 조화 포럼(IMDRF) 최신 문서',                      url:'https://www.imdrf.org/documents' },
+];
+
+const MONITOR_KEY = 'medireg_monitor';
+let monitorConfig = { sources:{}, interval:30, notifEnabled:false };
+
+function loadMonitorConfig() {
+  try {
+    const saved = localStorage.getItem(MONITOR_KEY);
+    if (saved) monitorConfig = Object.assign({ sources:{}, interval:30, notifEnabled:false }, JSON.parse(saved));
+  } catch(e) {}
+  updateIntervalUI();
+  renderMonitorList();
+  checkOverdueMonitor();
+  updateNotifBtn();
+}
+
+function saveMonitorConfig() {
+  localStorage.setItem(MONITOR_KEY, JSON.stringify(monitorConfig));
+}
+
+function setMonitorInterval(days) {
+  monitorConfig.interval = days;
+  saveMonitorConfig();
+  updateIntervalUI();
+  renderMonitorList();
+}
+
+function updateIntervalUI() {
+  [7,14,30,60,90].forEach(d => {
+    const el = document.getElementById('iv-' + d);
+    if (!el) return;
+    el.className = 'filter-btn' + (monitorConfig.interval === d ? ' active-all' : '');
+  });
+}
+
+function getDaysAgo(dateStr) {
+  if (!dateStr) return null;
+  return Math.floor((Date.now() - new Date(dateStr).getTime()) / 86400000);
+}
+
+function renderMonitorList() {
+  const container = document.getElementById('monitorList');
+  if (!container) return;
+  const iv = monitorConfig.interval;
+  let overdueCount = 0;
+
+  const html = MONITOR_SOURCES.map(src => {
+    const cfg = monitorConfig.sources[src.id] || {};
+    const daysAgo = getDaysAgo(cfg.lastChecked);
+    const isOverdue = daysAgo === null || daysAgo >= iv;
+    if (isOverdue) overdueCount++;
+
+    const barPct = daysAgo === null ? 100 : Math.min(100, Math.round((daysAgo / iv) * 100));
+    const statusColor = daysAgo === null ? 'var(--text3)' : isOverdue ? 'var(--red)' : daysAgo >= iv * 0.7 ? 'var(--amber)' : 'var(--green)';
+    const statusText  = daysAgo === null ? '미확인'
+      : isOverdue ? `${daysAgo}일 전 (확인 필요)`
+      : daysAgo === 0 ? '오늘 확인'
+      : `${daysAgo}일 전 확인`;
+
+    return `<div style="background:${isOverdue ? 'var(--red-bg)' : 'var(--bg2)'};border:1px solid ${isOverdue ? 'var(--red-b)' : 'var(--border)'};border-radius:8px;padding:14px 16px;margin-bottom:8px;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+        ${pillHtml(src.country)}
+        <div style="font-size:13px;font-weight:500;color:var(--text);flex:1;">${src.name}</div>
+        <span style="font-size:10px;font-family:'IBM Plex Mono',monospace;color:${statusColor};white-space:nowrap;">${statusText}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:10px;line-height:1.6;">${src.desc}</div>
+      <div style="height:3px;background:var(--bg3);border-radius:2px;margin-bottom:10px;">
+        <div style="height:3px;width:${barPct}%;background:${statusColor};border-radius:2px;transition:width .3s;max-width:100%;"></div>
+      </div>
+      ${cfg.notes ? `<div style="font-size:11px;color:var(--text2);margin-bottom:8px;padding:6px 9px;background:var(--bg3);border-radius:4px;border-left:2px solid var(--border2);">${cfg.notes}</div>` : ''}
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+        <a href="${src.url}" target="_blank" onclick="markChecked('${src.id}')" class="btn primary" style="text-decoration:none;"><i class="ti ti-external-link"></i> 사이트 방문</a>
+        <button class="btn success" onclick="markChecked('${src.id}')"><i class="ti ti-check"></i> 확인 완료</button>
+        <button class="btn" onclick="editMonitorNote('${src.id}')"><i class="ti ti-notes"></i> 메모</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  container.innerHTML = html;
+
+  const sumEl = document.getElementById('monitorSummary');
+  if (sumEl) sumEl.innerHTML = overdueCount > 0
+    ? `<span style="color:var(--red);">확인 필요 ${overdueCount}건</span>`
+    : `<span style="color:var(--green);">모두 최신 상태 ✓</span>`;
+
+  const badge = document.getElementById('monitorBadge');
+  if (badge) {
+    badge.textContent = overdueCount || '';
+    badge.style.display = overdueCount > 0 ? '' : 'none';
+  }
+}
+
+function markChecked(srcId) {
+  if (!monitorConfig.sources[srcId]) monitorConfig.sources[srcId] = {};
+  monitorConfig.sources[srcId].lastChecked = new Date().toISOString().slice(0,10);
+  saveMonitorConfig();
+  renderMonitorList();
+  showToast('✓ 확인 완료로 기록되었습니다');
+}
+
+function editMonitorNote(srcId) {
+  const cfg = monitorConfig.sources[srcId] || {};
+  const note = prompt('이 출처에 대한 메모를 입력하세요:', cfg.notes || '');
+  if (note === null) return;
+  if (!monitorConfig.sources[srcId]) monitorConfig.sources[srcId] = {};
+  monitorConfig.sources[srcId].notes = note.trim();
+  saveMonitorConfig();
+  renderMonitorList();
+}
+
+function openAllSources() {
+  MONITOR_SOURCES.forEach(s => window.open(s.url, '_blank'));
+  showToast(`✓ ${MONITOR_SOURCES.length}개 사이트를 새 탭으로 열었습니다`);
+}
+
+function checkOverdueMonitor() {
+  const iv = monitorConfig.interval;
+  const overdue = MONITOR_SOURCES.filter(src => {
+    const daysAgo = getDaysAgo((monitorConfig.sources[src.id] || {}).lastChecked);
+    return daysAgo === null || daysAgo >= iv;
+  });
+  if (overdue.length > 0 && monitorConfig.notifEnabled && Notification.permission === 'granted') {
+    new Notification('MediReg — 규정 모니터링', {
+      body: `${overdue.length}개 규정 출처를 확인할 시간입니다.`,
+      tag: 'medireg-monitor'
+    });
+  }
+}
+
+async function toggleNotification() {
+  if (!('Notification' in window)) { showToast('이 브라우저는 알림을 지원하지 않습니다'); return; }
+  if (monitorConfig.notifEnabled) {
+    monitorConfig.notifEnabled = false;
+    saveMonitorConfig();
+    updateNotifBtn();
+    showToast('알림이 비활성화되었습니다');
+    return;
+  }
+  if (Notification.permission === 'denied') {
+    showToast('브라우저 알림 권한이 차단되어 있습니다. 브라우저 설정에서 허용해주세요.');
+    return;
+  }
+  const perm = await Notification.requestPermission();
+  if (perm === 'granted') {
+    monitorConfig.notifEnabled = true;
+    saveMonitorConfig();
+    updateNotifBtn();
+    showToast('✓ 알림이 활성화되었습니다');
+    checkOverdueMonitor();
+  } else {
+    showToast('알림 권한이 거부되었습니다');
+  }
+}
+
+function updateNotifBtn() {
+  const btn = document.getElementById('notifBtn');
+  if (!btn) return;
+  if (monitorConfig.notifEnabled) {
+    btn.className = 'btn success';
+    btn.innerHTML = '<i class="ti ti-bell-ringing"></i> 알림 ON';
+  } else {
+    btn.className = 'btn primary';
+    btn.innerHTML = '<i class="ti ti-bell"></i> 알림 설정';
+  }
+}
+
+// ── GitHub Pages 라이브 데이터 연동 ─────────────────────────────
+// GitHub Actions가 data/ 폴더에 저장한 JSON을 주기적으로 fetch해
+// 크롤링된 최신 업데이트를 대시보드에 자동 반영합니다.
+const DATA_BASE = '../data';
+
+async function fetchLiveData() {
+  const statusEl = document.getElementById('liveStatus');
+  if (statusEl) statusEl.textContent = '데이터 로딩 중…';
+  try {
+    const [updatesRes, metaRes] = await Promise.all([
+      fetch(`${DATA_BASE}/updates.json`),
+      fetch(`${DATA_BASE}/meta.json`),
+    ]);
+    if (!updatesRes.ok) throw new Error('updates.json not found');
+
+    const liveUpdates = await updatesRes.json();
+    const meta = metaRes.ok ? await metaRes.json() : null;
+
+    // 기존 DB의 update id 목록
+    const existingIds = new Set(DB.updates.map(u => u.id));
+
+    // 크롤링된 신규 항목만 앞에 추가
+    let added = 0;
+    for (const item of liveUpdates) {
+      if (!existingIds.has(item.id)) {
+        DB.updates.unshift(item);
+        added++;
+      }
+    }
+
+    if (added > 0) {
+      save();
+      renderUpdList();
+      renderDashboard();
+      updateCounts();
+      showToast(`크롤링 데이터 ${added}건 추가됨`);
+    }
+
+    if (statusEl && meta) {
+      const d = new Date(meta.last_crawled);
+      statusEl.textContent = `마지막 크롤링: ${d.toLocaleDateString('ko-KR')}`;
+    } else if (statusEl) {
+      statusEl.textContent = added > 0 ? `신규 ${added}건 반영` : '최신 상태';
+    }
+  } catch (e) {
+    // 로컬 파일 열기 or 아직 data/ 미생성 시 무시
+    if (statusEl) statusEl.textContent = '로컬 모드';
+  }
+}
+
+// ── Start ─────────────────────────────────────────────────────
+load();
+fetchLiveData();
+</script>
+</body>
+</html>
