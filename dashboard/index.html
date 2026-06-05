@@ -1522,23 +1522,48 @@ async function fetchLiveData() {
     // 기존 DB의 update id 목록
     const existingIds = new Set(DB.updates.map(u => u.id));
 
-    // 크롤링된 신규 항목만 앞에 추가
-    let added = 0;
+    // 크롤링된 신규 항목 → 업데이트 + 규정 DB 동시 추가
+    const existingRegIds = new Set(DB.regulations.map(r => String(r.id)));
+    const DOCTYPE_TYPE = { notice:'공지사항', guidance:'고시·가이드라인', law:'법령·규정', recall:'안전정보', standard:'국제표준', imdrf:'IMDRF' };
+    const COUNTRY_PRIORITY = { KR:'높음', US:'높음', EU:'높음', INT:'중간' };
+
+    let added = 0, regAdded = 0;
     for (const item of liveUpdates) {
+      // 1) 업데이트 탭에 추가
       if (!existingIds.has(item.id)) {
-        // summary → body 필드 통일
         if (!item.body && item.summary) item.body = item.summary;
         DB.updates.unshift(item);
         added++;
       }
+      // 2) 규정 데이터베이스에 추가 (중복 방지)
+      const regId = 'crawl_' + item.id;
+      if (!existingRegIds.has(regId)) {
+        const dtype = item.doctype || 'guidance';
+        DB.regulations.unshift({
+          id: regId,
+          country: item.country || 'INT',
+          doctype: dtype,
+          type: DOCTYPE_TYPE[dtype] || '기타',
+          name: item.title || '(제목 없음)',
+          version: item.date ? item.date.slice(0,7) : '',
+          phase: '',
+          summary: item.summary || item.body || '',
+          detail: '',
+          relatedStds: '',
+          link: item.link || '',
+          priority: COUNTRY_PRIORITY[item.country] || '중간',
+          tags: [item.country, dtype].filter(Boolean).join(','),
+          date: item.date || (item.detected_at ? item.detected_at.slice(0,10) : ''),
+        });
+        existingRegIds.add(regId);
+        regAdded++;
+      }
     }
 
-    if (added > 0) {
+    if (added > 0 || regAdded > 0) {
       save();
-      renderUpdList();
-      renderDashboard();
-      updateCounts();
-      showToast(`크롤링 데이터 ${added}건 추가됨`);
+      renderAll();
+      showToast(`✓ 업데이트 ${added}건 · 규정 DB ${regAdded}건 추가됨`);
     }
 
     if (statusEl && meta && meta.last_crawled) {
