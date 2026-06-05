@@ -1,10 +1,10 @@
 {
-  "last_crawled": "2026-06-05T05:39:22.852048+00:00",
-  "total_items": 36,
-  "new_items": 7,
+  "last_crawled": "2026-06-05T05:53:19.574775+00:00",
+  "total_items": 29,
+  "new_items": 0,
   "stats": {
     "MFDS": {
-      "count": 7,
+      "count": 0,
       "status": "ok"
     },
     "FDA": {

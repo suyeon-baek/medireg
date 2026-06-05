@@ -1,75 +1,5 @@
 [
   {
-    "id": "mfds_law_63ffc27ec612",
-    "source": "mfds_law",
-    "country": "KR",
-    "doctype": "law",
-    "title": "식품의 기준 및 규격 고시전문(제2026-40호, 2026.5.19)",
-    "link": "https://www.mfds.go.kr./view.do?seq=14971&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "crawled_at": "2026-06-05T05:39:28.082873"
-  },
-  {
-    "id": "mfds_law_16ae81264ca3",
-    "source": "mfds_law",
-    "country": "KR",
-    "doctype": "law",
-    "title": "「식품 등 이력추적관리기준」 고시전문(식약처 고시 제2026-39호, 2026.5.15.)",
-    "link": "https://www.mfds.go.kr./view.do?seq=14970&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "crawled_at": "2026-06-05T05:39:28.083203"
-  },
-  {
-    "id": "mfds_law_6c595366187e",
-    "source": "mfds_law",
-    "country": "KR",
-    "doctype": "law",
-    "title": "「화장품의 생산·수입 실적 및 원료목록 보고에 관한 규정」고시 전문(제2026-38호, 2026.5.13)",
-    "link": "https://www.mfds.go.kr./view.do?seq=14969&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "crawled_at": "2026-06-05T05:39:28.083426"
-  },
-  {
-    "id": "mfds_law_a6b23039728f",
-    "source": "mfds_law",
-    "country": "KR",
-    "doctype": "law",
-    "title": "「식품등의 표시기준」 고시전문(식약처 고시 제2026-37호, 2026.5.12.)",
-    "link": "https://www.mfds.go.kr./view.do?seq=14968&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "crawled_at": "2026-06-05T05:39:28.083630"
-  },
-  {
-    "id": "mfds_law_faf0e801fbdb",
-    "source": "mfds_law",
-    "country": "KR",
-    "doctype": "law",
-    "title": "「마약류의 오남용 방지를 위한 조치기준」 고시 전문(제2026-35호)",
-    "link": "https://www.mfds.go.kr./view.do?seq=14967&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "crawled_at": "2026-06-05T05:39:28.083830"
-  },
-  {
-    "id": "mfds_law_227e64f6e13e",
-    "source": "mfds_law",
-    "country": "KR",
-    "doctype": "law",
-    "title": "「건강기능식품 기능성 원료 및 기준·규격 인정에 관한 규정」고시전문(제2026-33호¸ 2026.4.13.)",
-    "link": "https://www.mfds.go.kr./view.do?seq=14966&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "crawled_at": "2026-06-05T05:39:28.084030"
-  },
-  {
-    "id": "mfds_law_b1de88accd5b",
-    "source": "mfds_law",
-    "country": "KR",
-    "doctype": "law",
-    "title": "「건강기능식품의 기준 및 규격」 고시전문(고시 제2026-32호 2026.4.13. 반영)",
-    "link": "https://www.mfds.go.kr./view.do?seq=14965&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "crawled_at": "2026-06-05T05:39:28.084178"
-  },
-  {
     "id": "pmda_regulatory_ac034dd1f589",
     "source": "pmda_regulatory",
     "country": "JP",
@@ -78,7 +8,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000227090.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.438311"
+    "crawled_at": "2026-06-05T05:58:54.212594"
   },
   {
     "id": "pmda_regulatory_7af87794e509",
@@ -89,7 +19,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000227091.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.438413"
+    "crawled_at": "2026-06-05T05:58:54.212708"
   },
   {
     "id": "pmda_regulatory_4c93f6ff7b1e",
@@ -100,7 +30,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000227093.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.438488"
+    "crawled_at": "2026-06-05T05:58:54.212791"
   },
   {
     "id": "pmda_regulatory_f73e94514c1a",
@@ -111,7 +41,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000227842.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.438560"
+    "crawled_at": "2026-06-05T05:58:54.212869"
   },
   {
     "id": "pmda_regulatory_25ce56483c22",
@@ -122,7 +52,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000227841.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.438634"
+    "crawled_at": "2026-06-05T05:58:54.212941"
   },
   {
     "id": "pmda_regulatory_a23131fb22ee",
@@ -133,7 +63,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000227092.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.438703"
+    "crawled_at": "2026-06-05T05:58:54.213029"
   },
   {
     "id": "pmda_regulatory_98a0de1da27a",
@@ -144,7 +74,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000275273.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.438771"
+    "crawled_at": "2026-06-05T05:58:54.213132"
   },
   {
     "id": "pmda_regulatory_36852c77b46a",
@@ -155,7 +85,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000275274.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.438857"
+    "crawled_at": "2026-06-05T05:58:54.213214"
   },
   {
     "id": "pmda_regulatory_26a9389e90f8",
@@ -166,7 +96,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000275275.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.438923"
+    "crawled_at": "2026-06-05T05:58:54.213280"
   },
   {
     "id": "pmda_regulatory_1860b24611cf",
@@ -177,7 +107,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000275276.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439011"
+    "crawled_at": "2026-06-05T05:58:54.213343"
   },
   {
     "id": "pmda_regulatory_264507736c26",
@@ -188,7 +118,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000275277.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439091"
+    "crawled_at": "2026-06-05T05:58:54.213417"
   },
   {
     "id": "pmda_regulatory_ed70083d6901",
@@ -199,7 +129,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000237132.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439155"
+    "crawled_at": "2026-06-05T05:58:54.213480"
   },
   {
     "id": "pmda_regulatory_ca0cbd71e5b8",
@@ -210,7 +140,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000153213.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439214"
+    "crawled_at": "2026-06-05T05:58:54.213540"
   },
   {
     "id": "pmda_regulatory_ab234f2644d7",
@@ -221,7 +151,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000153073.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439272"
+    "crawled_at": "2026-06-05T05:58:54.213600"
   },
   {
     "id": "pmda_regulatory_96b8d478a9a7",
@@ -232,7 +162,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000153893.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439331"
+    "crawled_at": "2026-06-05T05:58:54.213667"
   },
   {
     "id": "pmda_regulatory_4eece477ea9a",
@@ -243,7 +173,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000275278.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439394"
+    "crawled_at": "2026-06-05T05:58:54.213734"
   },
   {
     "id": "pmda_regulatory_b5401aa398b0",
@@ -254,7 +184,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000275279.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439460"
+    "crawled_at": "2026-06-05T05:58:54.213795"
   },
   {
     "id": "pmda_regulatory_8eb83127ba8e",
@@ -265,7 +195,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000231042.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439519"
+    "crawled_at": "2026-06-05T05:58:54.213854"
   },
   {
     "id": "pmda_regulatory_80e93961d5a7",
@@ -276,7 +206,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000231040.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439585"
+    "crawled_at": "2026-06-05T05:58:54.213913"
   },
   {
     "id": "pmda_regulatory_13b3c452b662",
@@ -287,7 +217,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000231041.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439650"
+    "crawled_at": "2026-06-05T05:58:54.213973"
   },
   {
     "id": "pmda_regulatory_f409a4041bb4",
@@ -298,7 +228,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000231038.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439711"
+    "crawled_at": "2026-06-05T05:58:54.214033"
   },
   {
     "id": "pmda_regulatory_999b4943dda4",
@@ -309,7 +239,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000275280.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439777"
+    "crawled_at": "2026-06-05T05:58:54.214124"
   },
   {
     "id": "pmda_regulatory_c0735e09b271",
@@ -320,7 +250,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000275281.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439838"
+    "crawled_at": "2026-06-05T05:58:54.214190"
   },
   {
     "id": "pmda_regulatory_b8969f587fdd",
@@ -331,7 +261,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000153584.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439897"
+    "crawled_at": "2026-06-05T05:58:54.214250"
   },
   {
     "id": "pmda_regulatory_301af65de49a",
@@ -342,7 +272,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000153044.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.439955"
+    "crawled_at": "2026-06-05T05:58:54.214313"
   },
   {
     "id": "pmda_regulatory_7adc3f6af5eb",
@@ -353,7 +283,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000264825.pdf",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.440042"
+    "crawled_at": "2026-06-05T05:58:54.214375"
   },
   {
     "id": "pmda_regulatory_7d1c91c0f410",
@@ -364,7 +294,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/english/review-services/reviews/0004.html",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.440113"
+    "crawled_at": "2026-06-05T05:58:54.214441"
   },
   {
     "id": "pmda_regulatory_3d30bc7e4ec3",
@@ -375,7 +305,7 @@
     "summary": "",
     "link": "https://www.pmda.go.jp/english/review-services/regulatory-info/0004.html",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.440181"
+    "crawled_at": "2026-06-05T05:58:54.214503"
   },
   {
     "id": "pmda_regulatory_13eb68727472",
@@ -386,6 +316,6 @@
     "summary": "",
     "link": "https://dmd.nihs.go.jp/jisedai/tsuuchi/index.html",
     "date": "",
-    "crawled_at": "2026-06-05T05:39:30.440229"
+    "crawled_at": "2026-06-05T05:58:54.214550"
   }
 ]
