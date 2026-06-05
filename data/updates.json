@@ -1,5 +1,82 @@
 [
   {
+    "id": "mfds_law_b1de88accd5b",
+    "country": "KR",
+    "doctype": "law",
+    "title": "「건강기능식품의 기준 및 규격」 고시전문(고시 제2026-32호 2026.4.13. 반영)",
+    "summary": "",
+    "link": "https://www.mfds.go.kr./view.do?seq=14965&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
+    "date": "",
+    "detected_at": "2026-06-05T05:39:22.852048+00:00",
+    "unread": true
+  },
+  {
+    "id": "mfds_law_227e64f6e13e",
+    "country": "KR",
+    "doctype": "law",
+    "title": "「건강기능식품 기능성 원료 및 기준·규격 인정에 관한 규정」고시전문(제2026-33호¸ 2026.4.13.)",
+    "summary": "",
+    "link": "https://www.mfds.go.kr./view.do?seq=14966&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
+    "date": "",
+    "detected_at": "2026-06-05T05:39:22.852048+00:00",
+    "unread": true
+  },
+  {
+    "id": "mfds_law_faf0e801fbdb",
+    "country": "KR",
+    "doctype": "law",
+    "title": "「마약류의 오남용 방지를 위한 조치기준」 고시 전문(제2026-35호)",
+    "summary": "",
+    "link": "https://www.mfds.go.kr./view.do?seq=14967&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
+    "date": "",
+    "detected_at": "2026-06-05T05:39:22.852048+00:00",
+    "unread": true
+  },
+  {
+    "id": "mfds_law_a6b23039728f",
+    "country": "KR",
+    "doctype": "law",
+    "title": "「식품등의 표시기준」 고시전문(식약처 고시 제2026-37호, 2026.5.12.)",
+    "summary": "",
+    "link": "https://www.mfds.go.kr./view.do?seq=14968&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
+    "date": "",
+    "detected_at": "2026-06-05T05:39:22.852048+00:00",
+    "unread": true
+  },
+  {
+    "id": "mfds_law_6c595366187e",
+    "country": "KR",
+    "doctype": "law",
+    "title": "「화장품의 생산·수입 실적 및 원료목록 보고에 관한 규정」고시 전문(제2026-38호, 2026.5.13)",
+    "summary": "",
+    "link": "https://www.mfds.go.kr./view.do?seq=14969&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
+    "date": "",
+    "detected_at": "2026-06-05T05:39:22.852048+00:00",
+    "unread": true
+  },
+  {
+    "id": "mfds_law_16ae81264ca3",
+    "country": "KR",
+    "doctype": "law",
+    "title": "「식품 등 이력추적관리기준」 고시전문(식약처 고시 제2026-39호, 2026.5.15.)",
+    "summary": "",
+    "link": "https://www.mfds.go.kr./view.do?seq=14970&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
+    "date": "",
+    "detected_at": "2026-06-05T05:39:22.852048+00:00",
+    "unread": true
+  },
+  {
+    "id": "mfds_law_63ffc27ec612",
+    "country": "KR",
+    "doctype": "law",
+    "title": "식품의 기준 및 규격 고시전문(제2026-40호, 2026.5.19)",
+    "summary": "",
+    "link": "https://www.mfds.go.kr./view.do?seq=14971&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
+    "date": "",
+    "detected_at": "2026-06-05T05:39:22.852048+00:00",
+    "unread": true
+  },
+  {
     "id": "pmda_regulatory_13eb68727472",
     "country": "JP",
     "doctype": "guidance",
