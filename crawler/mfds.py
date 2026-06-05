@@ -1,9 +1,10 @@
 """식약처 (MFDS) 크롤러 — 고시, 가이던스, 공지사항 수집"""
-import re
 import json
 import hashlib
 import logging
+import time
 from datetime import datetime
+from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 
@@ -19,18 +20,25 @@ TARGETS = [
         "doctype": "notice",
     },
     {
-        "id": "mfds_guidance",
-        "label": "식약처 의료기기 가이던스",
-        "url": f"{BASE}/brd/m_217/list.do",
-        "country": "KR",
-        "doctype": "guidance",
-    },
-    {
         "id": "mfds_law",
         "label": "식약처 의료기기 법령/고시",
         "url": f"{BASE}/brd/m_211/list.do",
         "country": "KR",
         "doctype": "law",
+    },
+    {
+        "id": "mfds_admin",
+        "label": "식약처 의료기기 행정처분/허가",
+        "url": f"{BASE}/brd/m_215/list.do",
+        "country": "KR",
+        "doctype": "guidance",
+    },
+    {
+        "id": "mfds_approval",
+        "label": "식약처 의료기기 허가 심사",
+        "url": f"{BASE}/brd/m_220/list.do",
+        "country": "KR",
+        "doctype": "guidance",
     },
 ]
 
@@ -41,7 +49,9 @@ HEADERS = {
         "Chrome/124.0.0.0 Safari/537.36"
     ),
     "Accept-Language": "ko-KR,ko;q=0.9",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Referer": "https://www.mfds.go.kr",
+    "Connection": "keep-alive",
 }
 
 
@@ -49,11 +59,15 @@ def _hash(text: str) -> str:
     return hashlib.sha256(text.encode()).hexdigest()[:12]
 
 
-def _parse_list_page(html: str, source_id: str, country: str, doctype: str) -> list[dict]:
+def _parse_list_page(html: str, page_url: str, source_id: str, country: str, doctype: str) -> list[dict]:
     soup = BeautifulSoup(html, "html.parser")
     items = []
 
-    # 실제 구조: div.bbs_list01 > ul > li
+    # 에러 페이지 감지
+    if soup.select_one("div.error_page"):
+        logger.warning("%s: error page returned", source_id)
+        return items
+
     container = soup.select_one("div.bbs_list01")
     if not container:
         logger.warning("%s: div.bbs_list01 not found", source_id)
@@ -61,7 +75,6 @@ def _parse_list_page(html: str, source_id: str, country: str, doctype: str) -> l
 
     rows = container.select("ul > li")
     for row in rows[:20]:
-        # 공지 확장 버튼(notice_more) 제외
         if "notice_more" in row.get("class", []):
             continue
 
@@ -74,13 +87,12 @@ def _parse_list_page(html: str, source_id: str, country: str, doctype: str) -> l
             continue
 
         href = title_el.get("href", "")
+        # urljoin으로 상대 URL 올바르게 처리 (./view.do?... 등)
         if href and not href.startswith("http"):
-            href = BASE + href
+            href = urljoin(page_url, href)
 
         date_el = row.select_one("div.right_column")
-        date_str = date_el.get_text(strip=True) if date_el else ""
-        # "2026-05-29" 형식 그대로 사용
-        date_str = date_str[:10] if date_str else ""
+        date_str = date_el.get_text(strip=True)[:10] if date_el else ""
 
         items.append({
             "id": f"{source_id}_{_hash(title)}",
@@ -90,10 +102,26 @@ def _parse_list_page(html: str, source_id: str, country: str, doctype: str) -> l
             "title": title,
             "link": href,
             "date": date_str,
-            "crawled_at": datetime.utcnow().isoformat(),
+            "crawled_at": datetime.now().isoformat(),
         })
 
     return items
+
+
+def _fetch_with_retry(session: requests.Session, url: str, retries: int = 3, delay: float = 2.0):
+    for attempt in range(retries):
+        try:
+            resp = session.get(url, timeout=25)
+            resp.raise_for_status()
+            resp.encoding = "utf-8"
+            return resp
+        except requests.exceptions.ConnectionError as e:
+            if attempt < retries - 1:
+                logger.warning("Connection error on %s (attempt %d/%d), retrying...", url, attempt + 1, retries)
+                time.sleep(delay * (attempt + 1))
+            else:
+                raise e
+    return None
 
 
 def crawl() -> list[dict]:
@@ -103,11 +131,10 @@ def crawl() -> list[dict]:
 
     for target in TARGETS:
         try:
-            resp = session.get(target["url"], timeout=20)
-            resp.raise_for_status()
-            resp.encoding = "utf-8"
+            resp = _fetch_with_retry(session, target["url"])
             items = _parse_list_page(
                 resp.text,
+                target["url"],
                 target["id"],
                 target["country"],
                 target["doctype"],
@@ -116,6 +143,7 @@ def crawl() -> list[dict]:
             logger.info("MFDS %s: %d items", target["id"], len(items))
         except Exception as e:
             logger.warning("MFDS %s failed: %s", target["id"], e)
+        time.sleep(1.0)  # 서버 부하 방지
 
     return results
 

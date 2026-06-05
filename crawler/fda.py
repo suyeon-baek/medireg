@@ -1,10 +1,9 @@
-"""FDA 크롤러 — openFDA API + 공식 RSS 피드로 가이던스 수집"""
+"""FDA 크롤러 — Federal Register API + accessdata로 가이던스 수집"""
 import json
 import hashlib
 import logging
 from datetime import datetime
 import requests
-from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
 
@@ -14,140 +13,139 @@ HEADERS = {
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/124.0.0.0 Safari/537.36"
     ),
-    "Accept": "application/rss+xml, application/xml, text/xml, */*",
+    "Accept": "application/json",
 }
 
-# FDA 공식 RSS (봇 차단 우회를 위해 feedparser 호환 헤더 사용)
-FDA_RSS_URLS = [
-    {
-        "id": "fda_guidance_rss",
-        "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/medical-devices/rss.xml",
-        "label": "FDA 의료기기 가이던스 RSS",
-        "country": "US",
-        "doctype": "guidance",
-    },
-    {
-        "id": "fda_recalls_rss",
-        "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/medical-device-recalls/rss.xml",
-        "label": "FDA 의료기기 리콜 RSS",
-        "country": "US",
-        "doctype": "recall",
-    },
-]
+# Federal Register API — FDA 의료기기 관련 공시
+FEDERAL_REGISTER_API = "https://www.federalregister.gov/api/v1/documents.json"
 
-# 대체: FDA 가이던스 검색 페이지 (RSS 차단 시 fallback)
-FDA_GUIDANCE_HTML = {
-    "id": "fda_guidance_html",
-    "url": "https://www.fda.gov/medical-devices/guidance-documents-medical-devices-and-radiation-emitting-products",
-    "label": "FDA 의료기기 가이던스 목록",
-    "country": "US",
-    "doctype": "guidance",
-}
+# FDA 리콜 RSS (현재 작동하는 URL)
+FDA_RECALL_RSS = "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/medical-device-safety-communications/rss.xml"
 
 
 def _hash(text: str) -> str:
     return hashlib.sha256(text.encode()).hexdigest()[:12]
 
 
-def _parse_rss(xml_text: str, source_id: str, country: str, doctype: str) -> list[dict]:
-    soup = BeautifulSoup(xml_text, "xml")
+def _fetch_federal_register(session: requests.Session) -> list[dict]:
+    """Federal Register API로 FDA 의료기기 관련 최신 공시 수집"""
     items = []
-    for item in soup.find_all("item")[:20]:
-        title = (item.find("title") or {}).get_text(strip=True)
-        link = (item.find("link") or {}).get_text(strip=True)
-        pub_date = (item.find("pubDate") or {}).get_text(strip=True)
-        description = (item.find("description") or {}).get_text(strip=True)[:300]
-
-        if not title:
-            continue
-
-        date_str = ""
-        try:
-            from email.utils import parsedate_to_datetime
-            date_str = parsedate_to_datetime(pub_date).date().isoformat()
-        except Exception:
-            date_str = pub_date[:10] if pub_date else ""
-
-        items.append({
-            "id": f"{source_id}_{_hash(title)}",
-            "source": source_id,
-            "country": country,
-            "doctype": doctype,
-            "title": title,
-            "summary": description,
-            "link": link,
-            "date": date_str,
-            "crawled_at": datetime.utcnow().isoformat(),
-        })
+    params = {
+        "conditions[agencies]": "food-and-drug-administration",
+        "conditions[term]": "medical device guidance",
+        "per_page": 20,
+        "order": "newest",
+        "fields[]": ["title", "publication_date", "html_url", "abstract", "document_number", "type"],
+    }
+    try:
+        resp = session.get(FEDERAL_REGISTER_API, params=params, timeout=20)
+        resp.raise_for_status()
+        data = resp.json()
+        for doc in data.get("results", [])[:20]:
+            title = doc.get("title", "").strip()
+            if not title:
+                continue
+            items.append({
+                "id": f"fda_fr_{_hash(title)}",
+                "source": "fda_federal_register",
+                "country": "US",
+                "doctype": "guidance",
+                "title": title,
+                "summary": (doc.get("abstract") or "")[:300],
+                "link": doc.get("html_url", ""),
+                "date": doc.get("publication_date", ""),
+                "crawled_at": datetime.now().isoformat(),
+            })
+        logger.info("FDA Federal Register: %d items", len(items))
+    except Exception as e:
+        logger.warning("FDA Federal Register failed: %s", e)
     return items
 
 
-def _parse_guidance_html(html: str, source_id: str) -> list[dict]:
-    """RSS 차단 시 HTML 페이지에서 직접 파싱하는 fallback"""
-    soup = BeautifulSoup(html, "html.parser")
+def _fetch_federal_register_rules(session: requests.Session) -> list[dict]:
+    """Federal Register API로 FDA 의료기기 규정/최종 규칙 수집"""
     items = []
-    seen = set()
+    params = {
+        "conditions[agencies]": "food-and-drug-administration",
+        "conditions[term]": "medical devices",
+        "conditions[type][]": "Rule",
+        "per_page": 10,
+        "order": "newest",
+        "fields[]": ["title", "publication_date", "html_url", "abstract", "type"],
+    }
+    try:
+        resp = session.get(FEDERAL_REGISTER_API, params=params, timeout=20)
+        resp.raise_for_status()
+        data = resp.json()
+        for doc in data.get("results", [])[:10]:
+            title = doc.get("title", "").strip()
+            if not title:
+                continue
+            items.append({
+                "id": f"fda_rule_{_hash(title)}",
+                "source": "fda_rules",
+                "country": "US",
+                "doctype": "law",
+                "title": title,
+                "summary": (doc.get("abstract") or "")[:300],
+                "link": doc.get("html_url", ""),
+                "date": doc.get("publication_date", ""),
+                "crawled_at": datetime.now().isoformat(),
+            })
+        logger.info("FDA Rules: %d items", len(items))
+    except Exception as e:
+        logger.warning("FDA Rules failed: %s", e)
+    return items
 
-    # FDA 가이던스 목록: .lcds-list 또는 table 내 링크
-    for a in soup.select("table a, .lcds-list a, ul.usa-list a")[:25]:
-        title = a.get_text(strip=True)
-        if not title or len(title) < 10:
-            continue
-        href = a.get("href", "")
-        if not href.startswith("http"):
-            href = "https://www.fda.gov" + href
 
-        key = _hash(title)
-        if key in seen:
-            continue
-        seen.add(key)
-
-        items.append({
-            "id": f"{source_id}_{key}",
-            "source": source_id,
-            "country": "US",
-            "doctype": "guidance",
-            "title": title,
-            "summary": "",
-            "link": href,
-            "date": "",
-            "crawled_at": datetime.utcnow().isoformat(),
-        })
+def _fetch_recall_rss(session: requests.Session) -> list[dict]:
+    """FDA 의료기기 안전 통신 RSS (작동 시)"""
+    from bs4 import BeautifulSoup
+    from email.utils import parsedate_to_datetime
+    items = []
+    try:
+        resp = session.get(FDA_RECALL_RSS, timeout=15)
+        ct = resp.headers.get("Content-Type", "")
+        if resp.status_code != 200 or ("xml" not in ct and not resp.text.strip().startswith("<?xml")):
+            logger.warning("FDA recall RSS not available (status=%d)", resp.status_code)
+            return items
+        soup = BeautifulSoup(resp.text, "xml")
+        for item in soup.find_all("item")[:10]:
+            title = (item.find("title") or {}).get_text(strip=True)
+            link = (item.find("link") or {}).get_text(strip=True)
+            pub_date = (item.find("pubDate") or {}).get_text(strip=True)
+            if not title:
+                continue
+            date_str = ""
+            try:
+                date_str = parsedate_to_datetime(pub_date).date().isoformat()
+            except Exception:
+                date_str = pub_date[:10] if pub_date else ""
+            items.append({
+                "id": f"fda_recall_{_hash(title)}",
+                "source": "fda_recalls_rss",
+                "country": "US",
+                "doctype": "recall",
+                "title": title,
+                "summary": "",
+                "link": link,
+                "date": date_str,
+                "crawled_at": datetime.now().isoformat(),
+            })
+        logger.info("FDA Recall RSS: %d items", len(items))
+    except Exception as e:
+        logger.warning("FDA Recall RSS failed: %s", e)
     return items
 
 
 def crawl() -> list[dict]:
-    results = []
     session = requests.Session()
     session.headers.update(HEADERS)
 
-    for target in FDA_RSS_URLS:
-        try:
-            resp = session.get(target["url"], timeout=25)
-            resp.raise_for_status()
-            # XML 응답인지 확인
-            ct = resp.headers.get("Content-Type", "")
-            if "xml" in ct or resp.text.strip().startswith("<?xml"):
-                items = _parse_rss(resp.text, target["id"], target["country"], target["doctype"])
-                results.extend(items)
-                logger.info("FDA RSS %s: %d items", target["id"], len(items))
-            else:
-                logger.warning("FDA RSS %s: unexpected content type %s", target["id"], ct)
-        except Exception as e:
-            logger.warning("FDA RSS %s failed: %s", target["id"], e)
-
-    # RSS 모두 실패 시 HTML fallback
-    if not results:
-        try:
-            t = FDA_GUIDANCE_HTML
-            resp = session.get(t["url"], timeout=25)
-            resp.raise_for_status()
-            items = _parse_guidance_html(resp.text, t["id"])
-            results.extend(items)
-            logger.info("FDA HTML fallback: %d items", len(items))
-        except Exception as e:
-            logger.warning("FDA HTML fallback failed: %s", e)
-
+    results = []
+    results.extend(_fetch_federal_register(session))
+    results.extend(_fetch_federal_register_rules(session))
+    results.extend(_fetch_recall_rss(session))
     return results
 
 
