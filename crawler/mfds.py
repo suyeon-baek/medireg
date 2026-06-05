@@ -4,7 +4,6 @@ import json
 import hashlib
 import logging
 from datetime import datetime
-from typing import Optional
 import requests
 from bs4 import BeautifulSoup
 
@@ -42,6 +41,7 @@ HEADERS = {
         "Chrome/124.0.0.0 Safari/537.36"
     ),
     "Accept-Language": "ko-KR,ko;q=0.9",
+    "Referer": "https://www.mfds.go.kr",
 }
 
 
@@ -49,29 +49,38 @@ def _hash(text: str) -> str:
     return hashlib.sha256(text.encode()).hexdigest()[:12]
 
 
-def _parse_list_page(html: str, base_url: str, source_id: str, country: str, doctype: str) -> list[dict]:
+def _parse_list_page(html: str, source_id: str, country: str, doctype: str) -> list[dict]:
     soup = BeautifulSoup(html, "html.parser")
     items = []
 
-    rows = soup.select("table.board_list tbody tr")
-    if not rows:
-        rows = soup.select("ul.board_list li")
+    # 실제 구조: div.bbs_list01 > ul > li
+    container = soup.select_one("div.bbs_list01")
+    if not container:
+        logger.warning("%s: div.bbs_list01 not found", source_id)
+        return items
 
-    for row in rows[:20]:  # 최신 20건만
-        title_el = row.select_one("a") or row.select_one(".title")
+    rows = container.select("ul > li")
+    for row in rows[:20]:
+        # 공지 확장 버튼(notice_more) 제외
+        if "notice_more" in row.get("class", []):
+            continue
+
+        title_el = row.select_one("a.title")
         if not title_el:
             continue
+
         title = title_el.get_text(strip=True)
-        if not title or title in ("이전글", "다음글"):
+        if not title:
             continue
 
         href = title_el.get("href", "")
         if href and not href.startswith("http"):
             href = BASE + href
 
-        date_el = row.select_one("td.date") or row.select_one(".date")
+        date_el = row.select_one("div.right_column")
         date_str = date_el.get_text(strip=True) if date_el else ""
-        date_str = re.sub(r"\.", "-", date_str).strip("-")
+        # "2026-05-29" 형식 그대로 사용
+        date_str = date_str[:10] if date_str else ""
 
         items.append({
             "id": f"{source_id}_{_hash(title)}",
@@ -99,7 +108,6 @@ def crawl() -> list[dict]:
             resp.encoding = "utf-8"
             items = _parse_list_page(
                 resp.text,
-                target["url"],
                 target["id"],
                 target["country"],
                 target["doctype"],

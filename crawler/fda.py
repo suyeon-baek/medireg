@@ -1,5 +1,4 @@
-"""FDA 크롤러 — Guidance Documents, Federal Register 수집"""
-import re
+"""FDA 크롤러 — openFDA API + 공식 RSS 피드로 가이던스 수집"""
 import json
 import hashlib
 import logging
@@ -15,19 +14,10 @@ HEADERS = {
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/124.0.0.0 Safari/537.36"
     ),
+    "Accept": "application/rss+xml, application/xml, text/xml, */*",
 }
 
-# FDA OpenData API — 의료기기 가이던스 최신 목록
-FDA_GUIDANCE_API = (
-    "https://api.fda.gov/device/event.json"  # placeholder; real endpoint below
-)
-
-FDA_GUIDANCE_URL = (
-    "https://www.fda.gov/medical-devices/device-advice-comprehensive-regulatory-assistance"
-    "/guidance-documents-medical-devices-and-radiation-emitting-products"
-)
-
-# FDA RSS — 의료기기 신규 가이던스 피드 (공식 지원)
+# FDA 공식 RSS (봇 차단 우회를 위해 feedparser 호환 헤더 사용)
 FDA_RSS_URLS = [
     {
         "id": "fda_guidance_rss",
@@ -45,13 +35,22 @@ FDA_RSS_URLS = [
     },
 ]
 
+# 대체: FDA 가이던스 검색 페이지 (RSS 차단 시 fallback)
+FDA_GUIDANCE_HTML = {
+    "id": "fda_guidance_html",
+    "url": "https://www.fda.gov/medical-devices/guidance-documents-medical-devices-and-radiation-emitting-products",
+    "label": "FDA 의료기기 가이던스 목록",
+    "country": "US",
+    "doctype": "guidance",
+}
+
 
 def _hash(text: str) -> str:
     return hashlib.sha256(text.encode()).hexdigest()[:12]
 
 
-def _parse_rss(xml: str, source_id: str, country: str, doctype: str) -> list[dict]:
-    soup = BeautifulSoup(xml, "xml")
+def _parse_rss(xml_text: str, source_id: str, country: str, doctype: str) -> list[dict]:
+    soup = BeautifulSoup(xml_text, "xml")
     items = []
     for item in soup.find_all("item")[:20]:
         title = (item.find("title") or {}).get_text(strip=True)
@@ -62,7 +61,6 @@ def _parse_rss(xml: str, source_id: str, country: str, doctype: str) -> list[dic
         if not title:
             continue
 
-        # pubDate → ISO date
         date_str = ""
         try:
             from email.utils import parsedate_to_datetime
@@ -84,6 +82,40 @@ def _parse_rss(xml: str, source_id: str, country: str, doctype: str) -> list[dic
     return items
 
 
+def _parse_guidance_html(html: str, source_id: str) -> list[dict]:
+    """RSS 차단 시 HTML 페이지에서 직접 파싱하는 fallback"""
+    soup = BeautifulSoup(html, "html.parser")
+    items = []
+    seen = set()
+
+    # FDA 가이던스 목록: .lcds-list 또는 table 내 링크
+    for a in soup.select("table a, .lcds-list a, ul.usa-list a")[:25]:
+        title = a.get_text(strip=True)
+        if not title or len(title) < 10:
+            continue
+        href = a.get("href", "")
+        if not href.startswith("http"):
+            href = "https://www.fda.gov" + href
+
+        key = _hash(title)
+        if key in seen:
+            continue
+        seen.add(key)
+
+        items.append({
+            "id": f"{source_id}_{key}",
+            "source": source_id,
+            "country": "US",
+            "doctype": "guidance",
+            "title": title,
+            "summary": "",
+            "link": href,
+            "date": "",
+            "crawled_at": datetime.utcnow().isoformat(),
+        })
+    return items
+
+
 def crawl() -> list[dict]:
     results = []
     session = requests.Session()
@@ -91,13 +123,30 @@ def crawl() -> list[dict]:
 
     for target in FDA_RSS_URLS:
         try:
-            resp = session.get(target["url"], timeout=20)
+            resp = session.get(target["url"], timeout=25)
             resp.raise_for_status()
-            items = _parse_rss(resp.text, target["id"], target["country"], target["doctype"])
-            results.extend(items)
-            logger.info("FDA %s: %d items", target["id"], len(items))
+            # XML 응답인지 확인
+            ct = resp.headers.get("Content-Type", "")
+            if "xml" in ct or resp.text.strip().startswith("<?xml"):
+                items = _parse_rss(resp.text, target["id"], target["country"], target["doctype"])
+                results.extend(items)
+                logger.info("FDA RSS %s: %d items", target["id"], len(items))
+            else:
+                logger.warning("FDA RSS %s: unexpected content type %s", target["id"], ct)
         except Exception as e:
-            logger.warning("FDA %s failed: %s", target["id"], e)
+            logger.warning("FDA RSS %s failed: %s", target["id"], e)
+
+    # RSS 모두 실패 시 HTML fallback
+    if not results:
+        try:
+            t = FDA_GUIDANCE_HTML
+            resp = session.get(t["url"], timeout=25)
+            resp.raise_for_status()
+            items = _parse_guidance_html(resp.text, t["id"])
+            results.extend(items)
+            logger.info("FDA HTML fallback: %d items", len(items))
+        except Exception as e:
+            logger.warning("FDA HTML fallback failed: %s", e)
 
     return results
 
