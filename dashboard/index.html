@@ -811,7 +811,7 @@ function renderDashboard() {
   const updHtml = DB.updates.slice(0,3).map(u=>`
     <div class="update-card ${u.unread?'new-item':''}">
       <div class="update-top">${pillHtml(u.country)}${u.unread?'<div class="new-dot"></div><span class="new-tag">NEW</span>':''}<div class="update-title">${u.title}</div></div>
-      <div class="update-body">${u.body.slice(0,100)}...</div>
+      <div class="update-body">${(u.body||u.summary||'').slice(0,100)}...</div>
       <div class="update-meta"><span>${u.date}</span></div>
     </div>`).join('');
   document.getElementById('dashUpdates').innerHTML = updHtml || '<div style="color:var(--text3);font-size:12px;padding:8px 0;">업데이트 내역이 없습니다</div>';
