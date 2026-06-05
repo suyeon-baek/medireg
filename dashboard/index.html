@@ -1099,7 +1099,7 @@ function renderUpdList() {
     <div class="upd-card ${u.unread?'unread':''}">
       <div class="upd-card-top">${pillHtml(u.country)}${u.unread?'<div class="new-dot"></div><span class="new-tag">NEW</span>':''}<div class="upd-title">${u.title}</div>
       <button onclick="deleteUpd(${u.id})" style="margin-left:auto;background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;"><i class="ti ti-trash"></i></button></div>
-      <div class="upd-body">${u.body}</div>
+      <div class="upd-body">${u.body||u.summary||''}</div>
       <div class="upd-meta">
         <span>${u.date}</span>
         ${u.link?`<a href="${u.link}" target="_blank" style="color:var(--blue);">원문 보기 →</a>`:''}
@@ -1526,6 +1526,8 @@ async function fetchLiveData() {
     let added = 0;
     for (const item of liveUpdates) {
       if (!existingIds.has(item.id)) {
+        // summary → body 필드 통일
+        if (!item.body && item.summary) item.body = item.summary;
         DB.updates.unshift(item);
         added++;
       }
