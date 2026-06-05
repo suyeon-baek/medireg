@@ -3,6 +3,9 @@ name: GitHub Pages 배포
 on:
   push:
     branches: [main]
+    paths:
+      - 'dashboard/**'
+      - 'data/**'        # 크롤링 데이터 변경 시에도 Pages 재배포
   workflow_dispatch:
 
 permissions:

@@ -1539,9 +1539,13 @@ async function fetchLiveData() {
       showToast(`크롤링 데이터 ${added}건 추가됨`);
     }
 
-    if (statusEl && meta) {
+    if (statusEl && meta && meta.last_crawled) {
       const d = new Date(meta.last_crawled);
-      statusEl.textContent = `마지막 크롤링: ${d.toLocaleDateString('ko-KR')}`;
+      if (!isNaN(d.getTime())) {
+        statusEl.textContent = `마지막 크롤링: ${d.toLocaleDateString('ko-KR')}`;
+      } else {
+        statusEl.textContent = added > 0 ? `신규 ${added}건 반영` : '최신 상태';
+      }
     } else if (statusEl) {
       statusEl.textContent = added > 0 ? `신규 ${added}건 반영` : '최신 상태';
     }
