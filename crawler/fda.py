@@ -30,13 +30,16 @@ def _hash(text: str) -> str:
 def _fetch_federal_register(session: requests.Session) -> list[dict]:
     """Federal Register API로 FDA 의료기기 관련 최신 공시 수집"""
     items = []
-    params = {
-        "conditions[agencies]": "food-and-drug-administration",
-        "conditions[term]": "medical device guidance",
-        "per_page": 20,
-        "order": "newest",
-        "fields[]": ["title", "publication_date", "html_url", "abstract", "document_number", "type"],
-    }
+    params = [
+        ("conditions[agencies]", "food-and-drug-administration"),
+        ("conditions[term]", "medical device guidance"),
+        ("per_page", 20),
+        ("order", "newest"),
+        ("fields[]", "title"),
+        ("fields[]", "publication_date"),
+        ("fields[]", "html_url"),
+        ("fields[]", "abstract"),
+    ]
     try:
         resp = session.get(FEDERAL_REGISTER_API, params=params, timeout=20)
         resp.raise_for_status()
@@ -65,14 +68,17 @@ def _fetch_federal_register(session: requests.Session) -> list[dict]:
 def _fetch_federal_register_rules(session: requests.Session) -> list[dict]:
     """Federal Register API로 FDA 의료기기 규정/최종 규칙 수집"""
     items = []
-    params = {
-        "conditions[agencies]": "food-and-drug-administration",
-        "conditions[term]": "medical devices",
-        "conditions[type][]": "Rule",
-        "per_page": 10,
-        "order": "newest",
-        "fields[]": ["title", "publication_date", "html_url", "abstract", "type"],
-    }
+    params = [
+        ("conditions[agencies]", "food-and-drug-administration"),
+        ("conditions[term]", "medical devices"),
+        ("conditions[type][]", "Rule"),
+        ("per_page", 10),
+        ("order", "newest"),
+        ("fields[]", "title"),
+        ("fields[]", "publication_date"),
+        ("fields[]", "html_url"),
+        ("fields[]", "abstract"),
+    ]
     try:
         resp = session.get(FEDERAL_REGISTER_API, params=params, timeout=20)
         resp.raise_for_status()
