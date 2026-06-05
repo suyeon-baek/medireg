@@ -6,6 +6,7 @@ on:
     paths:
       - 'dashboard/**'
       - 'data/**'        # 크롤링 데이터 변경 시에도 Pages 재배포
+      - '.nojekyll'      # Jekyll 설정 변경 시
   workflow_dispatch:
 
 permissions:
