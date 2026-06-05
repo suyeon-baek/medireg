@@ -1,6 +1,23 @@
 {
-  "last_crawled": null,
-  "total_items": 0,
-  "new_items": 0,
-  "stats": {}
+  "last_crawled": "2026-06-05T00:30:49.634810+00:00",
+  "total_items": 11,
+  "new_items": 11,
+  "stats": {
+    "MFDS": {
+      "count": 0,
+      "status": "ok"
+    },
+    "FDA": {
+      "count": 0,
+      "status": "ok"
+    },
+    "EU MDR": {
+      "count": 11,
+      "status": "ok"
+    },
+    "PMDA": {
+      "count": 0,
+      "status": "ok"
+    }
+  }
 }

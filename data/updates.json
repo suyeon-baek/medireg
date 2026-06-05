@@ -1,1 +1,123 @@
-[]
+[
+  {
+    "id": "ec_mdr_guidance_0172a0ed217c",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "slslovenščina",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_sl",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_3cc745da18bd",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "skslovenčina",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_sk",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_d55cf3909aa9",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "ptportuguês",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_pt",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_c2516ff097f3",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "nlNederlands",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_nl",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_486f53514432",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "ltlietuvių",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_lt",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_3c20d1cec367",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "lvlatviešu",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_lv",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_f12bd79d333d",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "ititaliano",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_it",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_d3fc0d0140a7",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "hrhrvatski",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_hr",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_39fdfbde8b52",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "frfrançais",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_fr",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_8e3b8d5ae72f",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "elελληνικά",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_el",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_91f5536e4314",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "bgбългарски",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_bg",
+    "date": "",
+    "detected_at": "2026-06-05T00:30:49.634810+00:00",
+    "unread": true
+  }
+]

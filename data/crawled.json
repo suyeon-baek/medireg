@@ -1,1 +1,112 @@
-[]
+[
+  {
+    "id": "ec_mdr_guidance_91f5536e4314",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "bgбългарски",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_bg",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824650"
+  },
+  {
+    "id": "ec_mdr_guidance_8e3b8d5ae72f",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "elελληνικά",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_el",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824683"
+  },
+  {
+    "id": "ec_mdr_guidance_39fdfbde8b52",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "frfrançais",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_fr",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824692"
+  },
+  {
+    "id": "ec_mdr_guidance_d3fc0d0140a7",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "hrhrvatski",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_hr",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824700"
+  },
+  {
+    "id": "ec_mdr_guidance_f12bd79d333d",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "ititaliano",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_it",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824704"
+  },
+  {
+    "id": "ec_mdr_guidance_3c20d1cec367",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "lvlatviešu",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_lv",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824709"
+  },
+  {
+    "id": "ec_mdr_guidance_486f53514432",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "ltlietuvių",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_lt",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824713"
+  },
+  {
+    "id": "ec_mdr_guidance_c2516ff097f3",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "nlNederlands",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_nl",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824722"
+  },
+  {
+    "id": "ec_mdr_guidance_d55cf3909aa9",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "ptportuguês",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_pt",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824727"
+  },
+  {
+    "id": "ec_mdr_guidance_3cc745da18bd",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "skslovenčina",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_sk",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824733"
+  },
+  {
+    "id": "ec_mdr_guidance_0172a0ed217c",
+    "source": "ec_mdr_guidance",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "slslovenščina",
+    "link": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_sl",
+    "date": "",
+    "crawled_at": "2026-06-05T00:30:57.824737"
+  }
+]
