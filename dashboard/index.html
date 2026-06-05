@@ -817,7 +817,7 @@ function renderDashboard() {
   document.getElementById('dashUpdates').innerHTML = updHtml || '<div style="color:var(--text3);font-size:12px;padding:8px 0;">업데이트 내역이 없습니다</div>';
 
   const regHtml = DB.regulations.slice().reverse().slice(0,3).map(r=>`
-    <div class="reg-card" onclick="openRegDetail(${r.id}); nav('regulations', document.querySelector('[onclick*=regulations]'))">
+    <div class="reg-card" onclick="openRegDetail(${JSON.stringify(r.id)}); nav('regulations', document.querySelector('[onclick*=regulations]'))">
       <div class="reg-top">${pillHtml(r.country)}<div class="reg-name">${r.name}</div></div>
       <div class="reg-summary">${r.summary}</div>
       <div class="reg-meta"><span>${r.type}</span><span>${r.date}</span></div>
@@ -954,7 +954,7 @@ function renderRegList() {
     const tags = (r.tags||'').split(',').filter(Boolean).slice(0,3).map(t=>`<span class="tag-chip" style="cursor:pointer;" title="태그 필터" onclick="event.stopPropagation();setTagFilter('${t.trim().replace(/'/g,"\\'")}')">${t.trim()}</span>`).join('');
     const priColor = r.priority==='높음'?'var(--red)':r.priority==='중간'?'var(--amber)':'var(--green)';
     const dtPill = r.doctype ? dtypePillHtml(r.doctype) : '';
-    return `<div class="reg-card ${selectedRegId===r.id?'selected':''}" onclick="openRegDetail(${r.id})">
+    return `<div class="reg-card ${selectedRegId===r.id?'selected':''}" onclick="openRegDetail(${JSON.stringify(r.id)})">
       <div class="reg-top">${pillHtml(r.country)}${dtPill}<div class="reg-name">${r.name}</div>
       <span style="margin-left:auto;font-size:10px;color:${priColor};font-family:'IBM Plex Mono',monospace;flex-shrink:0;">${r.priority||''}</span></div>
       <div class="reg-summary">${r.summary}</div>
@@ -1003,8 +1003,8 @@ function openRegDetail(id) {
       <textarea class="reg-note-area" id="regNote-${id}" placeholder="실무 포인트, 검토 내용, 적용 시 주의사항..." oninput="saveRegNote(${id})"></textarea>
     </div>
     <div class="detail-actions">
-      <button class="btn primary" onclick="openEditForm(${r.id})"><i class="ti ti-edit"></i> 수정</button>
-      <button class="btn danger" onclick="deleteReg(${r.id})"><i class="ti ti-trash"></i> 삭제</button>
+      <button class="btn primary" onclick="openEditForm(${JSON.stringify(r.id)})"><i class="ti ti-edit"></i> 수정</button>
+      <button class="btn danger" onclick="deleteReg(${JSON.stringify(r.id)})"><i class="ti ti-trash"></i> 삭제</button>
     </div>`;
   const noteEl = document.getElementById('regNote-' + id);
   if (noteEl) noteEl.value = (DB.notes && DB.notes[id]) || '';
