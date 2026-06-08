@@ -245,6 +245,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
     <span class="free-badge">✓ 완전 무료</span>
     <span style="font-size:12px;color:var(--text3);">· 인터넷 불필요 · 내 컴퓨터에만 저장</span>
     <div class="topbar-right">
+      <button class="btn danger" onclick="resetDB()" style="font-size:10px;padding:4px 10px;"><i class="ti ti-refresh"></i> 데이터 초기화</button>
       <div class="save-indicator"><div class="save-dot"></div><span id="saveStatus">자동 저장 중</span></div>
       <div class="save-indicator" style="margin-left:8px;color:var(--blue);"><i class="ti ti-cloud-download" style="font-size:13px;"></i><span id="liveStatus">—</span></div>
       <button class="btn" onclick="exportData()"><i class="ti ti-download"></i> 백업</button>
@@ -883,6 +884,16 @@ const SEED_UPDATES = [
 ];
 
 // ── Init ──────────────────────────────────────────────────────
+function resetDB() {
+  if (!confirm('모든 데이터를 초기화하고 기본 규정 데이터를 다시 불러올까요?
+(직접 추가한 규정/업데이트는 삭제됩니다)')) return;
+  localStorage.removeItem('medireg_db');
+  DB = { regulations: [...SEED_REGS], updates: [...SEED_UPDATES], deadlines: [...SEED_DEADLINES], notes: {} };
+  save();
+  renderAll();
+  showToast('✓ 초기화 완료: ' + DB.regulations.length + '개 규정 로드됨');
+}
+
 function load() {
   const saved = localStorage.getItem('medireg_db');
   if (saved) {
@@ -890,6 +901,9 @@ function load() {
       DB = JSON.parse(saved);
       if (!DB.notes) DB.notes = {};
       if (!DB.deadlines) DB.deadlines = SEED_DEADLINES;
+      // 안전 방어: 깨진 localStorage 복구
+      if (!Array.isArray(DB.regulations)) DB.regulations = [...SEED_REGS];
+      if (!Array.isArray(DB.updates)) DB.updates = [...SEED_UPDATES];
       // 마이그레이션 v3: seed 콘텐츠 최신화 (crawl_ 항목은 유지)
       const SEED_CONTENT_VER = 3;
       // 1) 새 시드 규정 누락 시 추가
