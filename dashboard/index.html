@@ -890,11 +890,9 @@ function load() {
       DB = JSON.parse(saved);
       if (!DB.notes) DB.notes = {};
       if (!DB.deadlines) DB.deadlines = SEED_DEADLINES;
-      // 마이그레이션 v3: crawl_ 접두사 자동 추가 규정 제거 + seed 콘텐츠 최신화
+      // 마이그레이션 v3: seed 콘텐츠 최신화 (crawl_ 항목은 유지)
       const SEED_CONTENT_VER = 3;
-      // 1) crawl_ 자동 추가 항목 제거 (이전 버전에서 추가된 항목)
-      DB.regulations = DB.regulations.filter(r => !String(r.id).startsWith('crawl_'));
-      // 2) 새 시드 규정 누락 시 추가
+      // 1) 새 시드 규정 누락 시 추가
       const existingIds = new Set(DB.regulations.map(r => r.id));
       const missing = SEED_REGS.filter(r => !existingIds.has(r.id));
       if (missing.length > 0) {
@@ -1688,23 +1686,73 @@ async function fetchLiveData() {
     const liveUpdates = await updatesRes.json();
     const meta = metaRes.ok ? await metaRes.json() : null;
 
-    // 기존 DB의 update id 목록
+    // 기존 DB의 update id / regulation id 목록
     const existingIds = new Set(DB.updates.map(u => u.id));
+    const existingRegIds = new Set(DB.regulations.map(r => String(r.id)));
 
-    // 크롤링된 신규 항목 → 업데이트 + 규정 DB 동시 추가
-    let added = 0;
+    const DOCTYPE_LABEL = { notice:'공지사항', guidance:'고시·가이던스', law:'법령·규정', recall:'안전정보·리콜', standard:'국제표준', imdrf:'IMDRF' };
+    const COUNTRY_PRIORITY = { KR:'높음', US:'높음', EU:'높음', INT:'중간' };
+    const SOURCE_DESC = {
+      fda_federal_register: 'FDA Federal Register에 게재된 의료기기 관련 공고·가이던스 문서입니다.',
+      fda_guidance:         'FDA 의료기기 공식 가이던스 문서입니다.',
+      ec_mdr_guidance:      'EU 집행위원회(EC) 의료기기 규정(MDR/IVDR) 관련 가이던스 문서입니다.',
+      pmda:                 '일본 PMDA(의약품·의료기기 종합기구) 의료기기 관련 문서입니다.',
+      mfds:                 '식품의약품안전처(MFDS) 의료기기 관련 고시·가이드라인입니다.',
+    };
+
+    let added = 0, regAdded = 0;
     for (const item of liveUpdates) {
+      // 1) 업데이트 탭에 추가
       if (!existingIds.has(item.id)) {
         if (!item.body && item.summary) item.body = item.summary;
         DB.updates.unshift(item);
         added++;
       }
+      // 2) 규정 DB에 추가 (crawl_ 접두사, 중복 방지)
+      const regId = 'crawl_' + item.id;
+      if (!existingRegIds.has(regId)) {
+        const dtype = item.doctype || 'guidance';
+        const src = (item.source || '').replace(/_[a-f0-9]+$/, '');
+        // 요약: 크롤링 본문이 없으면 출처·유형 기반 자동 생성
+        const autoSummary = item.summary || item.body ||
+          (SOURCE_DESC[src] || (DOCTYPE_LABEL[dtype] || '규정') + ' 문서입니다.');
+        const autoDetail = [
+          item.title ? '■ 문서 제목
+' + item.title : '',
+          item.date  ? '■ 발행일
+' + item.date : '',
+          item.link  ? '■ 원문 링크
+' + item.link : '',
+          item.summary ? '■ 내용 요약
+' + item.summary : '',
+        ].filter(Boolean).join('
+
+');
+        DB.regulations.unshift({
+          id: regId,
+          country: item.country || 'INT',
+          doctype: dtype,
+          type: DOCTYPE_LABEL[dtype] || '기타',
+          name: item.title || '(제목 없음)',
+          version: item.date ? item.date.slice(0, 7) : '',
+          phase: '',
+          summary: autoSummary,
+          detail: autoDetail,
+          relatedStds: '',
+          link: item.link || '',
+          priority: COUNTRY_PRIORITY[item.country] || '중간',
+          tags: [item.country, dtype, item.source ? item.source.split('_')[0] : ''].filter(Boolean).join(','),
+          date: item.date || (item.detected_at ? item.detected_at.slice(0, 10) : ''),
+        });
+        existingRegIds.add(regId);
+        regAdded++;
+      }
     }
 
-    if (added > 0) {
+    if (added > 0 || regAdded > 0) {
       save();
       renderAll();
-      showToast('✓ 업데이트 ' + added + '건 반영됨');
+      showToast('✓ 업데이트 ' + added + '건 · 규정 DB ' + regAdded + '건 추가됨');
     }
 
     if (statusEl && meta && meta.last_crawled) {
