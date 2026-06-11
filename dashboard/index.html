@@ -68,7 +68,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
 
 /* Country pill */
 .cpill{font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:500;padding:2px 8px;border-radius:3px;letter-spacing:.03em;flex-shrink:0;}
-.cpill.kr{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-b);}
 .cpill.us{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple-b);}
 .cpill.eu{background:var(--green-bg);color:var(--green);border:1px solid var(--green-b);}
 .cpill.int{background:#1a1a0a;color:#facc15;border:1px solid #2a2a0a;}
@@ -99,7 +98,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
 .filter-row{display:flex;gap:6px;margin-top:8px;align-items:center;}
 .filter-btn{font-size:11px;font-family:'IBM Plex Mono',monospace;padding:3px 10px;border-radius:4px;cursor:pointer;border:1px solid var(--border);color:var(--text3);background:transparent;transition:all .12s;}
 .filter-btn:hover{border-color:var(--border2);color:var(--text2);}
-.filter-btn.active-kr{border-color:var(--blue);color:var(--blue);background:var(--blue-bg);}
 .filter-btn.active-us{border-color:var(--purple);color:var(--purple);background:var(--purple-bg);}
 .filter-btn.active-eu{border-color:var(--green);color:var(--green);background:var(--green-bg);}
 .filter-btn.active-int{border-color:#854d0e;color:#facc15;background:#1a1a0a;}
@@ -323,7 +321,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
           <div class="filter-row">
             <span class="filter-label">국가:</span>
             <button class="filter-btn active-all" id="fb-ALL" onclick="setFilter('ALL')">전체</button>
-            <button class="filter-btn" id="fb-KR" onclick="setFilter('KR')">KR</button>
             <button class="filter-btn" id="fb-US" onclick="setFilter('US')">US</button>
             <button class="filter-btn" id="fb-EU" onclick="setFilter('EU')">EU</button>
             <button class="filter-btn" id="fb-INT" onclick="setFilter('INT')">국제표준</button>
@@ -413,7 +410,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
         <div class="form-group">
           <label class="form-label">국가/기관 *</label>
           <select class="form-select" id="fCountry">
-            <option value="KR">🇰🇷 한국 (MFDS)</option>
             <option value="US">🇺🇸 미국 (FDA)</option>
             <option value="EU">🇪🇺 EU (MDR/IVDR)</option>
             <option value="INT">🌐 국제 표준 (ISO/IEC)</option>
@@ -508,7 +504,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
         <div class="form-group">
           <label class="form-label">국가/기관 *</label>
           <select class="form-select" id="ufCountry">
-            <option value="KR">🇰🇷 한국 (MFDS)</option>
             <option value="US">🇺🇸 미국 (FDA)</option>
             <option value="EU">🇪🇺 EU</option>
             <option value="INT">🌐 국제표준</option>
@@ -552,7 +547,6 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
         <div class="form-group">
           <label class="form-label">국가/기관 *</label>
           <select class="form-select" id="dlCountry">
-            <option value="KR">🇰🇷 한국 (MFDS)</option>
             <option value="US">🇺🇸 미국 (FDA)</option>
             <option value="EU">🇪🇺 EU</option>
             <option value="INT">🌐 국제</option>
@@ -797,13 +791,12 @@ function renderDashboard() {
   document.getElementById('dashStats').innerHTML = `
     <div class="stat-card"><div class="stat-val">${DB.regulations.length}</div><div class="stat-lbl">저장된 규정 수</div></div>
     <div class="stat-card"><div class="stat-val" style="color:var(--green)">${unread}</div><div class="stat-lbl">새 업데이트</div></div>
-    <div class="stat-card"><div class="stat-val" style="color:var(--blue)">${byCountry['KR']||0}</div><div class="stat-lbl">한국 규정</div></div>
     <div class="stat-card"><div class="stat-val" style="color:var(--purple)">${byCountry['US']||0}</div><div class="stat-lbl">미국 규정</div></div>
     <div class="stat-card"><div class="stat-val" style="color:var(--green)">${byCountry['EU']||0}</div><div class="stat-lbl">EU 규정</div></div>
     <div class="stat-card"><div class="stat-val" style="color:#facc15">${byCountry['INT']||0}</div><div class="stat-lbl">국제 표준</div></div>
   `;
 
-  const updHtml = DB.updates.slice(0,3).map(u=>`
+  const updHtml = DB.updates.filter(u => u.country !== 'KR').slice(0,3).map(u=>`
     <div class="update-card ${u.unread?'new-item':''}">
       <div class="update-top">${pillHtml(u.country)}${u.unread?'<div class="new-dot"></div><span class="new-tag">NEW</span>':''}<div class="update-title">${u.title}</div></div>
       <div class="update-body">${(u.body||u.summary||'').slice(0,100)}...</div>
@@ -907,15 +900,15 @@ function applyRecent(q) {
 }
 
 function pillHtml(country) {
-  const map = { KR:'kr', US:'us', EU:'eu', INT:'int' };
-  const label = { KR:'KR', US:'US', EU:'EU', INT:'INT' };
+  const map = { US:'us', EU:'eu', INT:'int' };
+  const label = { US:'US', EU:'EU', INT:'INT' };
   return `<span class="cpill ${map[country]||'int'}">${label[country]||country}</span>`;
 }
 
 function setFilter(f) {
   currentFilter = f;
   document.querySelectorAll('[id^="fb-"]').forEach(b=>b.className='filter-btn');
-  const clsMap = {ALL:'active-all',KR:'active-kr',US:'active-us',EU:'active-eu',INT:'active-int'};
+  const clsMap = {ALL:'active-all',US:'active-us',EU:'active-eu',INT:'active-int'};
   document.getElementById('fb-'+f).classList.add(clsMap[f]);
   renderRegList();
 }
