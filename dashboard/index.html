@@ -719,7 +719,7 @@ function load() {
       if (!Array.isArray(DB.regulations)) DB.regulations = [...SEED_REGS];
       if (!Array.isArray(DB.updates)) DB.updates = [...SEED_UPDATES];
       // 마이그레이션: 새 시드 규정 자동 추가 + 핵심요약 업데이트
-      const SEED_CONTENT_VER = 6;
+      const SEED_CONTENT_VER = 7;
       const existingIds = new Set(DB.regulations.map(r => r.id));
       const missing = SEED_REGS.filter(r => !existingIds.has(r.id));
       if (missing.length > 0) DB.regulations = [...DB.regulations, ...missing];
@@ -729,6 +729,8 @@ function load() {
         const ACTIVE_SW_KW = ['software','samd','ai ','machine learning','artificial intelligence','algorithm','firmware','digital health','digital therapeutic','cybersecurity','iec 60601','electrical','electromagnetic','emc','usability','iec 62304','iec 62366','iec 81001','iso 14971','pccp','clinical decision support','neural network','deep learning'];
         DB.regulations = DB.regulations.filter(r => !String(r.id).startsWith('crawl_') || ACTIVE_SW_KW.some(kw => ((r.name||'')+(r.summary||'')).toLowerCase().includes(kw)));
         DB.updates = DB.updates.filter(u => u.country !== 'KR');
+        const UPD_SW_KW = ['software','samd','ai ','machine learning','artificial intelligence','algorithm','firmware','digital health','digital therapeutic','cybersecurity','iec 60601','electrical','active device','electromagnetic','usability','iec 62304','iec 62366','iec 81001','iso 14971','pccp','clinical decision support','neural network','deep learning','rwe','mhealth','wearable'];
+        DB.updates = DB.updates.filter(u => !String(u.id).includes('_') || UPD_SW_KW.some(kw => ((u.title||'')+(u.body||u.summary||'')).toLowerCase().includes(kw)));
         DB.seedContentVer = SEED_CONTENT_VER;
       }
       save();
@@ -1349,13 +1351,7 @@ async function fetchLiveData() {
 
     let added = 0, regAdded = 0;
     for (const item of liveUpdates) {
-      // 1) 업데이트 탭에 추가
-      if (!existingIds.has(item.id)) {
-        if (!item.body && item.summary) item.body = item.summary;
-        DB.updates.unshift(item);
-        added++;
-      }
-      // 2) 규정 데이터베이스에 추가 — Active/소프트웨어 관련 항목만
+      // Active/SW 관련 항목만 처리 (업데이트 탭 + 규정DB)
       const ACTIVE_SW_KEYWORDS = [
         'software','samd','ai ','a.i.','machine learning','artificial intelligence',
         'algorithm','firmware','digital health','digital therapeutic','dtx',
@@ -1367,8 +1363,17 @@ async function fetchLiveData() {
       ];
       const itemText = ((item.title||'') + ' ' + (item.summary||item.body||'')).toLowerCase();
       const isRelevant = ACTIVE_SW_KEYWORDS.some(kw => itemText.includes(kw));
+      if (!isRelevant) continue;
+
+      // 1) 업데이트 탭에 추가
+      if (!existingIds.has(item.id)) {
+        if (!item.body && item.summary) item.body = item.summary;
+        DB.updates.unshift(item);
+        added++;
+      }
+      // 2) 규정 데이터베이스에 추가
       const regId = 'crawl_' + item.id;
-      if (!existingRegIds.has(regId) && isRelevant) {
+      if (!existingRegIds.has(regId)) {
         const dtype = item.doctype || 'guidance';
         DB.regulations.unshift({
           id: regId,
