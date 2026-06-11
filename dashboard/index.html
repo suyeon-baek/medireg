@@ -779,7 +779,7 @@ function renderDashboard() {
   DB.regulations.forEach(r=>{ byCountry[r.country]=(byCountry[r.country]||0)+1; });
 
   document.getElementById('dashStats').innerHTML = `
-    <div class="stat-card"><div class="stat-val">${DB.regulations.length}</div><div class="stat-lbl">저장된 규정 수</div></div>
+    <div class="stat-card"><div class="stat-val">${DB.regulations.filter(r=>r.country!=='KR').length}</div><div class="stat-lbl">저장된 규정 수</div></div>
     <div class="stat-card"><div class="stat-val" style="color:var(--green)">${unread}</div><div class="stat-lbl">새 업데이트</div></div>
     <div class="stat-card"><div class="stat-val" style="color:var(--purple)">${byCountry['US']||0}</div><div class="stat-lbl">미국 규정</div></div>
     <div class="stat-card"><div class="stat-val" style="color:var(--green)">${byCountry['EU']||0}</div><div class="stat-lbl">EU 규정</div></div>
@@ -794,7 +794,7 @@ function renderDashboard() {
     </div>`).join('');
   document.getElementById('dashUpdates').innerHTML = updHtml || '<div style="color:var(--text3);font-size:12px;padding:8px 0;">업데이트 내역이 없습니다</div>';
 
-  const regHtml = DB.regulations.slice().reverse().slice(0,3).map(r=>`
+  const regHtml = DB.regulations.filter(r => r.country !== 'KR').slice().reverse().slice(0,3).map(r=>`
     <div class="reg-card" onclick="openRegDetail('${r.id}'); nav('regulations', document.querySelector('[onclick*=regulations]'))">
       <div class="reg-top">${pillHtml(r.country)}<div class="reg-name">${r.name}</div></div>
       <div class="reg-summary">${r.summary}</div>
@@ -911,7 +911,7 @@ function filterByCountry(c) {
 
 function renderRegList() {
   const q = (document.getElementById('searchInput')?.value||'').toLowerCase().trim();
-  let list = DB.regulations;
+  let list = DB.regulations.filter(r => r.country !== 'KR');
   if (currentFilter !== 'ALL') list = list.filter(r=>r.country===currentFilter);
   if (currentDoctypeFilter !== 'ALL') list = list.filter(r=>(r.doctype||'')===currentDoctypeFilter);
   if (currentPhaseFilter !== 'ALL') list = list.filter(r=>(r.phase||'').includes(currentPhaseFilter));
@@ -1240,7 +1240,7 @@ function deleteDeadline(id) {
 
 // ── Counts ────────────────────────────────────────────────────
 function updateCounts() {
-  document.getElementById('regCount').textContent = DB.regulations.length;
+  document.getElementById('regCount').textContent = DB.regulations.filter(r=>r.country!=='KR').length;
   const newUpd = DB.updates.filter(u=>u.unread).length;
   document.getElementById('newUpdCount').textContent = newUpd;
   const today = new Date(); today.setHours(0,0,0,0);
