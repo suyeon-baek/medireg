@@ -1,5 +1,16 @@
 [
   {
+    "id": "fda_fr_deae6e6c3f80",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Medical Devices; Ear, Nose, and Throat Devices; Classification of the Combined Acoustic and Electrical External Stimulation Device for the Relief of Tinnitus",
+    "summary": "The Food and Drug Administration (FDA) is classifying the combined acoustic and electrical external stimulation device for the relief of tinnitus into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified languag",
+    "link": "https://www.federalregister.gov/documents/2026/06/10/2026-11589/medical-devices-ear-nose-and-throat-devices-classification-of-the-combined-acoustic-and-electrical",
+    "date": "2026-06-10",
+    "detected_at": "2026-06-11T23:23:46.154215+00:00",
+    "unread": true
+  },
+  {
     "id": "fda_fr_9cac7db591e1",
     "country": "US",
     "doctype": "guidance",
@@ -2184,17 +2195,6 @@
     "title": "Q & A for the Handling of Clinical Trial Results on Medical Devices Obtained in Foreign Countries",
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000153893.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_ab234f2644d7",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Handling of clinical study data on medical devices which was carried out in foreign countries",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000153073.pdf",
     "date": "",
     "detected_at": "2026-06-05T00:57:23.661072+00:00",
     "unread": true
