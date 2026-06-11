@@ -698,13 +698,11 @@ const SEED_DEADLINES = [
 const SEED_UPDATES = [
   { id: 1, country:'EU', title:'MDR Annex I — 사이버보안 요건 강화', body:'소프트웨어가 포함된 의료기기에 대해 사이버보안 수명주기 전반의 문서화가 의무화되었습니다. GSPR 17.2항이 신설되었으며, IEC 81001-5-1 표준 적용이 권고됩니다.', date:'2025-01-15', link:'', unread:true },
   { id: 2, country:'US', title:'FDA 21 CFR Part 820 — QMS 규정 최종 시행', body:'ISO 13485에 맞춰 개정된 QMS 규정(Quality Management System Regulation)이 2024년 2월부터 최종 시행됩니다. 기존 QSR 대비 설계 통제 및 공급업체 관리 요건이 강화되었습니다.', date:'2024-12-10', link:'https://www.fda.gov', unread:true },
-  { id: 3, country:'KR', title:'식약처 AI 의료기기 허가 가이드라인 개정', body:'AI·ML 기반 의료기기에 대한 허가 및 심사 가이드라인이 개정되었습니다. 지속 학습(Continuously Learning) 알고리즘에 대한 관리 방안 및 변경 관리 절차가 구체화되었습니다.', date:'2024-11-22', link:'https://www.mfds.go.kr', unread:true },
   { id: 4, country:'EU', title:'IVDR 전환 기간 연장 최종 확정', body:'EU IVDR 전환 기간이 기기 클래스별로 연장되었습니다. Class D: 2027년 12월, Class C: 2028년 12월, Class B/A: 2029년 12월까지 전환 완료해야 합니다.', date:'2024-10-05', link:'', unread:false },
   { id: 5, country:'US', title:'FDA 510(k) 프로그램 현대화 가이던스 발표', body:'FDA가 510(k) 심사 프로그램 현대화 관련 최종 가이던스를 발표했습니다. 실질적 동등성(SE) 판단 기준이 명확화되고, Q-Sub 프로그램 활용이 강화되었습니다.', date:'2024-09-18', link:'', unread:false },
   { id: 6, country:'US', title:'FDA AI/ML PCCP 최종 가이던스 발표', body:'FDA가 AI/ML 기반 의료기기의 사전 변경 관리 계획(PCCP)에 관한 최종 가이던스를 발표했습니다. 승인된 PCCP 범위 내 알고리즘 업데이트에 대해 추가 510(k) 제출 없이 변경 가능하며, 실세계 성능(RWP) 모니터링이 의무화됩니다.', date:'2024-12-15', link:'https://www.fda.gov/regulatory-information/search-fda-guidance-documents/marketing-submission-recommendations-predetermined-change-control-plan-artificial', unread:true },
   { id: 7, country:'EU', title:'EU AI Act — 고위험 AI 요건 2026년 8월 적용 확정', body:'EU AI Act의 고위험 AI 시스템(의료기기 포함) 요건이 2026년 8월부터 전면 적용됩니다. MDR CE 마크 기기 중 AI 탑재 기기는 AI Act 적합성 평가를 병행 수행해야 하며, EU 집행위원회의 이행 가이던스가 공개되었습니다.', date:'2025-02-20', link:'https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai', unread:true },
   { id: 8, country:'INT', title:'IEC 62304 Ed.2 공개 초안(DIS) 배포 — AI·애자일 요건 추가 예정', body:'IEC 62304 의료기기 소프트웨어 수명주기 표준의 2판(Edition 2) 공개 초안이 IEC 회원국에 배포되어 의견 수렴 중입니다. AI/ML 소프트웨어, 애자일 개발 방법론, 클라우드 기반 SaMD 요건이 추가될 예정입니다. 최종 발행은 2027년경 예상됩니다.', date:'2025-03-20', link:'https://www.iec.ch/tc62', unread:false },
-  { id: 9, country:'KR', title:'식약처 — 디지털 의료기기 규제 혁신 방안 발표', body:'식품의약품안전처가 AI·디지털 의료기기의 신속 허가를 위한 규제 혁신 방안을 발표했습니다. 혁신 의료기기 패스트트랙 확대, 실세계증거(RWE) 기반 허가 가이드라인 개발, 지속 학습 AI의 변경 관리 간소화가 주요 내용입니다.', date:'2025-04-10', link:'https://www.mfds.go.kr', unread:false },
   { id:10, country:'EU', title:'IVDR Class D — EU 참조 실험실 지정 완료', body:'EU IVDR 전환 절차의 일환으로, Class D 체외진단 기기의 적합성 평가에 필요한 EU 참조 실험실(EURL) 지정이 완료되었습니다. 2027년 12월 전환 기한을 앞두고 제조업체들은 인증 기관(NB) 조기 접촉이 권고됩니다.', date:'2025-05-05', link:'https://health.ec.europa.eu', unread:false },
 ];
 
@@ -727,7 +725,7 @@ function load() {
       if (!Array.isArray(DB.regulations)) DB.regulations = [...SEED_REGS];
       if (!Array.isArray(DB.updates)) DB.updates = [...SEED_UPDATES];
       // 마이그레이션: 새 시드 규정 자동 추가 + 핵심요약 업데이트
-      const SEED_CONTENT_VER = 5;
+      const SEED_CONTENT_VER = 6;
       const existingIds = new Set(DB.regulations.map(r => r.id));
       const missing = SEED_REGS.filter(r => !existingIds.has(r.id));
       if (missing.length > 0) DB.regulations = [...DB.regulations, ...missing];
@@ -736,6 +734,7 @@ function load() {
         DB.regulations = DB.regulations.filter(r => r.country !== 'KR');
         const ACTIVE_SW_KW = ['software','samd','ai ','machine learning','artificial intelligence','algorithm','firmware','digital health','digital therapeutic','cybersecurity','iec 60601','electrical','electromagnetic','emc','usability','iec 62304','iec 62366','iec 81001','iso 14971','pccp','clinical decision support','neural network','deep learning'];
         DB.regulations = DB.regulations.filter(r => !String(r.id).startsWith('crawl_') || ACTIVE_SW_KW.some(kw => ((r.name||'')+(r.summary||'')).toLowerCase().includes(kw)));
+        DB.updates = DB.updates.filter(u => u.country !== 'KR');
         DB.seedContentVer = SEED_CONTENT_VER;
       }
       save();
@@ -1091,7 +1090,7 @@ function renderUpdList() {
     container.innerHTML = `<div class="empty-state"><i class="ti ti-bell-off"></i><p>업데이트 내역이 없습니다</p></div>`;
     return;
   }
-  container.innerHTML = DB.updates.map(u=>`
+  container.innerHTML = DB.updates.filter(u => u.country !== 'KR').map(u=>`
     <div class="upd-card ${u.unread?'unread':''}">
       <div class="upd-card-top">${pillHtml(u.country)}${u.unread?'<div class="new-dot"></div><span class="new-tag">NEW</span>':''}<div class="upd-title">${u.title}</div>
       <button onclick="deleteUpd(${u.id})" style="margin-left:auto;background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;"><i class="ti ti-trash"></i></button></div>
