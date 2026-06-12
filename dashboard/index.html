@@ -788,7 +788,7 @@ function load() {
       if (!Array.isArray(DB.regulations)) DB.regulations = [...SEED_REGS];
       if (!Array.isArray(DB.updates)) DB.updates = [...SEED_UPDATES];
       // 마이그레이션: 새 시드 규정 자동 추가 + 핵심요약 업데이트
-      const SEED_CONTENT_VER = 11;
+      const SEED_CONTENT_VER = 12;
       const existingIds = new Set(DB.regulations.map(r => r.id));
       const missing = SEED_REGS.filter(r => !existingIds.has(r.id));
       if (missing.length > 0) DB.regulations = [...DB.regulations, ...missing];
@@ -800,7 +800,12 @@ function load() {
         DB.updates = DB.updates.filter(u => u.country !== 'KR');
         const UPD_SW_KW = ['software','samd','ai ','machine learning','artificial intelligence','algorithm','firmware','digital health','digital therapeutic','cybersecurity','iec 60601','electrical','active device','electromagnetic','usability','iec 62304','iec 62366','iec 81001','iso 14971','pccp','clinical decision support','neural network','deep learning','rwe','mhealth','wearable'];
         DB.updates = DB.updates.filter(u => !String(u.id).includes('_') || UPD_SW_KW.some(kw => ((u.title||'')+(u.body||u.summary||'')).toLowerCase().includes(kw)));
-        DB.regulations.forEach(r => { if (String(r.id).startsWith('crawl_') && !r.relatedStds) { r.relatedStds = inferRelatedStds((r.name||'') + ' ' + (r.summary||'')); } });
+        DB.regulations.forEach(r => {
+          if (String(r.id).startsWith('crawl_')) {
+            if (!r.relatedStds) r.relatedStds = inferRelatedStds((r.name||'') + ' ' + (r.summary||''));
+            if (!r.summary || r.summary.length < 30) r.summary = genCrawlSummary({title:r.name, country:r.country, doctype:r.tags ? r.tags.split(',')[1] : 'guidance'});
+          }
+        });
         DB.seedContentVer = SEED_CONTENT_VER;
       }
       save();
@@ -1399,6 +1404,42 @@ function loadMonitorConfig() {} // 모니터링 기능 삭제됨
 // 크롤링된 최신 업데이트를 대시보드에 자동 반영합니다.
 const DATA_BASE = '../data';
 
+function genCrawlSummary(item) {
+  const title = (item.title || item.name || '').toLowerCase();
+  const country = item.country || '';
+  const doctype = item.doctype || 'guidance';
+  const CNAME = {US:'FDA(미국)', EU:'유럽 EC/MDCG', JP:'일본 PMDA', INT:'국제기구(IMDRF 등)'}[country] || country;
+  const DTYPE = {guidance:'가이던스', regulation:'규정', standard:'표준', notice:'공지', draft:'초안'}[doctype] || '문서';
+
+  const TOPIC_RULES = [
+    {kw:['artificial intelligence','machine learning','ai/ml','deep learning','neural network'], label:'AI/ML 의료기기'},
+    {kw:['pccp','predetermined change control'], label:'AI 알고리즘 변경관리(PCCP)'},
+    {kw:['software','samd','firmware','digital health'], label:'소프트웨어 의료기기(SaMD)'},
+    {kw:['cybersecurity','cyber security','sbom'], label:'사이버보안'},
+    {kw:['510(k)','510k','premarket notification'], label:'510(k) 심사'},
+    {kw:['premarket approval','pma'], label:'PMA(시판 전 허가)'},
+    {kw:['de novo','de-novo'], label:'De Novo 분류'},
+    {kw:['usability','human factors'], label:'사용적합성(Human Factors)'},
+    {kw:['clinical decision support','cds'], label:'임상의사결정지원 소프트웨어'},
+    {kw:['risk management','hazard'], label:'위험관리'},
+    {kw:['quality management','qms','qmsr'], label:'품질경영시스템'},
+    {kw:['electromagnetic','emc','iec 60601'], label:'전기·EMC 안전'},
+    {kw:['wearable','home use','home care'], label:'홈헬스케어 기기'},
+    {kw:['post-market','post market','vigilance','pmcf'], label:'판매 후 관리'},
+    {kw:['in vitro','ivd','ivdr'], label:'체외진단 의료기기'},
+    {kw:['classification','classify'], label:'의료기기 분류'},
+    {kw:['combination product','drug device'], label:'복합제품'},
+  ];
+
+  let topics = [];
+  for (const rule of TOPIC_RULES) {
+    if (rule.kw.some(k => title.includes(k))) { topics.push(rule.label); if (topics.length >= 2) break; }
+  }
+
+  const topicStr = topics.length ? ' ' + topics.join(', ') + ' 관련 내용을 다룹니다.' : '';
+  return CNAME + '에서 발표한 의료기기 ' + DTYPE + '입니다.' + topicStr + ' 상세 내용은 하단 출처 링크를 통해 확인하세요.';
+}
+
 function inferRelatedStds(text) {
   const t = text.toLowerCase();
   const STD_RULES = [
@@ -1484,7 +1525,7 @@ async function fetchLiveData() {
           name: item.title || '(제목 없음)',
           version: item.date ? item.date.slice(0,7) : '',
           phase: '',
-          summary: item.summary || item.body || '',
+          summary: (item.summary && item.summary.length > 30) ? item.summary : genCrawlSummary({title:item.title,country:item.country,doctype:dtype}),
           detail: '',
           relatedStds: inferRelatedStds((item.title||'') + ' ' + (item.summary||item.body||'')),
           link: item.link || '',

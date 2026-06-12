@@ -91,6 +91,7 @@ def _parse_mdcg_tables(html: str) -> list[dict]:
                 "doctype": "guidance",
                 "title": full_title,
                 "link": href,
+                "summary": "",
                 "date": date_text,
                 "crawled_at": datetime.utcnow().isoformat(),
             })

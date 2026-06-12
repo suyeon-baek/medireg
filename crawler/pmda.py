@@ -82,7 +82,7 @@ def _parse_pmda(html: str, source_id: str, base_url: str) -> list[dict]:
             "country": "JP",
             "doctype": "guidance",
             "title": title,
-            "summary": date_str,
+            "summary": "",
             "link": href,
             "date": "",
             "crawled_at": datetime.utcnow().isoformat(),
