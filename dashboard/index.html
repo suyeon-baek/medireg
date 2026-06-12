@@ -788,7 +788,7 @@ function load() {
       if (!Array.isArray(DB.regulations)) DB.regulations = [...SEED_REGS];
       if (!Array.isArray(DB.updates)) DB.updates = [...SEED_UPDATES];
       // 마이그레이션: 새 시드 규정 자동 추가 + 핵심요약 업데이트
-      const SEED_CONTENT_VER = 10;
+      const SEED_CONTENT_VER = 11;
       const existingIds = new Set(DB.regulations.map(r => r.id));
       const missing = SEED_REGS.filter(r => !existingIds.has(r.id));
       if (missing.length > 0) DB.regulations = [...DB.regulations, ...missing];
