@@ -457,6 +457,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
         <div class="map-svg-wrap" id="mapWrap">
           <div class="map-tooltip" id="mapTooltip"></div>
           <svg id="mapSvg" width="100%" height="100%" viewBox="0 0 800 580" preserveAspectRatio="xMidYMid meet"></svg>
+          <div id="mapLegend" style="position:absolute;top:12px;left:12px;background:rgba(10,18,30,0.85);border:1px solid var(--border);border-radius:8px;padding:10px 14px;z-index:5;pointer-events:none;"></div>
         </div>
       </div>
 
@@ -1686,23 +1687,11 @@ function buildRegMap() {
   });
   svg.appendChild(nodeG);
 
-  const legendData = [
-    {color:"#7c5cbf",label:"미국 (FDA)"}, {color:"#1e7e47",label:"EU (MDR)"},
-    {color:"#a07000",label:"국제 (ISO/IEC)"}, {color:"#c45000",label:"일본 (PMDA)"},
-    {color:"#4a5568",label:"표준 참조"},
-  ];
-  const legG = document.createElementNS(NS,"g");
-  legendData.forEach((d,i) => {
-    const c = document.createElementNS(NS,"circle");
-    c.setAttribute("cx","18"); c.setAttribute("cy", 20 + i*22);
-    c.setAttribute("r","7"); c.setAttribute("fill",d.color);
-    const t = document.createElementNS(NS,"text");
-    t.setAttribute("x","32"); t.setAttribute("y", 25 + i*22);
-    t.setAttribute("font-size","11"); t.setAttribute("fill","#aaa");
-    t.textContent = d.label;
-    legG.appendChild(c); legG.appendChild(t);
-  });
-  svg.appendChild(legG);
+  const legEl = document.getElementById('mapLegend');
+  if (legEl) {
+    const legendData = [{color:'#7c5cbf',label:'미국 (FDA)'},{color:'#1e7e47',label:'EU (MDR)'},{color:'#a07000',label:'국제 (ISO/IEC)'},{color:'#c45000',label:'일본 (PMDA)'},{color:'#4a5568',label:'표준 참조'}];
+    legEl.innerHTML = legendData.map(d=>'<div style="display:flex;align-items:center;gap:7px;margin-bottom:5px;"><span style="width:10px;height:10px;border-radius:50%;background:'+d.color+';flex-shrink:0;display:inline-block;"></span><span style="font-size:11px;color:#aaa;">'+d.label+'</span></div>').join('');
+  }
 
   let vb = {x:0, y:0, w:W, h:H};
   let panStart = null;
