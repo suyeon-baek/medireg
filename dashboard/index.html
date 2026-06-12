@@ -788,7 +788,7 @@ function load() {
       if (!Array.isArray(DB.regulations)) DB.regulations = [...SEED_REGS];
       if (!Array.isArray(DB.updates)) DB.updates = [...SEED_UPDATES];
       // 마이그레이션: 새 시드 규정 자동 추가 + 핵심요약 업데이트
-      const SEED_CONTENT_VER = 8;
+      const SEED_CONTENT_VER = 9;
       const existingIds = new Set(DB.regulations.map(r => r.id));
       const missing = SEED_REGS.filter(r => !existingIds.has(r.id));
       if (missing.length > 0) DB.regulations = [...DB.regulations, ...missing];
@@ -800,6 +800,7 @@ function load() {
         DB.updates = DB.updates.filter(u => u.country !== 'KR');
         const UPD_SW_KW = ['software','samd','ai ','machine learning','artificial intelligence','algorithm','firmware','digital health','digital therapeutic','cybersecurity','iec 60601','electrical','active device','electromagnetic','usability','iec 62304','iec 62366','iec 81001','iso 14971','pccp','clinical decision support','neural network','deep learning','rwe','mhealth','wearable'];
         DB.updates = DB.updates.filter(u => !String(u.id).includes('_') || UPD_SW_KW.some(kw => ((u.title||'')+(u.body||u.summary||'')).toLowerCase().includes(kw)));
+        DB.regulations.forEach(r => { if (String(r.id).startsWith('crawl_') && !r.relatedStds) { r.relatedStds = inferRelatedStds((r.name||'') + ' ' + (r.summary||'')); } });
         DB.seedContentVer = SEED_CONTENT_VER;
       }
       save();
@@ -1398,6 +1399,36 @@ function loadMonitorConfig() {} // 모니터링 기능 삭제됨
 // 크롤링된 최신 업데이트를 대시보드에 자동 반영합니다.
 const DATA_BASE = '../data';
 
+function inferRelatedStds(text) {
+  const t = text.toLowerCase();
+  const STD_RULES = [
+    { kw:["iec 62304","software lifecycle","software as a medical","samd"], stds:["IEC 62304","ISO 14971"] },
+    { kw:["artificial intelligence","machine learning","ai/ml","neural network","deep learning"], stds:["IMDRF N41","IEC 62304","ISO 14971"] },
+    { kw:["pccp","predetermined change control"], stds:["FDA AI/ML PCCP Guidance","IMDRF N41","IEC 62304"] },
+    { kw:["cybersecurity","cyber security","iec 81001","sbom"], stds:["IEC 81001-5-1","IEC 62443","IEC 62304"] },
+    { kw:["510(k)","premarket notification","510k"], stds:["21 CFR Part 807","21 CFR Part 820","ISO 13485"] },
+    { kw:["premarket approval","pma"], stds:["21 CFR Part 820","ISO 13485","ISO 14971"] },
+    { kw:["de novo","de-novo"], stds:["21 CFR Part 807","21 CFR Part 820"] },
+    { kw:["qmsr","quality system","21 cfr part 820","quality management system"], stds:["ISO 13485","ISO 14971"] },
+    { kw:["iec 60601","electrical safety","electromagnetic","emc"], stds:["IEC 60601-1","ISO 14971"] },
+    { kw:["usability","human factors","iec 62366"], stds:["IEC 62366-1","ISO 14971"] },
+    { kw:["risk management","iso 14971","hazard analysis"], stds:["ISO 14971","IEC 62304"] },
+    { kw:["eu mdr","mdcg","ce mark","annex i","annex xiv"], stds:["MDR 2017/745","ISO 14971","ISO 13485"] },
+    { kw:["ivdr","in vitro diagnostic"], stds:["IVDR 2017/746","ISO 14971"] },
+    { kw:["eu ai act","artificial intelligence act"], stds:["EU AI Act","MDR 2017/745","IMDRF N41"] },
+    { kw:["clinical decision support","cds"], stds:["IMDRF N41","IEC 62304","ISO 14971"] },
+    { kw:["wearable","home healthcare","home use"], stds:["IEC 60601-1-11","IEC 60601-1","ISO 14971"] },
+    { kw:["digital therapeutic","dtx"], stds:["IEC 62304","ISO 14971","IMDRF N41"] },
+    { kw:["real world evidence","rwe"], stds:["ISO 14971","ISO 13485"] },
+    { kw:["post-market","post market","pmcf","vigilance"], stds:["ISO 14971","ISO 13485","MDR 2017/745"] },
+    { kw:["iso 13485"], stds:["ISO 13485","ISO 14971"] },
+    { kw:["total product lifecycle","tplc"], stds:["IEC 62304","ISO 14971","ISO 13485"] },
+    { kw:["mobile health","mhealth"], stds:["IEC 62304","IEC 81001-5-1","ISO 14971"] },
+  ];
+  const matched = new Set();
+  STD_RULES.forEach(rule => { if (rule.kw.some(kw => t.includes(kw))) rule.stds.forEach(s => matched.add(s)); });
+  return [...matched].join(", ");
+}
 async function fetchLiveData() {
   const statusEl = document.getElementById('liveStatus');
   if (statusEl) statusEl.textContent = '데이터 로딩 중…';
@@ -1455,7 +1486,7 @@ async function fetchLiveData() {
           phase: '',
           summary: item.summary || item.body || '',
           detail: '',
-          relatedStds: '',
+          relatedStds: inferRelatedStds((item.title||'') + ' ' + (item.summary||item.body||'')),
           link: item.link || '',
           priority: COUNTRY_PRIORITY[item.country] || '중간',
           tags: [item.country, dtype].filter(Boolean).join(','),
