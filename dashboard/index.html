@@ -231,6 +231,20 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
 .search-recent-label{font-size:10px;color:var(--text4);font-family:'IBM Plex Mono',monospace;}
 .search-recent-chip{font-size:10px;font-family:'IBM Plex Mono',monospace;padding:2px 8px;border-radius:3px;background:var(--bg3);border:1px solid var(--border);color:var(--text3);cursor:pointer;transition:all .1s;}
 .search-recent-chip:hover{border-color:var(--border2);color:var(--text2);}
+.gap-group { margin-bottom: 18px; }
+.gap-group-title { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+.gap-check { display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer; font-size: 13px; color: var(--text2); }
+.gap-check:hover { color: var(--text); }
+.gap-check input { accent-color: var(--blue); width: 14px; height: 14px; cursor: pointer; }
+.gap-result-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 8px; }
+.gap-result-card:hover { border-color: var(--blue-b); }
+.gap-result-name { font-size: 13px; font-weight: 500; color: var(--text); margin: 4px 0; }
+.gap-result-summary { font-size: 12px; color: var(--text3); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.map-svg-wrap { width: 100%; height: 580px; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; cursor: grab; position: relative; }
+.map-svg-wrap:active { cursor: grabbing; }
+.map-node { cursor: pointer; }
+.map-node circle { transition: r .15s; }
+.map-tooltip { position: absolute; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 12px; color: var(--text); pointer-events: none; max-width: 220px; z-index: 10; display: none; }
 </style>
 </head>
 <body>
@@ -261,6 +275,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
         <div class="nav-item" onclick="nav('regulations',this)"><i class="ti ti-file-description"></i>규정 데이터베이스 <span class="nav-badge nb-blue" id="regCount">0</span></div>
         <div class="nav-item" onclick="nav('updates',this)"><i class="ti ti-bell"></i>업데이트 관리 <span class="nav-badge nb-green" id="newUpdCount">0</span></div>
         <div class="nav-item" onclick="nav('calendar',this)"><i class="ti ti-calendar-event"></i>규정 캘린더 <span class="nav-badge nb-amber" id="upcomingCount">0</span></div>
+        <div class="nav-item" onclick="nav('gap',this)"><i class="ti ti-checklist"></i>갭 분석기</div>
+        <div class="nav-item" onclick="nav('map',this)"><i class="ti ti-topology-star"></i>규정 연관 지도</div>
       </div>
       <div class="nav-section">
         <div class="nav-label">빠른 필터</div>
@@ -390,6 +406,57 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
           <button class="filter-btn" id="cv-180" onclick="setCalView('180')">180일 내</button>
         </div>
         <div class="upd-list" id="calList"></div>
+      </div>
+
+      <div class="panel" id="panel-gap">
+        <div class="ph">
+          <i class="ti ti-checklist" style="color:var(--text3);font-size:16px;"></i>
+          <span class="ph-title">// 갭 분석기</span>
+          <span style="font-size:11px;color:var(--text3);margin-left:4px;">제품 특성을 선택하면 필요한 규정 목록을 자동으로 추출합니다</span>
+        </div>
+        <div style="display:flex;gap:24px;align-items:flex-start;">
+          <div style="width:280px;flex-shrink:0;">
+            <div class="gap-group">
+              <div class="gap-group-title">전원·하드웨어</div>
+              <label class="gap-check"><input type="checkbox" id="gap-ac"> AC 전원 사용</label>
+              <label class="gap-check"><input type="checkbox" id="gap-battery"> 배터리 / 내부 전원</label>
+              <label class="gap-check"><input type="checkbox" id="gap-implant"> 이식형 기기</label>
+              <label class="gap-check"><input type="checkbox" id="gap-wearable"> 착용형 기기</label>
+            </div>
+            <div class="gap-group">
+              <div class="gap-group-title">소프트웨어·데이터</div>
+              <label class="gap-check"><input type="checkbox" id="gap-sw"> 소프트웨어 포함 (SaMD)</label>
+              <label class="gap-check"><input type="checkbox" id="gap-ai"> AI / 머신러닝 기능</label>
+              <label class="gap-check"><input type="checkbox" id="gap-cds"> 임상 의사결정 지원</label>
+              <label class="gap-check"><input type="checkbox" id="gap-network"> 네트워크 / 무선 연결</label>
+            </div>
+            <div class="gap-group">
+              <div class="gap-group-title">인허가 시장</div>
+              <label class="gap-check"><input type="checkbox" id="gap-us"> 미국 (FDA)</label>
+              <label class="gap-check"><input type="checkbox" id="gap-eu"> EU (MDR)</label>
+              <label class="gap-check"><input type="checkbox" id="gap-int"> 국제 표준 (ISO/IEC)</label>
+            </div>
+            <button class="btn primary" style="width:100%;margin-top:8px;" onclick="runGapAnalysis()"><i class="ti ti-search"></i> 분석 시작</button>
+          </div>
+          <div style="flex:1;min-width:0;">
+            <div id="gap-results"><div style="color:var(--text4);font-size:13px;padding:40px 0;text-align:center;">특성을 선택하고 분석을 시작하세요</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="panel-map">
+        <div class="ph">
+          <i class="ti ti-topology-star" style="color:var(--text3);font-size:16px;"></i>
+          <span class="ph-title">// 규정 연관 지도</span>
+          <div class="ph-right">
+            <span style="font-size:11px;color:var(--text3);font-family:'IBM Plex Mono',monospace;">노드 클릭: 연관 규정 하이라이트</span>
+            <button class="btn" onclick="resetMapHighlight()"><i class="ti ti-refresh"></i> 초기화</button>
+          </div>
+        </div>
+        <div class="map-svg-wrap" id="mapWrap">
+          <div class="map-tooltip" id="mapTooltip"></div>
+          <svg id="mapSvg" width="100%" height="100%" viewBox="0 0 800 580" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
       </div>
 
 
@@ -782,6 +849,7 @@ function nav(panel, el) {
   if (panel === 'regulations') renderRegList();
   if (panel === 'updates') renderUpdList();
   if (panel === 'calendar') renderCalendar();
+  if (panel === 'map') buildRegMap();
 }
 
 // ── Dashboard ─────────────────────────────────────────────────
@@ -1421,6 +1489,195 @@ async function fetchLiveData() {
 // ── Start ─────────────────────────────────────────────────────
 load();
 fetchLiveData();
+
+// gap analyzer
+function runGapAnalysis() {
+  const checks = ["ac","battery","implant","wearable","sw","ai","cds","network","us","eu","int"];
+  const selected = checks.filter(c => document.getElementById("gap-"+c)?.checked);
+  const el = document.getElementById("gap-results");
+  if (!selected.length) {
+    el.innerHTML = "<div style=\"color:var(--amber);font-size:13px;padding:20px 0;text-align:center;\">특성을 하나 이상 선택해주세요</div>";
+    return;
+  }
+  const KW_MAP = {
+    ac: ["iec 60601","electrical","ac power","emc"],
+    battery: ["iec 60601","battery","internal power"],
+    implant: ["implant","iso 14708","active implant"],
+    wearable: ["wearable","body-worn","iec 60601-1-11"],
+    sw: ["software","iec 62304","samd"],
+    ai: ["artificial intelligence","machine learning","ai/ml","neural network","deep learning","pccp","predetermined change"],
+    cds: ["clinical decision","cds","imdrf n41"],
+    network: ["cybersecurity","iec 81001","network","wireless","sbom"],
+    us: ["fda","510(k)","de novo","pma","qmsr","21 cfr"],
+    eu: ["mdr","ivdr","mdcg","ce mark","annex"],
+    int: ["iso","iec","iso 14971","iso 13485","imdrf","international"],
+  };
+  let results = DB.regulations.filter(r => r.country !== "KR");
+  results = results.filter(r => {
+    const text = ((r.name||"")+( r.summary||"")+( r.tags||"")+( r.relatedStds||"")).toLowerCase();
+    return selected.some(key => KW_MAP[key].some(kw => text.includes(kw)));
+  });
+  if (!results.length) {
+    el.innerHTML = "<div style=\"color:var(--text4);font-size:13px;padding:40px 0;text-align:center;\">일치하는 규정이 없습니다</div>";
+    return;
+  }
+  const cc_map = {US:"#7c5cbf",EU:"#1e7e47",INT:"#a07000",KR:"#1a7adb"};
+  let html = "<div style=\"font-size:13px;font-weight:500;color:var(--text2);margin-bottom:12px;\">총 "+results.length+"개 규정이 필요합니다</div>";
+  results.forEach(r => {
+    const cc = cc_map[r.country] || "#888";
+    const linkBtn = r.link ? "<a href=\""+r.link+"\" target=\"_blank\" style=\"font-size:11px;color:var(--blue);text-decoration:none;margin-top:6px;display:inline-block;\"><i class=\"ti ti-external-link\"></i> 원문 보기</a>" : "";
+    html += "<div class=\"gap-result-card\">"
+      + "<div style=\"display:flex;align-items:center;gap:6px;\"><span style=\"font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;background:"+cc+"22;color:"+cc+";border:1px solid "+cc+"44;\">"+r.country+"</span></div>"
+      + "<div class=\"gap-result-name\">"+(r.name||"")+"</div>"
+      + "<div class=\"gap-result-summary\">"+(r.summary||"")+"</div>"
+      + linkBtn + "</div>";
+  });
+  el.innerHTML = html;
+}
+
+﻿
+// reg map
+function buildRegMap() {
+  const svg = document.getElementById("mapSvg");
+  if (!svg) return;
+  svg.innerHTML = "";
+  const W=800,H=580;
+  const nodes=[],edges=[],nodeIdx={};
+  const ccol={US:"#7c5cbf",EU:"#1e7e47",INT:"#a07000"};
+  DB.regulations.filter(r=>r.country!=="KR").forEach(r=>{
+    if(nodeIdx[r.name]===undefined){
+      nodeIdx[r.name]=nodes.length;
+      nodes.push({id:r.name,label:r.name,isDb:true,country:r.country,x:W/2+(Math.random()-0.5)*400,y:H/2+(Math.random()-0.5)*300,vx:0,vy:0});
+    }
+  });
+  DB.regulations.filter(r=>r.country!=="KR").forEach(r=>{
+    if(!r.relatedStds)return;
+    r.relatedStds.split(",").map(s=>s.trim()).filter(Boolean).forEach(std=>{
+      if(nodeIdx[std]===undefined){
+        nodeIdx[std]=nodes.length;
+        nodes.push({id:std,label:std,isDb:false,country:"STD",x:W/2+(Math.random()-0.5)*400,y:H/2+(Math.random()-0.5)*300,vx:0,vy:0});
+      }
+      const si=nodeIdx[r.name],ti=nodeIdx[std];
+      if(si!==undefined&&ti!==undefined)edges.push({source:si,target:ti});
+    });
+  });
+  if(!nodes.length){
+    svg.innerHTML="<text x=\"400\" y=\"290\" text-anchor=\"middle\" fill=\"#888\" font-size=\"14\">규정 데이터가 없습니다</text>";
+    return;
+  }
+  const K_REPEL=8000,K_SPRING=0.04,K_CENTER=0.008,REST_LEN=120,DAMP=0.85;
+  for(let tick=0;tick<300;tick++){
+    nodes.forEach(n=>{n.vx+=(W/2-n.x)*K_CENTER;n.vy+=(H/2-n.y)*K_CENTER;});
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy)||1;
+        const f=K_REPEL/(dist*dist);
+        const fx=(dx/dist)*f,fy=(dy/dist)*f;
+        nodes[i].vx+=fx;nodes[i].vy+=fy;
+        nodes[j].vx-=fx;nodes[j].vy-=fy;
+      }
+    }
+    edges.forEach(e=>{
+      const a=nodes[e.source],b=nodes[e.target];
+      const dx=b.x-a.x,dy=b.y-a.y;
+      const dist=Math.sqrt(dx*dx+dy*dy)||1;
+      const f=(dist-REST_LEN)*K_SPRING;
+      const fx=(dx/dist)*f,fy=(dy/dist)*f;
+      a.vx+=fx;a.vy+=fy;b.vx-=fx;b.vy-=fy;
+    });
+    nodes.forEach(n=>{
+      n.vx*=DAMP;n.vy*=DAMP;
+      n.x=Math.max(30,Math.min(W-30,n.x+n.vx));
+      n.y=Math.max(20,Math.min(H-20,n.y+n.vy));
+    });
+  }
+  const NS="http://www.w3.org/2000/svg";
+  const edgeG=document.createElementNS(NS,"g");
+  edgeG.setAttribute("id","map-edges");
+  edges.forEach((e,i)=>{
+    const line=document.createElementNS(NS,"line");
+    const a=nodes[e.source],b=nodes[e.target];
+    line.setAttribute("x1",a.x);line.setAttribute("y1",a.y);
+    line.setAttribute("x2",b.x);line.setAttribute("y2",b.y);
+    line.setAttribute("stroke","#444");line.setAttribute("stroke-width","1");
+    line.setAttribute("opacity","0.5");line.setAttribute("data-edge",i);
+    edgeG.appendChild(line);
+  });
+  svg.appendChild(edgeG);
+  const nodeG=document.createElementNS(NS,"g");
+  const tooltip=document.getElementById("mapTooltip");
+  const wrap=document.getElementById("mapWrap");
+  nodes.forEach((n,ni)=>{
+    const g=document.createElementNS(NS,"g");
+    g.setAttribute("class","map-node");
+    g.setAttribute("data-ni",ni);
+    const rad=n.isDb?10:6;
+    const fill=n.country==="STD"?"#555":(ccol[n.country]||"#888");
+    const circle=document.createElementNS(NS,"circle");
+    circle.setAttribute("cx",n.x);circle.setAttribute("cy",n.y);
+    circle.setAttribute("r",rad);circle.setAttribute("fill",fill);
+    circle.setAttribute("stroke","#222");circle.setAttribute("stroke-width","1.5");
+    const lbl=document.createElementNS(NS,"text");
+    lbl.setAttribute("x",n.x);lbl.setAttribute("y",n.y+rad+11);
+    lbl.setAttribute("text-anchor","middle");lbl.setAttribute("font-size","9");
+    lbl.setAttribute("fill","#aaa");lbl.setAttribute("pointer-events","none");
+    lbl.textContent=n.label.length>18?n.label.slice(0,16)+"...":n.label;
+    g.appendChild(circle);g.appendChild(lbl);
+    g.addEventListener("mouseenter",evt=>{
+      tooltip.style.display="block";tooltip.textContent=n.label;
+      const wr=wrap.getBoundingClientRect();
+      tooltip.style.left=(evt.clientX-wr.left+12)+"px";
+      tooltip.style.top=(evt.clientY-wr.top+12)+"px";
+    });
+    g.addEventListener("mousemove",evt=>{
+      const wr=wrap.getBoundingClientRect();
+      tooltip.style.left=(evt.clientX-wr.left+12)+"px";
+      tooltip.style.top=(evt.clientY-wr.top+12)+"px";
+    });
+    g.addEventListener("mouseleave",()=>{tooltip.style.display="none";});
+    g.addEventListener("click",()=>highlightMapNode(ni,nodes,edges,svg));
+    nodeG.appendChild(g);
+  });
+  svg.appendChild(nodeG);
+  let panStart=null,viewBox={x:0,y:0,w:W,h:H};
+  svg.addEventListener("mousedown",e=>{if(e.target===svg||e.target.tagName==="line"){panStart={x:e.clientX,y:e.clientY};}});
+  window.addEventListener("mousemove",e=>{
+    if(!panStart)return;
+    const dx=(e.clientX-panStart.x)*(viewBox.w/svg.clientWidth);
+    const dy=(e.clientY-panStart.y)*(viewBox.h/svg.clientHeight);
+    svg.setAttribute("viewBox",(viewBox.x-dx)+" "+(viewBox.y-dy)+" "+viewBox.w+" "+viewBox.h);
+  });
+  window.addEventListener("mouseup",e=>{
+    if(!panStart)return;
+    const dx=(e.clientX-panStart.x)*(viewBox.w/svg.clientWidth);
+    const dy=(e.clientY-panStart.y)*(viewBox.h/svg.clientHeight);
+    viewBox.x-=dx;viewBox.y-=dy;
+    svg.setAttribute("viewBox",viewBox.x+" "+viewBox.y+" "+viewBox.w+" "+viewBox.h);
+    panStart=null;
+  });
+}
+
+function highlightMapNode(ni,nodes,edges,svg){
+  const connected=new Set([ni]);
+  edges.forEach(e=>{if(e.source===ni)connected.add(e.target);if(e.target===ni)connected.add(e.source);});
+  svg.querySelectorAll(".map-node").forEach(g=>{
+    const idx=parseInt(g.getAttribute("data-ni"));
+    g.style.opacity=connected.has(idx)?"1":"0.15";
+  });
+  svg.querySelectorAll("#map-edges line").forEach((line,i)=>{
+    const e=edges[i];
+    line.style.opacity=(e.source===ni||e.target===ni)?"0.9":"0.05";
+    line.setAttribute("stroke",(e.source===ni||e.target===ni)?"#88f":"#444");
+  });
+}
+
+function resetMapHighlight(){
+  const svg=document.getElementById("mapSvg");
+  if(!svg)return;
+  svg.querySelectorAll(".map-node").forEach(g=>{g.style.opacity="1";});
+  svg.querySelectorAll("#map-edges line").forEach(line=>{line.style.opacity="0.5";line.setAttribute("stroke","#444");});
+}
 </script>
 </body>
 </html>
