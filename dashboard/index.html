@@ -1545,124 +1545,197 @@ function runGapAnalysis() {
 function buildRegMap() {
   const svg = document.getElementById("mapSvg");
   if (!svg) return;
+  if (svg.dataset.built === "1") return;
   svg.innerHTML = "";
-  const W=800,H=580;
-  const nodes=[],edges=[],nodeIdx={};
-  const ccol={US:"#7c5cbf",EU:"#1e7e47",INT:"#a07000"};
-  DB.regulations.filter(r=>r.country!=="KR").forEach(r=>{
-    if(nodeIdx[r.name]===undefined){
-      nodeIdx[r.name]=nodes.length;
-      nodes.push({id:r.name,label:r.name,isDb:true,country:r.country,x:W/2+(Math.random()-0.5)*400,y:H/2+(Math.random()-0.5)*300,vx:0,vy:0});
+
+  const W = 1400, H = 1000;
+  svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+
+  const nodes = [], edges = [], nodeIdx = {};
+  const ccol = { US:"#7c5cbf", EU:"#1e7e47", INT:"#a07000", JP:"#c45000" };
+
+  DB.regulations.filter(r => r.country !== "KR").forEach(r => {
+    if (nodeIdx[r.name] === undefined) {
+      nodeIdx[r.name] = nodes.length;
+      nodes.push({ id:r.name, label:r.name, isDb:true, country:r.country,
+        x: W/2 + (Math.random()-0.5)*W*0.7, y: H/2 + (Math.random()-0.5)*H*0.7, vx:0, vy:0 });
     }
   });
-  DB.regulations.filter(r=>r.country!=="KR").forEach(r=>{
-    if(!r.relatedStds)return;
-    r.relatedStds.split(",").map(s=>s.trim()).filter(Boolean).forEach(std=>{
-      if(nodeIdx[std]===undefined){
-        nodeIdx[std]=nodes.length;
-        nodes.push({id:std,label:std,isDb:false,country:"STD",x:W/2+(Math.random()-0.5)*400,y:H/2+(Math.random()-0.5)*300,vx:0,vy:0});
+
+  DB.regulations.filter(r => r.country !== "KR").forEach(r => {
+    if (!r.relatedStds) return;
+    r.relatedStds.split(",").map(s => s.trim()).filter(Boolean).forEach(std => {
+      if (nodeIdx[std] === undefined) {
+        nodeIdx[std] = nodes.length;
+        nodes.push({ id:std, label:std, isDb:false, country:"STD",
+          x: W/2 + (Math.random()-0.5)*W*0.5, y: H/2 + (Math.random()-0.5)*H*0.5, vx:0, vy:0 });
       }
-      const si=nodeIdx[r.name],ti=nodeIdx[std];
-      if(si!==undefined&&ti!==undefined)edges.push({source:si,target:ti});
+      const si = nodeIdx[r.name], ti = nodeIdx[std];
+      if (si !== undefined && ti !== undefined) edges.push({ source:si, target:ti });
     });
   });
-  if(!nodes.length){
-    svg.innerHTML="<text x=\"400\" y=\"290\" text-anchor=\"middle\" fill=\"#888\" font-size=\"14\">규정 데이터가 없습니다</text>";
+
+  if (!nodes.length) {
+    svg.innerHTML = '<text x="700" y="500" text-anchor="middle" fill="#888" font-size="16">규정 데이터가 없습니다</text>';
     return;
   }
-  const K_REPEL=8000,K_SPRING=0.04,K_CENTER=0.008,REST_LEN=120,DAMP=0.85;
-  for(let tick=0;tick<300;tick++){
-    nodes.forEach(n=>{n.vx+=(W/2-n.x)*K_CENTER;n.vy+=(H/2-n.y)*K_CENTER;});
-    for(let i=0;i<nodes.length;i++){
-      for(let j=i+1;j<nodes.length;j++){
-        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;
-        const dist=Math.sqrt(dx*dx+dy*dy)||1;
-        const f=K_REPEL/(dist*dist);
-        const fx=(dx/dist)*f,fy=(dy/dist)*f;
-        nodes[i].vx+=fx;nodes[i].vy+=fy;
-        nodes[j].vx-=fx;nodes[j].vy-=fy;
+
+  const nodeR = n => n.isDb ? 12 : 7;
+
+  const K_REPEL  = 60000;
+  const K_SPRING = 0.025;
+  const K_CENTER = 0.004;
+  const REST_LEN = 160;
+  const DAMP     = 0.78;
+  const MIN_DIST = 50;
+
+  for (let tick = 0; tick < 500; tick++) {
+    nodes.forEach(n => {
+      n.vx += (W/2 - n.x) * K_CENTER;
+      n.vy += (H/2 - n.y) * K_CENTER;
+    });
+
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i+1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy) || 0.1;
+        const minD = nodeR(nodes[i]) + nodeR(nodes[j]) + MIN_DIST;
+        const f = dist < minD
+          ? K_REPEL * 4 / (dist * dist)
+          : K_REPEL / (dist * dist);
+        const fx = (dx/dist)*f, fy = (dy/dist)*f;
+        nodes[i].vx += fx; nodes[i].vy += fy;
+        nodes[j].vx -= fx; nodes[j].vy -= fy;
       }
     }
-    edges.forEach(e=>{
-      const a=nodes[e.source],b=nodes[e.target];
-      const dx=b.x-a.x,dy=b.y-a.y;
-      const dist=Math.sqrt(dx*dx+dy*dy)||1;
-      const f=(dist-REST_LEN)*K_SPRING;
-      const fx=(dx/dist)*f,fy=(dy/dist)*f;
-      a.vx+=fx;a.vy+=fy;b.vx-=fx;b.vy-=fy;
+
+    edges.forEach(e => {
+      const a = nodes[e.source], b = nodes[e.target];
+      const dx = b.x-a.x, dy = b.y-a.y;
+      const dist = Math.sqrt(dx*dx+dy*dy) || 1;
+      const f = (dist - REST_LEN) * K_SPRING;
+      const fx = (dx/dist)*f, fy = (dy/dist)*f;
+      a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
     });
-    nodes.forEach(n=>{
-      n.vx*=DAMP;n.vy*=DAMP;
-      n.x=Math.max(30,Math.min(W-30,n.x+n.vx));
-      n.y=Math.max(20,Math.min(H-20,n.y+n.vy));
+
+    nodes.forEach(n => {
+      n.vx *= DAMP; n.vy *= DAMP;
+      n.x = Math.max(40, Math.min(W-40, n.x + n.vx));
+      n.y = Math.max(30, Math.min(H-30, n.y + n.vy));
     });
   }
-  const NS="http://www.w3.org/2000/svg";
-  const edgeG=document.createElementNS(NS,"g");
-  edgeG.setAttribute("id","map-edges");
-  edges.forEach((e,i)=>{
-    const line=document.createElementNS(NS,"line");
-    const a=nodes[e.source],b=nodes[e.target];
-    line.setAttribute("x1",a.x);line.setAttribute("y1",a.y);
-    line.setAttribute("x2",b.x);line.setAttribute("y2",b.y);
-    line.setAttribute("stroke","#444");line.setAttribute("stroke-width","1");
-    line.setAttribute("opacity","0.5");line.setAttribute("data-edge",i);
-    edgeG.appendChild(line);
+
+  const NS = "http://www.w3.org/2000/svg";
+
+  const edgeG = document.createElementNS(NS,"g");
+  edgeG.id = "map-edges";
+  edges.forEach((e,i) => {
+    const ln = document.createElementNS(NS,"line");
+    const a = nodes[e.source], b = nodes[e.target];
+    ln.setAttribute("x1",a.x); ln.setAttribute("y1",a.y);
+    ln.setAttribute("x2",b.x); ln.setAttribute("y2",b.y);
+    ln.setAttribute("stroke","#3a4a5a"); ln.setAttribute("stroke-width","1.2");
+    ln.setAttribute("opacity","0.6"); ln.setAttribute("data-edge",i);
+    edgeG.appendChild(ln);
   });
   svg.appendChild(edgeG);
-  const nodeG=document.createElementNS(NS,"g");
-  const tooltip=document.getElementById("mapTooltip");
-  const wrap=document.getElementById("mapWrap");
-  nodes.forEach((n,ni)=>{
-    const g=document.createElementNS(NS,"g");
-    g.setAttribute("class","map-node");
-    g.setAttribute("data-ni",ni);
-    const rad=n.isDb?10:6;
-    const fill=n.country==="STD"?"#555":(ccol[n.country]||"#888");
-    const circle=document.createElementNS(NS,"circle");
-    circle.setAttribute("cx",n.x);circle.setAttribute("cy",n.y);
-    circle.setAttribute("r",rad);circle.setAttribute("fill",fill);
-    circle.setAttribute("stroke","#222");circle.setAttribute("stroke-width","1.5");
-    const lbl=document.createElementNS(NS,"text");
-    lbl.setAttribute("x",n.x);lbl.setAttribute("y",n.y+rad+11);
-    lbl.setAttribute("text-anchor","middle");lbl.setAttribute("font-size","9");
-    lbl.setAttribute("fill","#aaa");lbl.setAttribute("pointer-events","none");
-    lbl.textContent=n.label.length>18?n.label.slice(0,16)+"...":n.label;
-    g.appendChild(circle);g.appendChild(lbl);
-    g.addEventListener("mouseenter",evt=>{
-      tooltip.style.display="block";tooltip.textContent=n.label;
-      const wr=wrap.getBoundingClientRect();
-      tooltip.style.left=(evt.clientX-wr.left+12)+"px";
-      tooltip.style.top=(evt.clientY-wr.top+12)+"px";
+
+  const nodeG = document.createElementNS(NS,"g");
+  const tooltip = document.getElementById("mapTooltip");
+  const wrap    = document.getElementById("mapWrap");
+
+  nodes.forEach((n,ni) => {
+    const g = document.createElementNS(NS,"g");
+    g.setAttribute("class","map-node"); g.setAttribute("data-ni",ni);
+    const r = nodeR(n);
+    const fill = n.country==="STD" ? "#4a5568" : (ccol[n.country]||"#888");
+
+    const circle = document.createElementNS(NS,"circle");
+    circle.setAttribute("cx",n.x); circle.setAttribute("cy",n.y);
+    circle.setAttribute("r",r); circle.setAttribute("fill",fill);
+    circle.setAttribute("stroke", n.isDb ? "#fff" : "#666");
+    circle.setAttribute("stroke-width", n.isDb ? "1.5" : "1");
+
+    const lbl = document.createElementNS(NS,"text");
+    lbl.setAttribute("x",n.x); lbl.setAttribute("y",n.y + r + 12);
+    lbl.setAttribute("text-anchor","middle"); lbl.setAttribute("font-size","10");
+    lbl.setAttribute("fill", n.isDb ? "#ccc" : "#888");
+    lbl.setAttribute("pointer-events","none");
+    lbl.textContent = n.label.length > 20 ? n.label.slice(0,18)+"…" : n.label;
+
+    g.appendChild(circle); g.appendChild(lbl);
+
+    g.addEventListener("mouseenter", evt => {
+      circle.setAttribute("r", r+3);
+      tooltip.style.display = "block"; tooltip.textContent = n.label;
+      const wr = wrap.getBoundingClientRect();
+      tooltip.style.left = (evt.clientX - wr.left + 14) + "px";
+      tooltip.style.top  = (evt.clientY - wr.top  + 14) + "px";
     });
-    g.addEventListener("mousemove",evt=>{
-      const wr=wrap.getBoundingClientRect();
-      tooltip.style.left=(evt.clientX-wr.left+12)+"px";
-      tooltip.style.top=(evt.clientY-wr.top+12)+"px";
+    g.addEventListener("mousemove", evt => {
+      const wr = wrap.getBoundingClientRect();
+      tooltip.style.left = (evt.clientX - wr.left + 14) + "px";
+      tooltip.style.top  = (evt.clientY - wr.top  + 14) + "px";
     });
-    g.addEventListener("mouseleave",()=>{tooltip.style.display="none";});
-    g.addEventListener("click",()=>highlightMapNode(ni,nodes,edges,svg));
+    g.addEventListener("mouseleave", () => {
+      circle.setAttribute("r", r);
+      tooltip.style.display = "none";
+    });
+    g.addEventListener("click", () => highlightMapNode(ni, nodes, edges, svg));
     nodeG.appendChild(g);
   });
   svg.appendChild(nodeG);
-  let panStart=null,viewBox={x:0,y:0,w:W,h:H};
-  svg.addEventListener("mousedown",e=>{if(e.target===svg||e.target.tagName==="line"){panStart={x:e.clientX,y:e.clientY};}});
-  window.addEventListener("mousemove",e=>{
-    if(!panStart)return;
-    const dx=(e.clientX-panStart.x)*(viewBox.w/svg.clientWidth);
-    const dy=(e.clientY-panStart.y)*(viewBox.h/svg.clientHeight);
-    svg.setAttribute("viewBox",(viewBox.x-dx)+" "+(viewBox.y-dy)+" "+viewBox.w+" "+viewBox.h);
-  });
-  window.addEventListener("mouseup",e=>{
-    if(!panStart)return;
-    const dx=(e.clientX-panStart.x)*(viewBox.w/svg.clientWidth);
-    const dy=(e.clientY-panStart.y)*(viewBox.h/svg.clientHeight);
-    viewBox.x-=dx;viewBox.y-=dy;
-    svg.setAttribute("viewBox",viewBox.x+" "+viewBox.y+" "+viewBox.w+" "+viewBox.h);
-    panStart=null;
-  });
-}
 
+  const legendData = [
+    {color:"#7c5cbf",label:"미국 (FDA)"}, {color:"#1e7e47",label:"EU (MDR)"},
+    {color:"#a07000",label:"국제 (ISO/IEC)"}, {color:"#c45000",label:"일본 (PMDA)"},
+    {color:"#4a5568",label:"표준 참조"},
+  ];
+  const legG = document.createElementNS(NS,"g");
+  legendData.forEach((d,i) => {
+    const c = document.createElementNS(NS,"circle");
+    c.setAttribute("cx","18"); c.setAttribute("cy", 20 + i*22);
+    c.setAttribute("r","7"); c.setAttribute("fill",d.color);
+    const t = document.createElementNS(NS,"text");
+    t.setAttribute("x","32"); t.setAttribute("y", 25 + i*22);
+    t.setAttribute("font-size","11"); t.setAttribute("fill","#aaa");
+    t.textContent = d.label;
+    legG.appendChild(c); legG.appendChild(t);
+  });
+  svg.appendChild(legG);
+
+  let vb = {x:0, y:0, w:W, h:H};
+  let panStart = null;
+
+  svg.addEventListener("wheel", e => {
+    e.preventDefault();
+    const factor = e.deltaY > 0 ? 1.12 : 0.89;
+    const svgR = svg.getBoundingClientRect();
+    const mx = (e.clientX - svgR.left) / svgR.width * vb.w + vb.x;
+    const my = (e.clientY - svgR.top)  / svgR.height * vb.h + vb.y;
+    vb.w *= factor; vb.h *= factor;
+    vb.x = mx - (e.clientX - svgR.left) / svgR.width  * vb.w;
+    vb.y = my - (e.clientY - svgR.top)  / svgR.height * vb.h;
+    svg.setAttribute("viewBox", vb.x+" "+vb.y+" "+vb.w+" "+vb.h);
+  }, {passive:false});
+
+  svg.addEventListener("mousedown", e => {
+    if (e.target.closest(".map-node")) return;
+    panStart = {x:e.clientX, y:e.clientY, vb:{...vb}};
+    e.preventDefault();
+  });
+  window.addEventListener("mousemove", e => {
+    if (!panStart) return;
+    const svgR = svg.getBoundingClientRect();
+    const dx = (e.clientX - panStart.x) / svgR.width  * panStart.vb.w;
+    const dy = (e.clientY - panStart.y) / svgR.height * panStart.vb.h;
+    vb = { ...panStart.vb, x: panStart.vb.x-dx, y: panStart.vb.y-dy };
+    svg.setAttribute("viewBox", vb.x+" "+vb.y+" "+vb.w+" "+vb.h);
+  });
+  window.addEventListener("mouseup", () => { panStart = null; });
+
+  svg.dataset.built = "1";
+}
 function highlightMapNode(ni,nodes,edges,svg){
   const connected=new Set([ni]);
   edges.forEach(e=>{if(e.source===ni)connected.add(e.target);if(e.target===ni)connected.add(e.source);});
