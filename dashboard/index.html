@@ -414,8 +414,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
           <span class="ph-title">// 갭 분석기</span>
           <span style="font-size:11px;color:var(--text3);margin-left:4px;">제품 특성을 선택하면 필요한 규정 목록을 자동으로 추출합니다</span>
         </div>
-        <div style="display:flex;gap:24px;align-items:flex-start;">
-          <div style="width:280px;flex-shrink:0;">
+        <div style="display:flex;gap:24px;height:calc(100vh - 130px);overflow:hidden;">
+          <div style="width:260px;flex-shrink:0;overflow-y:auto;">
             <div class="gap-group">
               <div class="gap-group-title">전원·하드웨어</div>
               <label class="gap-check"><input type="checkbox" id="gap-ac"> AC 전원 사용</label>
@@ -434,11 +434,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'IBM Pl
               <div class="gap-group-title">인허가 시장</div>
               <label class="gap-check"><input type="checkbox" id="gap-us"> 미국 (FDA)</label>
               <label class="gap-check"><input type="checkbox" id="gap-eu"> EU (MDR)</label>
+              <label class="gap-check"><input type="checkbox" id="gap-jp"> 일본 (PMDA)</label>
               <label class="gap-check"><input type="checkbox" id="gap-int"> 국제 표준 (ISO/IEC)</label>
             </div>
             <button class="btn primary" style="width:100%;margin-top:8px;" onclick="runGapAnalysis()"><i class="ti ti-search"></i> 분석 시작</button>
           </div>
-          <div style="flex:1;min-width:0;">
+          <div style="flex:1;min-width:0;overflow-y:auto;padding-right:4px;">
             <div id="gap-results"><div style="color:var(--text4);font-size:13px;padding:40px 0;text-align:center;">특성을 선택하고 분석을 시작하세요</div></div>
           </div>
         </div>
@@ -1492,50 +1493,54 @@ fetchLiveData();
 
 // gap analyzer
 function runGapAnalysis() {
-  const checks = ["ac","battery","implant","wearable","sw","ai","cds","network","us","eu","int"];
-  const selected = checks.filter(c => document.getElementById("gap-"+c)?.checked);
+  const FEATURE_KEYS = ["ac","battery","implant","wearable","sw","ai","cds","network"];
+  const MARKET_KEYS  = ["us","eu","jp","int"];
+  const selFeatures  = FEATURE_KEYS.filter(c => document.getElementById("gap-"+c)?.checked);
+  const selMarkets   = MARKET_KEYS.filter(c  => document.getElementById("gap-"+c)?.checked);
   const el = document.getElementById("gap-results");
-  if (!selected.length) {
-    el.innerHTML = "<div style=\"color:var(--amber);font-size:13px;padding:20px 0;text-align:center;\">특성을 하나 이상 선택해주세요</div>";
+  if (!selFeatures.length && !selMarkets.length) {
+    el.innerHTML = '<div style="color:var(--amber);font-size:13px;padding:20px 0;text-align:center;">특성을 하나 이상 선택해주세요</div>';
     return;
   }
-  const KW_MAP = {
-    ac: ["iec 60601","electrical","ac power","emc"],
-    battery: ["iec 60601","battery","internal power"],
-    implant: ["implant","iso 14708","active implant"],
-    wearable: ["wearable","body-worn","iec 60601-1-11"],
-    sw: ["software","iec 62304","samd"],
-    ai: ["artificial intelligence","machine learning","ai/ml","neural network","deep learning","pccp","predetermined change"],
-    cds: ["clinical decision","cds","imdrf n41"],
-    network: ["cybersecurity","iec 81001","network","wireless","sbom"],
-    us: ["fda","510(k)","de novo","pma","qmsr","21 cfr"],
-    eu: ["mdr","ivdr","mdcg","ce mark","annex"],
-    int: ["iso","iec","iso 14971","iso 13485","imdrf","international"],
+  const FEATURE_KW = {
+    ac:      ["iec 60601","60601","ac power","electrical safety","emc","electromagnetic"],
+    battery: ["iec 60601","battery","internal power","60601-1"],
+    implant: ["implant","iso 14708","active implantable"],
+    wearable:["wearable","body-worn","60601-1-11","home healthcare"],
+    sw:      ["iec 62304","samd","software as a medical","software lifecycle"],
+    ai:      ["artificial intelligence","machine learning","ai/ml","neural network","deep learning","pccp","predetermined change","imdrf n70"],
+    cds:     ["clinical decision support","cds","imdrf n41"],
+    network: ["cybersecurity","iec 81001","sbom","wireless","cyber security"],
   };
-  let results = DB.regulations.filter(r => r.country !== "KR");
-  results = results.filter(r => {
-    const text = ((r.name||"")+( r.summary||"")+( r.tags||"")+( r.relatedStds||"")).toLowerCase();
-    return selected.some(key => KW_MAP[key].some(kw => text.includes(kw)));
-  });
-  if (!results.length) {
-    el.innerHTML = "<div style=\"color:var(--text4);font-size:13px;padding:40px 0;text-align:center;\">일치하는 규정이 없습니다</div>";
+  const MARKET_COUNTRY = {us:"US", eu:"EU", jp:"JP", int:"INT"};
+  let pool = DB.regulations.filter(r => r.country !== "KR");
+  if (selMarkets.length) {
+    const allowed = new Set(selMarkets.map(m => MARKET_COUNTRY[m]));
+    pool = pool.filter(r => allowed.has(r.country));
+  }
+  if (selFeatures.length) {
+    pool = pool.filter(r => {
+      const text = ((r.name||"")+" "+(r.summary||"")+" "+(r.tags||"")+" "+(r.relatedStds||"")).toLowerCase();
+      return selFeatures.some(key => FEATURE_KW[key].some(kw => text.includes(kw)));
+    });
+  }
+  if (!pool.length) {
+    el.innerHTML = '<div style="color:var(--text4);font-size:13px;padding:40px 0;text-align:center;">일치하는 규정이 없습니다.<br><span style="font-size:11px;">조건을 조정해 보세요</span></div>';
     return;
   }
-  const cc_map = {US:"#7c5cbf",EU:"#1e7e47",INT:"#a07000",KR:"#1a7adb"};
-  let html = "<div style=\"font-size:13px;font-weight:500;color:var(--text2);margin-bottom:12px;\">총 "+results.length+"개 규정이 필요합니다</div>";
-  results.forEach(r => {
-    const cc = cc_map[r.country] || "#888";
-    const linkBtn = r.link ? "<a href=\""+r.link+"\" target=\"_blank\" style=\"font-size:11px;color:var(--blue);text-decoration:none;margin-top:6px;display:inline-block;\"><i class=\"ti ti-external-link\"></i> 원문 보기</a>" : "";
-    html += "<div class=\"gap-result-card\">"
-      + "<div style=\"display:flex;align-items:center;gap:6px;\"><span style=\"font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;background:"+cc+"22;color:"+cc+";border:1px solid "+cc+"44;\">"+r.country+"</span></div>"
-      + "<div class=\"gap-result-name\">"+(r.name||"")+"</div>"
-      + "<div class=\"gap-result-summary\">"+(r.summary||"")+"</div>"
-      + linkBtn + "</div>";
+  const P = {"높음":0,"중간":1,"낮음":2};
+  pool.sort((a,b) => (P[a.priority]??9)-(P[b.priority]??9));
+  const CC = {US:"#7c5cbf",EU:"#1e7e47",INT:"#a07000",JP:"#c45000"};
+  let html = '<div style="font-size:13px;font-weight:500;color:var(--text2);margin-bottom:12px;">총 '+pool.length+'개 규정이 해당됩니다</div>';
+  pool.forEach(r => {
+    const cc = CC[r.country]||"#888";
+    const pc = r.priority==="높음"?"var(--red)":r.priority==="중간"?"var(--amber)":"var(--text3)";
+    const lb = r.link ? '<a href="'+r.link+'" target="_blank" style="font-size:11px;color:var(--blue);text-decoration:none;margin-top:6px;display:inline-block;"><i class="ti ti-external-link"></i> 원문 보기</a>' : "";
+    html += '<div class="gap-result-card"><div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;"><span style="font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;background:'+cc+'22;color:'+cc+';border:1px solid '+cc+'44;">'+r.country+'</span>'
+      +(r.priority?'<span style="font-size:10px;color:'+pc+';">'+r.priority+'</span>':"")+ '</div><div class="gap-result-name">'+( r.name||"")+'</div><div class="gap-result-summary">'+( r.summary||"").slice(0,120)+'</div>'+lb+'</div>';
   });
   el.innerHTML = html;
 }
-
-﻿
 // reg map
 function buildRegMap() {
   const svg = document.getElementById("mapSvg");
