@@ -1571,7 +1571,7 @@ function buildRegMap() {
           x: W/2 + (Math.random()-0.5)*W*0.5, y: H/2 + (Math.random()-0.5)*H*0.5, vx:0, vy:0 });
       }
       const si = nodeIdx[r.name], ti = nodeIdx[std];
-      if (si !== undefined && ti !== undefined) edges.push({ source:si, target:ti });
+      if (si !== undefined && ti !== undefined) { edges.push({ source:si, target:ti }); edges.push({ source:ti, target:si }); }
     });
   });
 
@@ -1738,7 +1738,7 @@ function buildRegMap() {
 }
 function highlightMapNode(ni,nodes,edges,svg){
   const connected=new Set([ni]);
-  edges.forEach(e=>{if(e.source===ni)connected.add(e.target);if(e.target===ni)connected.add(e.source);});
+  edges.forEach(e=>{ if(e.source===ni) connected.add(e.target); });
   svg.querySelectorAll(".map-node").forEach(g=>{
     const idx=parseInt(g.getAttribute("data-ni"));
     g.style.opacity=connected.has(idx)?"1":"0.15";
@@ -1750,7 +1750,7 @@ function highlightMapNode(ni,nodes,edges,svg){
   });
 }
 
-function resetMapHighlight(){
+function resetMapHighlight(){ const s=document.getElementById("mapSvg"); if(s) s.dataset.built=""; buildRegMap();
   const svg=document.getElementById("mapSvg");
   if(!svg)return;
   svg.querySelectorAll(".map-node").forEach(g=>{g.style.opacity="1";});
