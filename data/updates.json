@@ -1,5 +1,38 @@
 [
   {
+    "id": "ec_mdr_guidance_00beb74c56f9",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "MDCG 2021-5 rev.1 - Appendix — Transition to the \"EU REP\" symbol in EN ISO 15223-1",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/document/download/e10f7694-67b4-4093-a969-6f7e43747c44_en?filename=md_mdcg_2021_5_appendix_en.pdf",
+    "date": "June 2026",
+    "detected_at": "2026-06-22T17:56:19.138168+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_063741c19005",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "MDCG 2026-4 — MDCG Position Paper: Management of SS(C)P in EUDAMED after mandatory use",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/document/download/a80332cf-e9f0-4d45-8863-3d96e8c2a675_en?filename=mdcg_2026-4_en.pdf",
+    "date": "June 2026",
+    "detected_at": "2026-06-22T17:56:19.138168+00:00",
+    "unread": true
+  },
+  {
+    "id": "fda_fr_2e7cc97cc249",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Medical Devices; Radiology Devices; Classification of the Radiological Machine Learning-Based Quantitative Imaging Software With Predetermined Change Control Plan",
+    "summary": "The Food and Drug Administration (FDA) is classifying the radiological machine learning-based quantitative imaging software with predetermined change control plan into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the",
+    "link": "https://www.federalregister.gov/documents/2026/06/17/2026-12166/medical-devices-radiology-devices-classification-of-the-radiological-machine-learning-based",
+    "date": "2026-06-17",
+    "detected_at": "2026-06-22T17:56:19.138168+00:00",
+    "unread": true
+  },
+  {
     "id": "fda_fr_deae6e6c3f80",
     "country": "US",
     "doctype": "guidance",
@@ -2162,39 +2195,6 @@
     "title": "Handling of Medical Device Software",
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000231042.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_b5401aa398b0",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Handling of the Two-step Approval Based on the Characteristics of Software as a Medical Device",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000275279.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_4eece477ea9a",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Q&A about “Handling of the Two-step Approval Based on the Characteristics of Software as a Medical Device”",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000275278.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_96b8d478a9a7",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Q & A for the Handling of Clinical Trial Results on Medical Devices Obtained in Foreign Countries",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000153893.pdf",
     "date": "",
     "detected_at": "2026-06-05T00:57:23.661072+00:00",
     "unread": true
