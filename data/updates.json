@@ -1,5 +1,16 @@
 [
   {
+    "id": "fda_fr_926c1da0ea90",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Premarket Approval of Medical Devices",
+    "summary": "The Food and Drug Administration (FDA) is announcing that a proposed collection of information has been submitted to the Office of Management and Budget (OMB) for review and clearance under the Paperwork Reduction Act of 1995.",
+    "link": "https://www.federalregister.gov/documents/2026/07/06/2026-13519/agency-information-collection-activities-submission-for-office-of-management-and-budget-review",
+    "date": "2026-07-06",
+    "detected_at": "2026-07-06T02:25:57.465462+00:00",
+    "unread": true
+  },
+  {
     "id": "ec_mdr_guidance_00beb74c56f9",
     "country": "EU",
     "doctype": "guidance",
@@ -2184,17 +2195,6 @@
     "title": "Questions & Answers about Handling of Medical Device Software",
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000231040.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_8eb83127ba8e",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Handling of Medical Device Software",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000231042.pdf",
     "date": "",
     "detected_at": "2026-06-05T00:57:23.661072+00:00",
     "unread": true
