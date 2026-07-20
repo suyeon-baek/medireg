@@ -8,18 +8,7 @@
     "summary": "The Food and Drug Administration (FDA) is announcing that a proposed collection of information has been submitted to the Office of Management and Budget (OMB) for review and clearance under the Paperwork Reduction Act of 1995.",
     "link": "https://www.federalregister.gov/documents/2026/07/06/2026-13519/agency-information-collection-activities-submission-for-office-of-management-and-budget-review",
     "date": "2026-07-06",
-    "crawled_at": "2026-07-13T01:58:42.865253"
-  },
-  {
-    "id": "fda_fr_2e7cc97cc249",
-    "source": "fda_federal_register",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; Radiology Devices; Classification of the Radiological Machine Learning-Based Quantitative Imaging Software With Predetermined Change Control Plan",
-    "summary": "The Food and Drug Administration (FDA) is classifying the radiological machine learning-based quantitative imaging software with predetermined change control plan into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the",
-    "link": "https://www.federalregister.gov/documents/2026/06/17/2026-12166/medical-devices-radiology-devices-classification-of-the-radiological-machine-learning-based",
-    "date": "2026-06-17",
-    "crawled_at": "2026-07-13T01:58:42.865306"
+    "crawled_at": "2026-07-20T03:19:54.597487"
   },
   {
     "id": "ec_mdr_guidance_9ae349851508",
@@ -30,7 +19,7 @@
     "link": "https://health.ec.europa.eu/document/download/15a33521-87f1-4939-92a1-ef23f2b09c6c_en?filename=mdcg_2023-6_en.pdf",
     "summary": "",
     "date": "December 2023",
-    "crawled_at": "2026-07-13T01:58:46.574908"
+    "crawled_at": "2026-07-20T03:19:55.219581"
   },
   {
     "id": "ec_mdr_guidance_249f80db7e34",
@@ -41,7 +30,7 @@
     "link": "https://health.ec.europa.eu/document/download/ea4acf26-979a-4dbb-92ff-8d1d804da51a_en?filename=mdcg_2023-5_en.pdf",
     "summary": "",
     "date": "December 2023",
-    "crawled_at": "2026-07-13T01:58:46.575087"
+    "crawled_at": "2026-07-20T03:19:55.219744"
   },
   {
     "id": "ec_mdr_guidance_3f39f3d5c4f1",
@@ -52,7 +41,7 @@
     "link": "https://health.ec.europa.eu/document/download/3fa74c6b-953a-41f5-b024-8889ac8b5ddf_en?filename=mdcg_2024-13_en.pdf",
     "summary": "",
     "date": "October 2024",
-    "crawled_at": "2026-07-13T01:58:46.575690"
+    "crawled_at": "2026-07-20T03:19:55.220230"
   },
   {
     "id": "ec_mdr_guidance_5690c68a6278",
@@ -63,7 +52,7 @@
     "link": "https://health.ec.europa.eu/document/download/b5a27717-229f-4d7a-97b1-e1c7d819e579_en?filename=mdcg_2022-5_en.pdf",
     "summary": "",
     "date": "October 2024",
-    "crawled_at": "2026-07-13T01:58:46.575813"
+    "crawled_at": "2026-07-20T03:19:55.220315"
   },
   {
     "id": "ec_mdr_guidance_c0a31e8b8718",
@@ -74,7 +63,7 @@
     "link": "https://health.ec.europa.eu/document/download/cbb19821-a517-4e13-bf87-fdc6ddd1782e_en?filename=mdcg_2021-24_en.pdf",
     "summary": "",
     "date": "April 2026",
-    "crawled_at": "2026-07-13T01:58:46.575965"
+    "crawled_at": "2026-07-20T03:19:55.220402"
   },
   {
     "id": "ec_mdr_guidance_8f56183d8536",
@@ -85,7 +74,7 @@
     "link": "https://health.ec.europa.eu/document/download/349a2d4c-ea2a-4279-861c-7c063bc077e4_en?filename=md_guidance-manufacturers_en.pdf",
     "summary": "",
     "date": "December 2019",
-    "crawled_at": "2026-07-13T01:58:46.576366"
+    "crawled_at": "2026-07-20T03:19:55.220686"
   },
   {
     "id": "ec_mdr_guidance_7abf42c76669",
@@ -96,7 +85,7 @@
     "link": "https://health.ec.europa.eu/document/download/f22f559b-dee5-43b4-9595-3ccdcca9f7ad_en?filename=mdcg_2025-5_en.pdf",
     "summary": "",
     "date": "June 2025",
-    "crawled_at": "2026-07-13T01:58:46.577030"
+    "crawled_at": "2026-07-20T03:19:55.221261"
   },
   {
     "id": "ec_mdr_guidance_3ea44b876aab",
@@ -107,7 +96,7 @@
     "link": "https://health.ec.europa.eu/document/download/0e076d19-62dc-4ff9-83f2-be6072a45993_en?filename=mdcg_2024-15_en.pdf",
     "summary": "",
     "date": "November 2024",
-    "crawled_at": "2026-07-13T01:58:46.577149"
+    "crawled_at": "2026-07-20T03:19:55.221340"
   },
   {
     "id": "ec_mdr_guidance_d3b18cce5e2f",
@@ -118,7 +107,7 @@
     "link": "https://health.ec.europa.eu/document/download/daa1fc59-9d2c-4e82-878e-d6fdf12ecd1a_en?filename=mdcg_2024-10_en.pdf",
     "summary": "",
     "date": "June 2024",
-    "crawled_at": "2026-07-13T01:58:46.577261"
+    "crawled_at": "2026-07-20T03:19:55.221417"
   },
   {
     "id": "ec_mdr_guidance_50205a46e0ff",
@@ -129,7 +118,7 @@
     "link": "https://health.ec.europa.eu/document/download/ee7ee8eb-841a-4085-a8dc-af6d55ebf1bd_en?filename=mdcg_2024-5_en.pdf",
     "summary": "",
     "date": "April2024April2024",
-    "crawled_at": "2026-07-13T01:58:46.577408"
+    "crawled_at": "2026-07-20T03:19:55.221519"
   },
   {
     "id": "ec_mdr_guidance_d001f11ef2fb",
@@ -140,7 +129,7 @@
     "link": "https://health.ec.europa.eu/document/download/690de85a-ac17-45ea-bb32-7839540c25c4_en?filename=mdcg_2024-3_en_0.pdf",
     "summary": "",
     "date": "March 2024March 2024",
-    "crawled_at": "2026-07-13T01:58:46.577551"
+    "crawled_at": "2026-07-20T03:19:55.221632"
   },
   {
     "id": "ec_mdr_guidance_02a00a73f109",
@@ -151,7 +140,7 @@
     "link": "https://health.ec.europa.eu/document/download/1b5f9cc0-cea0-4459-921f-eaf4b4f80983_en?filename=mdcg_2023-7_en.pdf",
     "summary": "",
     "date": "December 2023",
-    "crawled_at": "2026-07-13T01:58:46.577668"
+    "crawled_at": "2026-07-20T03:19:55.221710"
   },
   {
     "id": "ec_mdr_guidance_8cec9b54d2cd",
@@ -162,7 +151,7 @@
     "link": "https://health.ec.europa.eu/document/download/ba8069a1-6881-4360-b52b-6cab048aee43_en?filename=mdcg_2021-28_en.pdf",
     "summary": "",
     "date": "December 2021",
-    "crawled_at": "2026-07-13T01:58:46.577926"
+    "crawled_at": "2026-07-20T03:19:55.221885"
   },
   {
     "id": "ec_mdr_guidance_a775c41beb8f",
@@ -173,7 +162,7 @@
     "link": "https://health.ec.europa.eu/document/download/54d417c4-df69-416f-a2bd-7a5de8cba611_en?filename=mdcg_2021-20_en.pdf",
     "summary": "",
     "date": "July 2021",
-    "crawled_at": "2026-07-13T01:58:46.578047"
+    "crawled_at": "2026-07-20T03:19:55.221968"
   },
   {
     "id": "ec_mdr_guidance_d4bc38d2a312",
@@ -184,7 +173,7 @@
     "link": "https://health.ec.europa.eu/document/download/13265ec7-1776-41af-afb6-e0a64bc407b5_en?filename=mdcg_2021-8_en.pdf",
     "summary": "",
     "date": "May 2021",
-    "crawled_at": "2026-07-13T01:58:46.578165"
+    "crawled_at": "2026-07-20T03:19:55.222051"
   },
   {
     "id": "ec_mdr_guidance_a54809171399",
@@ -195,7 +184,7 @@
     "link": "https://health.ec.europa.eu/document/download/f124f630-389e-4c45-90dc-24ec0a707838_en?filename=mdcg_2021-6_en.pdf",
     "summary": "",
     "date": "December 2023",
-    "crawled_at": "2026-07-13T01:58:46.578299"
+    "crawled_at": "2026-07-20T03:19:55.222141"
   },
   {
     "id": "ec_mdr_guidance_d853cc247486",
@@ -206,7 +195,7 @@
     "link": "https://health.ec.europa.eu/document/download/02f50abc-91db-4ad9-b137-6ffedb690716_en?filename=md_2020-13-cea-report-template_en.pdf",
     "summary": "",
     "date": "July 2020",
-    "crawled_at": "2026-07-13T01:58:46.578431"
+    "crawled_at": "2026-07-20T03:19:55.222228"
   },
   {
     "id": "ec_mdr_guidance_08f7e7be8ad4",
@@ -217,7 +206,7 @@
     "link": "https://health.ec.europa.eu/document/download/0537d335-7eed-4087-b65d-3c2bd8c72c1a_en?filename=md_mdcg_2020-10-1_guidance_safety_reporting_en.pdf",
     "summary": "",
     "date": "October 2022October 2022",
-    "crawled_at": "2026-07-13T01:58:46.578569"
+    "crawled_at": "2026-07-20T03:19:55.222326"
   },
   {
     "id": "ec_mdr_guidance_529d4e4c23fb",
@@ -228,7 +217,7 @@
     "link": "https://health.ec.europa.eu/document/download/11121036-696a-4589-a311-c5525bd84df3_en?filename=md_mdcg_2020_8_guidance_pmcf_evaluation_report_en.pdf",
     "summary": "",
     "date": "April 2020",
-    "crawled_at": "2026-07-13T01:58:46.578689"
+    "crawled_at": "2026-07-20T03:19:55.222405"
   },
   {
     "id": "ec_mdr_guidance_396287067e6e",
@@ -239,7 +228,7 @@
     "link": "https://health.ec.europa.eu/document/download/a5cdb303-c782-4010-8723-7d389af678f7_en?filename=md_mdcg_2020_7_guidance_pmcf_plan_template_en.pdf",
     "summary": "",
     "date": "April 2020",
-    "crawled_at": "2026-07-13T01:58:46.578806"
+    "crawled_at": "2026-07-20T03:19:55.222486"
   },
   {
     "id": "ec_mdr_guidance_e03c22ab5569",
@@ -250,7 +239,7 @@
     "link": "https://health.ec.europa.eu/document/download/a6d29444-b5d5-4afb-8024-10be85256aa7_en?filename=md_mdcg_2020_6_guidance_sufficient_clinical_evidence_en.pdf",
     "summary": "",
     "date": "April 2020",
-    "crawled_at": "2026-07-13T01:58:46.578967"
+    "crawled_at": "2026-07-20T03:19:55.222581"
   },
   {
     "id": "ec_mdr_guidance_e7e7d7445b73",
@@ -261,7 +250,7 @@
     "link": "https://health.ec.europa.eu/document/download/575a0f79-e3a0-4a96-9ce0-930576c12aa2_en?filename=md_mdcg_2020_5_guidance_clinical_evaluation_equivalence_en.pdf",
     "summary": "",
     "date": "April 2020",
-    "crawled_at": "2026-07-13T01:58:46.579086"
+    "crawled_at": "2026-07-20T03:19:55.222671"
   },
   {
     "id": "ec_mdr_guidance_5665df1c8b72",
@@ -272,7 +261,7 @@
     "link": "https://health.ec.europa.eu/document/download/5f082b2f-8d51-495c-9ab9-985a9f39ece4_en?filename=md_mdcg_2019_9_sscp_en.pdf",
     "summary": "",
     "date": "March 2022",
-    "crawled_at": "2026-07-13T01:58:46.579208"
+    "crawled_at": "2026-07-20T03:19:55.222752"
   },
   {
     "id": "ec_mdr_guidance_92f6abd53cf3",
@@ -283,7 +272,7 @@
     "link": "https://health.ec.europa.eu/document/download/729f09dc-9f95-40b9-a62a-a0e9fff1d252_en?filename=mdcg_2021-21_en.pdf",
     "summary": "",
     "date": "February 2022",
-    "crawled_at": "2026-07-13T01:58:46.579637"
+    "crawled_at": "2026-07-20T03:19:55.223120"
   },
   {
     "id": "ec_mdr_guidance_13fc1f798de3",
@@ -294,7 +283,7 @@
     "link": "https://health.ec.europa.eu/document/download/cd617093-f2bd-4a99-9058-9805ce4d0db3_en?filename=mdcg_2022-1_en.pdf",
     "summary": "",
     "date": "January 2022",
-    "crawled_at": "2026-07-13T01:58:46.579755"
+    "crawled_at": "2026-07-20T03:19:55.223201"
   },
   {
     "id": "ec_mdr_guidance_65c207dd24dd",
@@ -305,7 +294,7 @@
     "link": "https://health.ec.europa.eu/document/download/35a97144-cb8b-4067-b81a-dac6e13a92e8_en?filename=mdcg_2021-7_en.pdf",
     "summary": "",
     "date": "May 2021",
-    "crawled_at": "2026-07-13T01:58:46.579898"
+    "crawled_at": "2026-07-20T03:19:55.223281"
   },
   {
     "id": "ec_mdr_guidance_ce88e4aeda20",
@@ -316,7 +305,7 @@
     "link": "https://health.ec.europa.eu/document/download/3564ab86-8773-4499-8011-58beb77e80af_en?filename=mdcg_2021-2_en.pdf",
     "summary": "",
     "date": "March 2021",
-    "crawled_at": "2026-07-13T01:58:46.580064"
+    "crawled_at": "2026-07-20T03:19:55.223360"
   },
   {
     "id": "ec_mdr_guidance_0065db5fe293",
@@ -327,7 +316,7 @@
     "link": "https://health.ec.europa.eu/document/download/801d2a91-7c99-4710-9302-c0fbcc60f6f6_en?filename=md_mdcg_2020-9_regulatory_requirements_ventilators_en.pdf",
     "summary": "",
     "date": "April 2020",
-    "crawled_at": "2026-07-13T01:58:46.580861"
+    "crawled_at": "2026-07-20T03:19:55.223875"
   },
   {
     "id": "ec_mdr_guidance_d5df729155a6",
@@ -338,7 +327,7 @@
     "link": "https://health.ec.europa.eu/document/download/385d7e20-d8b5-49d0-abd7-8daf269bf1b8_en?filename=mdcg_2021-3_en.pdf",
     "summary": "",
     "date": "March 2021",
-    "crawled_at": "2026-07-13T01:58:46.581085"
+    "crawled_at": "2026-07-20T03:19:55.224043"
   },
   {
     "id": "ec_mdr_guidance_063741c19005",
@@ -349,7 +338,7 @@
     "link": "https://health.ec.europa.eu/document/download/a80332cf-e9f0-4d45-8863-3d96e8c2a675_en?filename=mdcg_2026-4_en.pdf",
     "summary": "",
     "date": "June 2026",
-    "crawled_at": "2026-07-13T01:58:46.581388"
+    "crawled_at": "2026-07-20T03:19:55.224304"
   },
   {
     "id": "ec_mdr_guidance_4bf83abbd1ef",
@@ -360,7 +349,7 @@
     "link": "https://health.ec.europa.eu/document/download/c9008091-8ad7-4449-af75-f4f5a6abc761_en?filename=md_mdcg_2022-12_guidance-admpractice_techsol_eudamed_en_0.pdf",
     "summary": "",
     "date": "July 2022",
-    "crawled_at": "2026-07-13T01:58:46.581611"
+    "crawled_at": "2026-07-20T03:19:55.224455"
   },
   {
     "id": "ec_mdr_guidance_8eaf245bd2df",
@@ -371,7 +360,7 @@
     "link": "https://health.ec.europa.eu/document/download/8e9adf30-71b5-4faf-a8fb-b35ce4804440_en?filename=md_mdcg_2021-13_q-a-actor_registr_eudamed_en.pdf",
     "summary": "",
     "date": "July 2021",
-    "crawled_at": "2026-07-13T01:58:46.581745"
+    "crawled_at": "2026-07-20T03:19:55.224551"
   },
   {
     "id": "ec_mdr_guidance_40987049c578",
@@ -382,7 +371,7 @@
     "link": "https://health.ec.europa.eu/document/download/ea0369a7-d86c-465e-9a54-0c0dfb01bc84_en?filename=2021-1_guidance-administrative-practices_en.pdf",
     "summary": "",
     "date": "May 2021",
-    "crawled_at": "2026-07-13T01:58:46.581889"
+    "crawled_at": "2026-07-20T03:19:55.224650"
   },
   {
     "id": "ec_mdr_guidance_1ae33ccd1be3",
@@ -393,7 +382,7 @@
     "link": "https://health.ec.europa.eu/document/download/67c60ba0-32fb-498d-9b05-a6cefe08919c_en?filename=mdcg_2026-3_en.xlsx",
     "summary": "",
     "date": "April 2026",
-    "crawled_at": "2026-07-13T01:58:46.582330"
+    "crawled_at": "2026-07-20T03:19:55.225025"
   },
   {
     "id": "ec_mdr_guidance_e7e0fe12bbbf",
@@ -404,7 +393,7 @@
     "link": "https://health.ec.europa.eu/document/download/5e21e80e-2fdf-4ff7-873d-a2ffddf618ff_en?filename=mdcg_2026-2_en.xlsx",
     "summary": "",
     "date": "April 2026",
-    "crawled_at": "2026-07-13T01:58:46.582445"
+    "crawled_at": "2026-07-20T03:19:55.225098"
   },
   {
     "id": "ec_mdr_guidance_dc0a50c2ae26",
@@ -415,7 +404,7 @@
     "link": "https://health.ec.europa.eu/document/download/56772d7d-ce71-4ce5-801e-a82f267e61f4_en?filename=mdcg_2026-1_en.pdf",
     "summary": "",
     "date": "April 2026",
-    "crawled_at": "2026-07-13T01:58:46.582555"
+    "crawled_at": "2026-07-20T03:19:55.225172"
   },
   {
     "id": "ec_mdr_guidance_5ac420f87081",
@@ -426,7 +415,7 @@
     "link": "https://health.ec.europa.eu/document/download/4467c367-be73-4673-aa68-b532222d6bf2_en?filename=mdcg_2025-3_en.xlsx",
     "summary": "",
     "date": "January 2025",
-    "crawled_at": "2026-07-13T01:58:46.582663"
+    "crawled_at": "2026-07-20T03:19:55.225247"
   },
   {
     "id": "ec_mdr_guidance_41f65e62ebb0",
@@ -437,7 +426,7 @@
     "link": "https://health.ec.europa.eu/document/download/ff8d6bf6-785f-48e1-beaf-2cfe13f59fd7_en?filename=mdcg_2025-2_en.pdf",
     "summary": "",
     "date": "January 2025",
-    "crawled_at": "2026-07-13T01:58:46.582770"
+    "crawled_at": "2026-07-20T03:19:55.225320"
   },
   {
     "id": "ec_mdr_guidance_3487db48d7ed",
@@ -448,7 +437,7 @@
     "link": "https://health.ec.europa.eu/document/download/e2cb674e-73cb-4a2b-b0d3-76c70505b632_en?filename=mdcg_2025-1_en.docx",
     "summary": "",
     "date": "January 2025",
-    "crawled_at": "2026-07-13T01:58:46.582905"
+    "crawled_at": "2026-07-20T03:19:55.225392"
   },
   {
     "id": "ec_mdr_guidance_60e8ab7451cd",
@@ -459,7 +448,7 @@
     "link": "https://health.ec.europa.eu/document/download/de470384-e8be-45e7-a334-226757f8816d_en?filename=mdcg_2024-2_en.pdf",
     "summary": "",
     "date": "January 2025",
-    "crawled_at": "2026-07-13T01:58:46.583028"
+    "crawled_at": "2026-07-20T03:19:55.225471"
   },
   {
     "id": "ec_mdr_guidance_664c60cb868d",
@@ -470,7 +459,7 @@
     "link": "https://health.ec.europa.eu/document/download/d90b3f63-1d62-43e6-bf5f-fb32ea7c47a2_en?filename=mdcg_2021-12_en.pdf",
     "summary": "",
     "date": "April 2026",
-    "crawled_at": "2026-07-13T01:58:46.583149"
+    "crawled_at": "2026-07-20T03:19:55.225553"
   },
   {
     "id": "ec_mdr_guidance_10412d45e81d",
@@ -481,7 +470,7 @@
     "link": "https://health.ec.europa.eu/document/download/653cb5b3-7cba-4041-935b-c4f044569700_en?filename=md_mdcg_2018_2_nomenclature_en.pdf",
     "summary": "",
     "date": "March 2018",
-    "crawled_at": "2026-07-13T01:58:46.583564"
+    "crawled_at": "2026-07-20T03:19:55.225851"
   },
   {
     "id": "ec_mdr_guidance_5fce12e10d08",
@@ -492,7 +481,7 @@
     "link": "https://health.ec.europa.eu/document/download/498f68ec-ce00-425d-a722-69ac2be6c1b9_en?filename=md_2021-11_en.pdf",
     "summary": "",
     "date": "May 2021",
-    "crawled_at": "2026-07-13T01:58:46.583795"
+    "crawled_at": "2026-07-20T03:19:55.226045"
   },
   {
     "id": "ec_mdr_guidance_fb7d0b45dfcf",
@@ -503,7 +492,7 @@
     "link": "https://health.ec.europa.eu/document/download/e86b9fc4-9785-4c1a-934d-ba11085ff6aa_en?filename=md_mdcg_2019_8_implant_guidance_card_en.pdf",
     "summary": "",
     "date": "March 2020",
-    "crawled_at": "2026-07-13T01:58:46.583936"
+    "crawled_at": "2026-07-20T03:19:55.226131"
   },
   {
     "id": "ec_mdr_guidance_50875b00bc6f",
@@ -514,7 +503,7 @@
     "link": "https://health.ec.europa.eu/document/download/05b15d55-1bcf-4e17-99c4-15c706325847_en?filename=mdcg_2023-1_en.pdf",
     "summary": "",
     "date": "January 2023",
-    "crawled_at": "2026-07-13T01:58:46.584141"
+    "crawled_at": "2026-07-20T03:19:55.226290"
   },
   {
     "id": "ec_mdr_guidance_b325d30cff82",
@@ -525,7 +514,7 @@
     "link": "https://health.ec.europa.eu/document/download/82d9adbc-dbf0-40d4-93ed-ade673c8232a_en?filename=mdcg_2021-27_en.pdf",
     "summary": "",
     "date": "December 2023",
-    "crawled_at": "2026-07-13T01:58:46.584388"
+    "crawled_at": "2026-07-20T03:19:55.226495"
   },
   {
     "id": "ec_mdr_guidance_11000b354da0",
@@ -536,7 +525,7 @@
     "link": "https://health.ec.europa.eu/document/download/0a7613cb-6b9a-4396-a4c6-d2479e43e167_en?filename=mdcg_202216_en.pdf",
     "summary": "",
     "date": "October 2022",
-    "crawled_at": "2026-07-13T01:58:46.584500"
+    "crawled_at": "2026-07-20T03:19:55.226569"
   },
   {
     "id": "ec_mdr_guidance_28fdb4d0b838",
@@ -547,7 +536,7 @@
     "link": "https://health.ec.europa.eu/document/download/4c7bd740-d7c3-4f7b-9a4d-249121a67b8a_en?filename=md_mdcg_2021_26_en.pdf",
     "summary": "",
     "date": "October 2021",
-    "crawled_at": "2026-07-13T01:58:46.584616"
+    "crawled_at": "2026-07-20T03:19:55.226661"
   },
   {
     "id": "ec_mdr_guidance_436319d679e5",
@@ -558,7 +547,7 @@
     "link": "https://health.ec.europa.eu/document/download/919061d9-5dfa-4d0b-ab9b-3543eed98f76_en?filename=md_mdc-2024-16_en.pdf",
     "summary": "",
     "date": "December 2024",
-    "crawled_at": "2026-07-13T01:58:46.585020"
+    "crawled_at": "2026-07-20T03:19:55.226966"
   },
   {
     "id": "ec_mdr_guidance_27b84506852b",
@@ -569,7 +558,7 @@
     "link": "https://health.ec.europa.eu/document/download/b4a7dea7-ae73-4e13-a8a8-11dcd2678d38_en?filename=md_mdc-2024-16_annex_en.pdf",
     "summary": "",
     "date": "December 2024",
-    "crawled_at": "2026-07-13T01:58:46.585133"
+    "crawled_at": "2026-07-20T03:19:55.227046"
   },
   {
     "id": "ec_mdr_guidance_01dc3d9f0a7f",
@@ -580,7 +569,7 @@
     "link": "https://health.ec.europa.eu/document/download/12b92152-371f-404d-a865-93800cd5cdca_en?filename=mdcg_2024-11_en.pdf",
     "summary": "",
     "date": "October 2024",
-    "crawled_at": "2026-07-13T01:58:46.585714"
+    "crawled_at": "2026-07-20T03:19:55.227559"
   },
   {
     "id": "ec_mdr_guidance_d11af4e6a638",
@@ -591,7 +580,7 @@
     "link": "https://health.ec.europa.eu/document/download/5cc894e0-331d-4fa2-8ab3-cdd4437c48fc_en?filename=mdcg_2024-4_en.pdf",
     "summary": "",
     "date": "April 2024",
-    "crawled_at": "2026-07-13T01:58:46.585868"
+    "crawled_at": "2026-07-20T03:19:55.227669"
   },
   {
     "id": "ec_mdr_guidance_047c9fa2c329",
@@ -602,7 +591,7 @@
     "link": "https://health.ec.europa.eu/document/download/b7cf356f-733f-4dce-9800-0933ff73622a_en?filename=mdcg_2022-9_en.pdf",
     "summary": "",
     "date": "April 2024",
-    "crawled_at": "2026-07-13T01:58:46.585987"
+    "crawled_at": "2026-07-20T03:19:55.227747"
   },
   {
     "id": "ec_mdr_guidance_a0bb34c79fb8",
@@ -613,7 +602,7 @@
     "link": "https://health.ec.europa.eu/document/download/12f9756a-1e0d-4aed-9783-d948553f1705_en?filename=md_mdcg_2020_guidance_classification_ivd-md_en.pdf",
     "summary": "",
     "date": "March 2025",
-    "crawled_at": "2026-07-13T01:58:46.586117"
+    "crawled_at": "2026-07-20T03:19:55.227831"
   },
   {
     "id": "ec_mdr_guidance_c11b5fb121f5",
@@ -624,7 +613,7 @@
     "link": "https://health.ec.europa.eu/document/download/6a354f46-8308-4d60-a36d-2ef1ba56e41a_en?filename=mdcg_2022-20_en.pdf",
     "summary": "",
     "date": "December  2022",
-    "crawled_at": "2026-07-13T01:58:46.586229"
+    "crawled_at": "2026-07-20T03:19:55.227906"
   },
   {
     "id": "ec_mdr_guidance_d75c5c071950",
@@ -635,7 +624,7 @@
     "link": "https://health.ec.europa.eu/document/download/4e1f946d-a71a-42c7-bd98-0e9977752669_en?filename=mdcg_2022-19_en.pdf",
     "summary": "",
     "date": "December  2022",
-    "crawled_at": "2026-07-13T01:58:46.586339"
+    "crawled_at": "2026-07-20T03:19:55.227980"
   },
   {
     "id": "ec_mdr_guidance_80bf0ceb1649",
@@ -646,7 +635,7 @@
     "link": "https://health.ec.europa.eu/document/download/9518a759-24ce-4e15-83a5-e7b383911000_en?filename=mdcg_2022-15_en.pdf",
     "summary": "",
     "date": "September  2022",
-    "crawled_at": "2026-07-13T01:58:46.586449"
+    "crawled_at": "2026-07-20T03:19:55.228062"
   },
   {
     "id": "ec_mdr_guidance_bb2dd5a18081",
@@ -657,7 +646,7 @@
     "link": "https://health.ec.europa.eu/document/download/98db0ec5-306f-4a0d-8bc9-5724f5d48942_en?filename=mdcg_2021-22_en.pdf",
     "summary": "",
     "date": "September  2022",
-    "crawled_at": "2026-07-13T01:58:46.586568"
+    "crawled_at": "2026-07-20T03:19:55.228149"
   },
   {
     "id": "ec_mdr_guidance_8c8cdaf171d8",
@@ -668,7 +657,7 @@
     "link": "https://health.ec.europa.eu/document/download/59abcc81-fd32-4546-a340-24c8fad4e2ac_en?filename=mdcg_2022-10_en.pdf",
     "summary": "",
     "date": "May 2022",
-    "crawled_at": "2026-07-13T01:58:46.586677"
+    "crawled_at": "2026-07-20T03:19:55.228223"
   },
   {
     "id": "ec_mdr_guidance_9f364042ec39",
@@ -679,7 +668,7 @@
     "link": "https://health.ec.europa.eu/document/download/76f9983e-164c-45f1-b2b9-c9e5050cefe9_en?filename=mdcg_2022-8_en.pdf",
     "summary": "",
     "date": "May 2022",
-    "crawled_at": "2026-07-13T01:58:46.586790"
+    "crawled_at": "2026-07-20T03:19:55.228301"
   },
   {
     "id": "ec_mdr_guidance_62d49e945128",
@@ -690,7 +679,7 @@
     "link": "https://health.ec.europa.eu/document/download/14c2d8dd-8489-4db5-b035-1c174f17fb54_en?filename=mdcg_2022-6.pdf",
     "summary": "",
     "date": "May 2022",
-    "crawled_at": "2026-07-13T01:58:46.586924"
+    "crawled_at": "2026-07-20T03:19:55.228376"
   },
   {
     "id": "ec_mdr_guidance_2cb0c0a3e084",
@@ -701,7 +690,7 @@
     "link": "https://health.ec.europa.eu/document/download/ebbc4f6a-4945-4d5d-9c22-9bc1aafc5532_en?filename=mdcg_2022-3_en.pdf",
     "summary": "",
     "date": "December 2024",
-    "crawled_at": "2026-07-13T01:58:46.587038"
+    "crawled_at": "2026-07-20T03:19:55.228451"
   },
   {
     "id": "ec_mdr_guidance_85433a054ccb",
@@ -712,7 +701,7 @@
     "link": "https://health.ec.europa.eu/document/download/f373538f-939c-472f-9536-436b6ddac085_en?filename=mdcg_2022-2_en.pdf",
     "summary": "",
     "date": "January 2022",
-    "crawled_at": "2026-07-13T01:58:46.587153"
+    "crawled_at": "2026-07-20T03:19:55.228540"
   },
   {
     "id": "ec_mdr_guidance_1a7267fa7df0",
@@ -723,7 +712,7 @@
     "link": "https://health.ec.europa.eu/document/download/9f23fca0-f407-4e45-a464-2d71b575d1fe_en?filename=mdcg_2021-4_en.pdf",
     "summary": "",
     "date": "September 2024",
-    "crawled_at": "2026-07-13T01:58:46.587275"
+    "crawled_at": "2026-07-20T03:19:55.228644"
   },
   {
     "id": "ec_mdr_guidance_4e9ade7ca76e",
@@ -734,7 +723,7 @@
     "link": "https://health.ec.europa.eu/document/download/edca94c7-62ab-4dd5-8539-2b347bd14809_en?filename=mdcg_2025-9.pdf",
     "summary": "",
     "date": "December 2025",
-    "crawled_at": "2026-07-13T01:58:46.587649"
+    "crawled_at": "2026-07-20T03:19:55.228976"
   },
   {
     "id": "ec_mdr_guidance_ed39578ebd20",
@@ -745,7 +734,7 @@
     "link": "https://health.ec.europa.eu/document/download/b78a17d7-e3cd-4943-851d-e02a2f22bbb4_en?filename=mdcg_2025-6_en.pdf",
     "summary": "",
     "date": "June 2025",
-    "crawled_at": "2026-07-13T01:58:46.587758"
+    "crawled_at": "2026-07-20T03:19:55.229053"
   },
   {
     "id": "ec_mdr_guidance_f23138334ace",
@@ -756,7 +745,7 @@
     "link": "https://health.ec.europa.eu/document/download/ec9b0f40-7f82-43a7-b833-ebd45b772eae_en?filename=mdcg_2025-4_en.pdf",
     "summary": "",
     "date": "June 2025",
-    "crawled_at": "2026-07-13T01:58:46.587892"
+    "crawled_at": "2026-07-20T03:19:55.229127"
   },
   {
     "id": "ec_mdr_guidance_5cf75b75ef15",
@@ -767,7 +756,7 @@
     "link": "https://health.ec.europa.eu/document/download/b2c4e715-f2b4-4d24-af60-056b5d41a72e_en?filename=md_mdcg_2023-4_software_en.pdf",
     "summary": "",
     "date": "October 2023",
-    "crawled_at": "2026-07-13T01:58:46.588008"
+    "crawled_at": "2026-07-20T03:19:55.229201"
   },
   {
     "id": "ec_mdr_guidance_8f9999e16079",
@@ -778,7 +767,7 @@
     "link": "https://health.ec.europa.eu/document/download/b865d8e9-081a-4601-a91a-f120321c0491_en?filename=md_mdcg_2021_mdsw_en.pdf",
     "summary": "",
     "date": "March 2021",
-    "crawled_at": "2026-07-13T01:58:46.588127"
+    "crawled_at": "2026-07-20T03:19:55.229283"
   },
   {
     "id": "ec_mdr_guidance_9ca9e8465880",
@@ -789,7 +778,7 @@
     "link": "https://health.ec.europa.eu/document/download/19d9e24f-2808-4e00-bfeb-75892047407d_en?filename=md_mdcg_2020_1_guidance_clinic_eva_md_software_en.pdf",
     "summary": "",
     "date": "March 2020",
-    "crawled_at": "2026-07-13T01:58:46.588252"
+    "crawled_at": "2026-07-20T03:19:55.229366"
   },
   {
     "id": "ec_mdr_guidance_88da9ad9961b",
@@ -800,7 +789,7 @@
     "link": "https://health.ec.europa.eu/document/download/b23b362f-8a56-434c-922a-5b3ca4d0a7a1_en?filename=md_cybersecurity_en.pdf",
     "summary": "",
     "date": "July 2020",
-    "crawled_at": "2026-07-13T01:58:46.588377"
+    "crawled_at": "2026-07-20T03:19:55.229445"
   },
   {
     "id": "ec_mdr_guidance_db80afbb21b3",
@@ -811,7 +800,7 @@
     "link": "https://health.ec.europa.eu/document/download/b45335c5-1679-4c71-a91c-fc7a4d37f12b_en?filename=mdcg_2019_11_en.pdf",
     "summary": "",
     "date": "June 2025",
-    "crawled_at": "2026-07-13T01:58:46.588497"
+    "crawled_at": "2026-07-20T03:19:55.229527"
   },
   {
     "id": "ec_mdr_guidance_135656674b56",
@@ -822,7 +811,7 @@
     "link": "https://health.ec.europa.eu/document/download/88772d4f-9e29-4b1b-aa41-adcc74b6bb41_en?filename=mdcg_2024-6_en_0.docx",
     "summary": "",
     "date": "May 2024",
-    "crawled_at": "2026-07-13T01:58:46.589361"
+    "crawled_at": "2026-07-20T03:19:55.230366"
   },
   {
     "id": "ec_mdr_guidance_60ffc1ddd9b3",
@@ -833,7 +822,7 @@
     "link": "https://health.ec.europa.eu/document/download/939cc0b8-8db5-4b0d-b2b7-a15a98a44cbd_en?filename=mdcg_2024-7_en_0.docx",
     "summary": "",
     "date": "January 2025",
-    "crawled_at": "2026-07-13T01:58:46.589494"
+    "crawled_at": "2026-07-20T03:19:55.230465"
   },
   {
     "id": "ec_mdr_guidance_3102d892560b",
@@ -844,7 +833,7 @@
     "link": "https://health.ec.europa.eu/document/download/9819fd07-3281-477b-a8c6-22c0c47c47a6_en?filename=mdcg_2024-8_en_0.docx",
     "summary": "",
     "date": "January 2025",
-    "crawled_at": "2026-07-13T01:58:46.589625"
+    "crawled_at": "2026-07-20T03:19:55.230559"
   },
   {
     "id": "ec_mdr_guidance_8f46521e43fe",
@@ -855,7 +844,7 @@
     "link": "https://health.ec.europa.eu/document/download/f067a42e-4af6-47dd-980f-b251eeeafaf0_en?filename=mdcg_2024-9_en_0.docx",
     "summary": "",
     "date": "May 2024",
-    "crawled_at": "2026-07-13T01:58:46.589732"
+    "crawled_at": "2026-07-20T03:19:55.230643"
   },
   {
     "id": "ec_mdr_guidance_d44d0d5bc18a",
@@ -866,7 +855,7 @@
     "link": "https://health.ec.europa.eu/document/download/800e8e87-d4eb-4cc5-b5ad-07a9146d7c90_en?filename=mdcg_2020-3_en_1.pdf",
     "summary": "",
     "date": "September 2023",
-    "crawled_at": "2026-07-13T01:58:46.589886"
+    "crawled_at": "2026-07-20T03:19:55.230736"
   },
   {
     "id": "ec_mdr_guidance_0e6b46750a1b",
@@ -877,7 +866,7 @@
     "link": "https://health.ec.europa.eu/document/download/309b49d8-07dd-40bf-b3a1-649dbdc378af_en?filename=mdcg_2023-2_en.pdf",
     "summary": "",
     "date": "January 2023",
-    "crawled_at": "2026-07-13T01:58:46.590024"
+    "crawled_at": "2026-07-20T03:19:55.230819"
   },
   {
     "id": "ec_mdr_guidance_3292c8bb626d",
@@ -888,7 +877,7 @@
     "link": "https://health.ec.europa.eu/document/download/e5714b2b-e98b-4fce-b5ff-d9141a8f30e1_en?filename=mdcg_2022-4_en.pdf",
     "summary": "",
     "date": "May 2024",
-    "crawled_at": "2026-07-13T01:58:46.590134"
+    "crawled_at": "2026-07-20T03:19:55.230892"
   },
   {
     "id": "ec_mdr_guidance_f0f3e3278fb9",
@@ -899,7 +888,7 @@
     "link": "https://health.ec.europa.eu/document/download/c2b875dd-06dd-47b6-8822-afe43f630655_en?filename=mdcg_2022-17_en_0.pdf",
     "summary": "",
     "date": "December 2022",
-    "crawled_at": "2026-07-13T01:58:46.590241"
+    "crawled_at": "2026-07-20T03:19:55.230964"
   },
   {
     "id": "ec_mdr_guidance_0c4caf34b711",
@@ -910,7 +899,7 @@
     "link": "https://health.ec.europa.eu/document/download/9c9c532f-013a-477c-9378-0a9e714e5549_en?filename=md_mdcg_qa_requirements_notified_bodies_en.pdf",
     "summary": "",
     "date": "February 2025",
-    "crawled_at": "2026-07-13T01:58:46.590356"
+    "crawled_at": "2026-07-20T03:19:55.231044"
   },
   {
     "id": "ec_mdr_guidance_0c4fa7d74c23",
@@ -921,7 +910,7 @@
     "link": "https://health.ec.europa.eu/document/download/27f91dc2-b5bc-44f9-a975-5024ce3ea556_en?filename=mdcg_2022-13_en.pdf",
     "summary": "",
     "date": "June 2024",
-    "crawled_at": "2026-07-13T01:58:46.590469"
+    "crawled_at": "2026-07-20T03:19:55.231119"
   },
   {
     "id": "ec_mdr_guidance_290146440af9",
@@ -932,7 +921,7 @@
     "link": "https://health.ec.europa.eu/document/download/080c6aed-4f09-4a8a-b052-3414275945db_en?filename=mdcg_2024-12_en.pdf",
     "summary": "",
     "date": "October 2024",
-    "crawled_at": "2026-07-13T01:58:46.590610"
+    "crawled_at": "2026-07-20T03:19:55.231222"
   },
   {
     "id": "ec_mdr_guidance_0b2d06f946a5",
@@ -943,7 +932,7 @@
     "link": "https://health.ec.europa.eu/document/download/e985ea01-e6b7-4900-af3a-58e5b01678aa_en?filename=mdcg_2021-23_en.pdf",
     "summary": "",
     "date": "August 2021",
-    "crawled_at": "2026-07-13T01:58:46.590728"
+    "crawled_at": "2026-07-20T03:19:55.231303"
   },
   {
     "id": "ec_mdr_guidance_22e90171b693",
@@ -954,7 +943,7 @@
     "link": "https://health.ec.europa.eu/document/download/79150afd-7758-4023-978b-ec726f760482_en?filename=mdcg_2021-18_en.docx",
     "summary": "",
     "date": "July 2021",
-    "crawled_at": "2026-07-13T01:58:46.590863"
+    "crawled_at": "2026-07-20T03:19:55.231384"
   },
   {
     "id": "ec_mdr_guidance_031322ffede7",
@@ -965,7 +954,7 @@
     "link": "https://health.ec.europa.eu/document/download/d0fe229f-c9e3-4f75-bf3b-bc4381206eef_en?filename=mdcg_2021-17_en.docx",
     "summary": "",
     "date": "July 2021",
-    "crawled_at": "2026-07-13T01:58:46.590990"
+    "crawled_at": "2026-07-20T03:19:55.231464"
   },
   {
     "id": "ec_mdr_guidance_098d017d0cd7",
@@ -976,7 +965,7 @@
     "link": "https://health.ec.europa.eu/document/download/2b39d49f-4158-4470-b051-268cea9f21e1_en?filename=mdcg_2021-16_en.docx",
     "summary": "",
     "date": "January 2025",
-    "crawled_at": "2026-07-13T01:58:46.591148"
+    "crawled_at": "2026-07-20T03:19:55.231570"
   },
   {
     "id": "ec_mdr_guidance_1b075c05d143",
@@ -987,7 +976,7 @@
     "link": "https://health.ec.europa.eu/document/download/f1202a34-d27b-40f4-a777-975fc78dab47_en?filename=mdcg_2021-15_en.docx",
     "summary": "",
     "date": "January 2025",
-    "crawled_at": "2026-07-13T01:58:46.591299"
+    "crawled_at": "2026-07-20T03:19:55.231686"
   },
   {
     "id": "ec_mdr_guidance_82a185653db5",
@@ -998,7 +987,7 @@
     "link": "https://health.ec.europa.eu/document/download/94b7e87c-ce5f-49b9-82a4-9eec6b0591bb_en?filename=md_mdcg_2021-14-guidance-ivdr-codes_en.pdf",
     "summary": "",
     "date": "July 2021",
-    "crawled_at": "2026-07-13T01:58:46.591419"
+    "crawled_at": "2026-07-20T03:19:55.231763"
   },
   {
     "id": "ec_mdr_guidance_14168e3125fd",
@@ -1009,7 +998,7 @@
     "link": "https://health.ec.europa.eu/document/download/a3bbc84b-078a-46d7-a281-d68136da6d38_en?filename=md_2020-17-guidance-mdcg-qa_en.pdf",
     "summary": "",
     "date": "December 2020",
-    "crawled_at": "2026-07-13T01:58:46.591542"
+    "crawled_at": "2026-07-20T03:19:55.231856"
   },
   {
     "id": "ec_mdr_guidance_863823de736a",
@@ -1020,7 +1009,7 @@
     "link": "https://health.ec.europa.eu/document/download/44dc96aa-e517-4af1-855b-f7fcb4b699c9_en?filename=md_2020-14-guidance-mdsap_en.pdf",
     "summary": "",
     "date": "August 2020",
-    "crawled_at": "2026-07-13T01:58:46.591650"
+    "crawled_at": "2026-07-20T03:19:55.231929"
   },
   {
     "id": "ec_mdr_guidance_f6d6d9ea0118",
@@ -1031,7 +1020,7 @@
     "link": "https://health.ec.europa.eu/document/download/ced09394-5757-4eb0-9700-7442959e6c54_en?filename=md_mdcg_2020-12_guidance_transitional_provisions_en.pdf",
     "summary": "",
     "date": "June 2020",
-    "crawled_at": "2026-07-13T01:58:46.591758"
+    "crawled_at": "2026-07-20T03:19:55.232003"
   },
   {
     "id": "ec_mdr_guidance_5ef862ac669a",
@@ -1042,7 +1031,7 @@
     "link": "https://health.ec.europa.eu/document/download/e0c2afff-bce5-44b1-8318-40c40503772a_en?filename=md_mdcg_2020-11_guidance_renewal_designation_en.pdf",
     "summary": "",
     "date": "May 2020",
-    "crawled_at": "2026-07-13T01:58:46.591891"
+    "crawled_at": "2026-07-20T03:19:55.232078"
   },
   {
     "id": "ec_mdr_guidance_e5f82459d2c2",
@@ -1053,7 +1042,7 @@
     "link": "https://health.ec.europa.eu/document/download/8811a216-fdd1-45c7-bd82-381a37696f05_en?filename=md_mdcg_2020_4_nb_audits_covid-19_en.pdf",
     "summary": "",
     "date": "April 2020",
-    "crawled_at": "2026-07-13T01:58:46.592007"
+    "crawled_at": "2026-07-20T03:19:55.232151"
   },
   {
     "id": "ec_mdr_guidance_782d710d5788",
@@ -1064,7 +1053,7 @@
     "link": "https://health.ec.europa.eu/document/download/6d75a830-9b9b-4e4a-a3b6-047329e9a104_en?filename=md_mdcg_2019_14_mdr_codes_en.pdf",
     "summary": "",
     "date": "December 2019",
-    "crawled_at": "2026-07-13T01:58:46.592115"
+    "crawled_at": "2026-07-20T03:19:55.232225"
   },
   {
     "id": "ec_mdr_guidance_834c7afbdaec",
@@ -1075,7 +1064,7 @@
     "link": "https://health.ec.europa.eu/document/download/36268741-3591-4130-ad21-b09487ff2074_en?filename=md_mdcg_2019_13_sampling_mdr_ivdr_en.pdf",
     "summary": "",
     "date": "December 2024",
-    "crawled_at": "2026-07-13T01:58:46.592223"
+    "crawled_at": "2026-07-20T03:19:55.232301"
   },
   {
     "id": "ec_mdr_guidance_ef9ce68dfb09",
@@ -1086,7 +1075,7 @@
     "link": "https://health.ec.europa.eu/document/download/b934f2bd-e01f-443e-8bb8-87b5291a892e_en?filename=md_mdcg_key_information_form_en.docx",
     "summary": "",
     "date": "October 2019",
-    "crawled_at": "2026-07-13T01:58:46.592329"
+    "crawled_at": "2026-07-20T03:19:55.232382"
   },
   {
     "id": "ec_mdr_guidance_38044e20dbac",
@@ -1097,7 +1086,7 @@
     "link": "https://health.ec.europa.eu/document/download/f654593f-d3a1-4d45-9590-948f61f80fd5_en?filename=md_mdcg_2018_8_crf_transfer_en.pdf",
     "summary": "",
     "date": "November 2018",
-    "crawled_at": "2026-07-13T01:58:46.592436"
+    "crawled_at": "2026-07-20T03:19:55.232460"
   },
   {
     "id": "ec_mdr_guidance_d0d8c7b9a669",
@@ -1108,7 +1097,7 @@
     "link": "https://health.ec.europa.eu/document/download/463b4f08-44a2-4018-9957-488bf386fc3a_en?filename=md_mdcg_2019_7_guidance_art15_mdr_ivdr_en.pdf",
     "summary": "",
     "date": "December 2023",
-    "crawled_at": "2026-07-13T01:58:46.593013"
+    "crawled_at": "2026-07-20T03:19:55.232865"
   },
   {
     "id": "ec_mdr_guidance_804bc2c7874f",
@@ -1119,7 +1108,7 @@
     "link": "https://health.ec.europa.eu/document/download/a9ad86b7-1b8e-4bae-beb4-48b2b3ed2f05_en?filename=mdcg_2025-10_en.pdf",
     "summary": "",
     "date": "December 2025",
-    "crawled_at": "2026-07-13T01:58:46.593372"
+    "crawled_at": "2026-07-20T03:19:55.233191"
   },
   {
     "id": "ec_mdr_guidance_906f3eb54e0c",
@@ -1130,7 +1119,7 @@
     "link": "https://health.ec.europa.eu/document/download/dbd0d748-d646-4274-afaa-399952809389_en?filename=mdcg_2024-1_en.pdf",
     "summary": "",
     "date": "January 2024",
-    "crawled_at": "2026-07-13T01:58:46.593483"
+    "crawled_at": "2026-07-20T03:19:55.233267"
   },
   {
     "id": "ec_mdr_guidance_3805d1c79c75",
@@ -1141,7 +1130,7 @@
     "link": "https://health.ec.europa.eu/document/download/e170bdf5-1684-4e24-bfbc-ec34b1ea1b4f_en?filename=mdcg_2024-1-1_en.pdf",
     "summary": "",
     "date": "January 2024",
-    "crawled_at": "2026-07-13T01:58:46.593592"
+    "crawled_at": "2026-07-20T03:19:55.233342"
   },
   {
     "id": "ec_mdr_guidance_ac472689b5a9",
@@ -1152,7 +1141,7 @@
     "link": "https://health.ec.europa.eu/document/download/6bfe418c-b72e-4e8a-b7e3-7aa1d0060da8_en?filename=mdcg_2024-1-2_en.pdf",
     "summary": "",
     "date": "January 2024",
-    "crawled_at": "2026-07-13T01:58:46.593707"
+    "crawled_at": "2026-07-20T03:19:55.233417"
   },
   {
     "id": "ec_mdr_guidance_fbabec43113e",
@@ -1163,7 +1152,7 @@
     "link": "https://health.ec.europa.eu/document/download/c1e34b32-4faf-4ea5-af66-959642148b3a_en?filename=mdcg_2024-1-3_en.pdf",
     "summary": "",
     "date": "January 2024",
-    "crawled_at": "2026-07-13T01:58:46.593817"
+    "crawled_at": "2026-07-20T03:19:55.233494"
   },
   {
     "id": "ec_mdr_guidance_943843f122ef",
@@ -1174,7 +1163,7 @@
     "link": "https://health.ec.europa.eu/document/download/07c958e3-c2c7-4a22-82f1-86ab2debf40e_en?filename=mdcg_2024-1-4_en.pdf",
     "summary": "",
     "date": "January 2024",
-    "crawled_at": "2026-07-13T01:58:46.593950"
+    "crawled_at": "2026-07-20T03:19:55.233568"
   },
   {
     "id": "ec_mdr_guidance_82d407e121b4",
@@ -1185,7 +1174,7 @@
     "link": "https://health.ec.europa.eu/document/download/c8441ddc-c586-4dbf-afc8-6ec3250df54b_en?filename=mdcg_2024-1-5_en_1.pdf",
     "summary": "",
     "date": "June 2024",
-    "crawled_at": "2026-07-13T01:58:46.594064"
+    "crawled_at": "2026-07-20T03:19:55.233654"
   },
   {
     "id": "ec_mdr_guidance_06832be86f5a",
@@ -1196,7 +1185,7 @@
     "link": "https://health.ec.europa.eu/document/download/af1433fd-ed64-4c53-abc7-612a7f16f976_en?filename=mdcg_2023-3_en.pdf",
     "summary": "",
     "date": "January 2025",
-    "crawled_at": "2026-07-13T01:58:46.594175"
+    "crawled_at": "2026-07-20T03:19:55.233734"
   },
   {
     "id": "ec_mdr_guidance_ec840175304d",
@@ -1207,7 +1196,7 @@
     "link": "https://health.ec.europa.eu/document/download/a7df24c3-d4a3-4218-a8e0-726febfa01c2_en?filename=mdcg_2022-21_en.pdf",
     "summary": "",
     "date": "December 2022",
-    "crawled_at": "2026-07-13T01:58:46.594288"
+    "crawled_at": "2026-07-20T03:19:55.233810"
   },
   {
     "id": "ec_mdr_guidance_8372940a2ef9",
@@ -1218,7 +1207,7 @@
     "link": "https://health.ec.europa.eu/document/download/59ac4cb0-f187-4ca2-814d-82c42cde5408_en?filename=md_mdcg_2021_5_en.pdf",
     "summary": "",
     "date": "July 2024",
-    "crawled_at": "2026-07-13T01:58:46.594526"
+    "crawled_at": "2026-07-20T03:19:55.233997"
   },
   {
     "id": "ec_mdr_guidance_00beb74c56f9",
@@ -1229,7 +1218,7 @@
     "link": "https://health.ec.europa.eu/document/download/e10f7694-67b4-4093-a969-6f7e43747c44_en?filename=md_mdcg_2021_5_appendix_en.pdf",
     "summary": "",
     "date": "June 2026",
-    "crawled_at": "2026-07-13T01:58:46.594635"
+    "crawled_at": "2026-07-20T03:19:55.234073"
   },
   {
     "id": "ec_mdr_guidance_764db0ee6ce8",
@@ -1240,7 +1229,7 @@
     "link": "https://health.ec.europa.eu/document/download/f026ed58-060d-49b1-b660-914838670a20_en?filename=mdcg_2025-8_en.pdf",
     "summary": "",
     "date": "March 2026",
-    "crawled_at": "2026-07-13T01:58:46.595152"
+    "crawled_at": "2026-07-20T03:19:55.234540"
   },
   {
     "id": "ec_mdr_guidance_9085fc566759",
@@ -1251,7 +1240,7 @@
     "link": "https://health.ec.europa.eu/document/download/ad6ae143-baa2-451a-8c5e-0c5d22983e88_en?filename=mdcg_2025-7_en.pdf",
     "summary": "",
     "date": "December 2025",
-    "crawled_at": "2026-07-13T01:58:46.595270"
+    "crawled_at": "2026-07-20T03:19:55.234628"
   },
   {
     "id": "ec_mdr_guidance_987b7255bef1",
@@ -1262,7 +1251,7 @@
     "link": "https://health.ec.europa.eu/document/download/c8c6cca5-460e-410e-a325-be08bfc7dea6_en?filename=mdcg_2024-14_en.pdf",
     "summary": "",
     "date": "August 2025",
-    "crawled_at": "2026-07-13T01:58:46.595378"
+    "crawled_at": "2026-07-20T03:19:55.234703"
   },
   {
     "id": "ec_mdr_guidance_7e7cd4b033c2",
@@ -1273,7 +1262,7 @@
     "link": "https://health.ec.europa.eu/document/download/b5429d14-25a9-4cfc-b059-355388f03e05_en?filename=mdcg_2022-7_en.pdf",
     "summary": "",
     "date": "May 2022",
-    "crawled_at": "2026-07-13T01:58:46.595495"
+    "crawled_at": "2026-07-20T03:19:55.234775"
   },
   {
     "id": "ec_mdr_guidance_991128f09194",
@@ -1284,7 +1273,7 @@
     "link": "https://health.ec.europa.eu/document/download/64443e95-e1be-4ffd-80f7-9c6a1b0b99b6_en?filename=md_2021-19_en.pdf",
     "summary": "",
     "date": "July 2021",
-    "crawled_at": "2026-07-13T01:58:46.595618"
+    "crawled_at": "2026-07-20T03:19:55.234859"
   },
   {
     "id": "ec_mdr_guidance_ec8a5e36cbc2",
@@ -1295,7 +1284,7 @@
     "link": "https://health.ec.europa.eu/document/download/85f65be1-9a43-44b6-8cdd-779ca16bc843_en?filename=md_2021-10_en.pdf",
     "summary": "",
     "date": "June 2021",
-    "crawled_at": "2026-07-13T01:58:46.595734"
+    "crawled_at": "2026-07-20T03:19:55.234936"
   },
   {
     "id": "ec_mdr_guidance_a31936390538",
@@ -1306,7 +1295,7 @@
     "link": "https://health.ec.europa.eu/document/download/cb1bf6e5-3972-4b3a-82d9-c5946738b2a5_en?filename=md_mdcg_2018-1_guidance_udi-di_en.pdf",
     "summary": "",
     "date": "April 2021",
-    "crawled_at": "2026-07-13T01:58:46.595867"
+    "crawled_at": "2026-07-20T03:19:55.235013"
   },
   {
     "id": "ec_mdr_guidance_7b2ae5b9ec73",
@@ -1317,7 +1306,7 @@
     "link": "https://health.ec.europa.eu/document/download/12d1f9bd-afe3-42ea-b1a3-20b4986bb3d4_en?filename=md_mdcg_2019_2_gui_udi_dev_en.pdf",
     "summary": "",
     "date": "February 2019",
-    "crawled_at": "2026-07-13T01:58:46.595990"
+    "crawled_at": "2026-07-20T03:19:55.235092"
   },
   {
     "id": "ec_mdr_guidance_0a1c980c3895",
@@ -1328,7 +1317,7 @@
     "link": "https://health.ec.europa.eu/document/download/f278d247-0020-411f-82a6-1d116691c410_en?filename=md_mdcg_2019_1_budi_rules_ie_en.pdf",
     "summary": "",
     "date": "January 2019",
-    "crawled_at": "2026-07-13T01:58:46.596105"
+    "crawled_at": "2026-07-20T03:19:55.235172"
   },
   {
     "id": "ec_mdr_guidance_e337e3b7d5a1",
@@ -1339,7 +1328,7 @@
     "link": "https://health.ec.europa.eu/document/download/d51c7231-c9be-41bb-9a7f-fcf329ca0bd4_en?filename=md_mdcg_2018_7_languages_en.pdf",
     "summary": "",
     "date": "October 2018",
-    "crawled_at": "2026-07-13T01:58:46.596225"
+    "crawled_at": "2026-07-20T03:19:55.235259"
   },
   {
     "id": "ec_mdr_guidance_f4885a554d79",
@@ -1350,7 +1339,7 @@
     "link": "https://health.ec.europa.eu/document/download/22503f80-6e3e-422a-b9c1-106c87a3b8f8_en?filename=md_mdcg_2018_6_art16_en.pdf",
     "summary": "",
     "date": "October 2018",
-    "crawled_at": "2026-07-13T01:58:46.596346"
+    "crawled_at": "2026-07-20T03:19:55.235346"
   },
   {
     "id": "ec_mdr_guidance_233fbf7a52f8",
@@ -1361,7 +1350,7 @@
     "link": "https://health.ec.europa.eu/document/download/4b5b2942-aaab-4b78-a188-df111a8d903e_en?filename=md_mdcg_2018_5_software_en.pdf",
     "summary": "",
     "date": "October 2018",
-    "crawled_at": "2026-07-13T01:58:46.596465"
+    "crawled_at": "2026-07-20T03:19:55.235437"
   },
   {
     "id": "ec_mdr_guidance_e792b4dfce18",
@@ -1372,7 +1361,7 @@
     "link": "https://health.ec.europa.eu/document/download/f622a4d7-4ac8-44e3-9217-e2793aa7971f_en?filename=md_mdcg_2018_4_udi_core_spp_en.pdf",
     "summary": "",
     "date": "October 2018",
-    "crawled_at": "2026-07-13T01:58:46.596585"
+    "crawled_at": "2026-07-20T03:19:55.235514"
   },
   {
     "id": "ec_mdr_guidance_df45c44b685b",
@@ -1383,7 +1372,7 @@
     "link": "https://health.ec.europa.eu/document/download/b8fa4255-e011-4253-8249-88febab343f2_en?filename=md_2018-3-guidance-udi-spp_en.pdf",
     "summary": "",
     "date": "June 2020",
-    "crawled_at": "2026-07-13T01:58:46.596702"
+    "crawled_at": "2026-07-20T03:19:55.235592"
   },
   {
     "id": "ec_mdr_guidance_df82f3c8b3d2",
@@ -1394,7 +1383,7 @@
     "link": "https://health.ec.europa.eu/document/download/5ec4d600-d344-4232-9371-1d278b2abc12_en?filename=mdcg_2022-11_en.pdf",
     "summary": "",
     "date": "November 2023",
-    "crawled_at": "2026-07-13T01:58:46.597181"
+    "crawled_at": "2026-07-20T03:19:55.235999"
   },
   {
     "id": "ec_mdr_guidance_c1160b85a240",
@@ -1405,7 +1394,7 @@
     "link": "https://health.ec.europa.eu/document/download/8c49c181-1f8a-4962-b946-7b02c54b199e_en?filename=mdcg_2022-18_add-1_en.pdf",
     "summary": "",
     "date": "June 2023",
-    "crawled_at": "2026-07-13T01:58:46.597407"
+    "crawled_at": "2026-07-20T03:19:55.236146"
   },
   {
     "id": "ec_mdr_guidance_399c624c584f",
@@ -1416,7 +1405,7 @@
     "link": "https://health.ec.europa.eu/document/download/ccfb20a8-82d4-4216-8d11-4ce127be431e_en?filename=mdcg_2022-18_en_1.pdf",
     "summary": "",
     "date": "December 2022",
-    "crawled_at": "2026-07-13T01:58:46.597517"
+    "crawled_at": "2026-07-20T03:19:55.236219"
   },
   {
     "id": "ec_mdr_guidance_92288fab1874",
@@ -1427,7 +1416,7 @@
     "link": "https://health.ec.europa.eu/document/download/2db053bc-283c-4d2e-93f4-c3e8032e66da_en?filename=mdcg_2022-14_en.pdf",
     "summary": "",
     "date": "August 2022",
-    "crawled_at": "2026-07-13T01:58:46.597625"
+    "crawled_at": "2026-07-20T03:19:55.236292"
   },
   {
     "id": "ec_mdr_guidance_296e7cc1a91c",
@@ -1438,7 +1427,7 @@
     "link": "https://health.ec.europa.eu/document/download/cbb11a6e-f0f3-4e30-af5e-990f9ef68bc1_en?filename=md_mdcg_2021_25_en.pdf",
     "summary": "",
     "date": "October 2024",
-    "crawled_at": "2026-07-13T01:58:46.597745"
+    "crawled_at": "2026-07-20T03:19:55.236373"
   },
   {
     "id": "ec_mdr_guidance_6a764316416f",
@@ -1449,6 +1438,83 @@
     "link": "https://health.ec.europa.eu/document/download/c66ca211-7390-4d60-90fc-0fc30652f3db_en?filename=md_mdcg_2019_3_rev1_cecp_en.pdf",
     "summary": "",
     "date": "April 2020",
-    "crawled_at": "2026-07-13T01:58:46.597881"
+    "crawled_at": "2026-07-20T03:19:55.236456"
+  },
+  {
+    "id": "pmda_regulatory_98a0de1da27a",
+    "source": "pmda_regulatory",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Questions and Answers (Q&A) on the Application for Confirmation of Change Plans for Medical Devices, Medical Devices Utilizing Artificial Intelligence-Related Technologies, and Program Medical Devices",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000275273.pdf",
+    "date": "",
+    "crawled_at": "2026-07-20T03:19:56.490723"
+  },
+  {
+    "id": "pmda_regulatory_4eece477ea9a",
+    "source": "pmda_regulatory",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Q&A about “Handling of the Two-step Approval Based on the Characteristics of Software as a Medical Device”",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000275278.pdf",
+    "date": "",
+    "crawled_at": "2026-07-20T03:19:56.491146"
+  },
+  {
+    "id": "pmda_regulatory_b5401aa398b0",
+    "source": "pmda_regulatory",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Handling of the Two-step Approval Based on the Characteristics of Software as a Medical Device",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000275279.pdf",
+    "date": "",
+    "crawled_at": "2026-07-20T03:19:56.491186"
+  },
+  {
+    "id": "pmda_regulatory_8eb83127ba8e",
+    "source": "pmda_regulatory",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Handling of Medical Device Software",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000231042.pdf",
+    "date": "",
+    "crawled_at": "2026-07-20T03:19:56.491225"
+  },
+  {
+    "id": "pmda_regulatory_80e93961d5a7",
+    "source": "pmda_regulatory",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Questions & Answers about Handling of Medical Device Software",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000231040.pdf",
+    "date": "",
+    "crawled_at": "2026-07-20T03:19:56.491264"
+  },
+  {
+    "id": "pmda_regulatory_13b3c452b662",
+    "source": "pmda_regulatory",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Handling of Application for Marketing Certification of Medical Device Software",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000231041.pdf",
+    "date": "",
+    "crawled_at": "2026-07-20T03:19:56.491302"
+  },
+  {
+    "id": "pmda_regulatory_f409a4041bb4",
+    "source": "pmda_regulatory",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Notice concerning the Publication of Guidance Materials concerning Application for Marketing Approval of Medical Device Software",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000231038.pdf",
+    "date": "",
+    "crawled_at": "2026-07-20T03:19:56.491344"
   }
 ]

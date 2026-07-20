@@ -1,5 +1,82 @@
 [
   {
+    "id": "pmda_regulatory_f409a4041bb4",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Notice concerning the Publication of Guidance Materials concerning Application for Marketing Approval of Medical Device Software",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000231038.pdf",
+    "date": "",
+    "detected_at": "2026-07-20T03:19:54.467246+00:00",
+    "unread": true
+  },
+  {
+    "id": "pmda_regulatory_13b3c452b662",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Handling of Application for Marketing Certification of Medical Device Software",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000231041.pdf",
+    "date": "",
+    "detected_at": "2026-07-20T03:19:54.467246+00:00",
+    "unread": true
+  },
+  {
+    "id": "pmda_regulatory_80e93961d5a7",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Questions & Answers about Handling of Medical Device Software",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000231040.pdf",
+    "date": "",
+    "detected_at": "2026-07-20T03:19:54.467246+00:00",
+    "unread": true
+  },
+  {
+    "id": "pmda_regulatory_8eb83127ba8e",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Handling of Medical Device Software",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000231042.pdf",
+    "date": "",
+    "detected_at": "2026-07-20T03:19:54.467246+00:00",
+    "unread": true
+  },
+  {
+    "id": "pmda_regulatory_b5401aa398b0",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Handling of the Two-step Approval Based on the Characteristics of Software as a Medical Device",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000275279.pdf",
+    "date": "",
+    "detected_at": "2026-07-20T03:19:54.467246+00:00",
+    "unread": true
+  },
+  {
+    "id": "pmda_regulatory_4eece477ea9a",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Q&A about “Handling of the Two-step Approval Based on the Characteristics of Software as a Medical Device”",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000275278.pdf",
+    "date": "",
+    "detected_at": "2026-07-20T03:19:54.467246+00:00",
+    "unread": true
+  },
+  {
+    "id": "pmda_regulatory_98a0de1da27a",
+    "country": "JP",
+    "doctype": "guidance",
+    "title": "Questions and Answers (Q&A) on the Application for Confirmation of Change Plans for Medical Devices, Medical Devices Utilizing Artificial Intelligence-Related Technologies, and Program Medical Devices",
+    "summary": "",
+    "link": "https://www.pmda.go.jp/files/000275273.pdf",
+    "date": "",
+    "detected_at": "2026-07-20T03:19:54.467246+00:00",
+    "unread": true
+  },
+  {
     "id": "fda_fr_926c1da0ea90",
     "country": "US",
     "doctype": "guidance",
@@ -2118,83 +2195,6 @@
     "title": "PMDA’s Activities Leading to Medical Device Innovation",
     "summary": "",
     "link": "https://www.pmda.go.jp/files/000264825.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_301af65de49a",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Issuance of Certificates for Medical Devices for Export",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000153044.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_b8969f587fdd",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Procedures for Public Release of Information on Review of Applications for New Medical Devices",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000153584.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_c0735e09b271",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Examples of Points to Consider and Approaches for Utilization of Study Results Obtained from Specified Clinical Research in Applications for Approval of Medical Devices and Regenerative Medical Products",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000275281.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_999b4943dda4",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Partial Revision of “Partial Revision of the “Points to Consider for Approval Applications for Home Medical Devices to Detect Signs of Diseases and to Encourage Medical Consultation””",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000275280.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_f409a4041bb4",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Notice concerning the Publication of Guidance Materials concerning Application for Marketing Approval of Medical Device Software",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000231038.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_13b3c452b662",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Handling of Application for Marketing Certification of Medical Device Software",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000231041.pdf",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_80e93961d5a7",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Questions & Answers about Handling of Medical Device Software",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000231040.pdf",
     "date": "",
     "detected_at": "2026-06-05T00:57:23.661072+00:00",
     "unread": true

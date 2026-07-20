@@ -1,7 +1,7 @@
 {
-  "last_crawled": "2026-07-13T01:58:42.590865+00:00",
-  "total_items": 132,
-  "new_items": 0,
+  "last_crawled": "2026-07-20T03:19:54.467246+00:00",
+  "total_items": 138,
+  "new_items": 7,
   "stats": {
     "FDA": {
       "count": 20,
@@ -12,7 +12,7 @@
       "status": "ok"
     },
     "PMDA": {
-      "count": 0,
+      "count": 29,
       "status": "ok"
     }
   }
