@@ -1,5 +1,27 @@
 [
   {
+    "id": "ec_mdr_guidance_6c8472a39d0c",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "MDCG 2026-5 — Position Paper: UDI assignment between manufacturers and distributors",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/document/download/f34c1afd-8d01-44cc-bf94-33e4bcac0ef2_en?filename=mdcg_2026-5_en.pdf",
+    "date": "July 2026",
+    "detected_at": "2026-07-27T02:06:47.618386+00:00",
+    "unread": true
+  },
+  {
+    "id": "fda_fr_fd7b77732c76",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Agency Information Collection Activities; Submission for Office of Management and Budget Review; Comment Request; Premarket Notifications Submission",
+    "summary": "The Food and Drug Administration (FDA) is announcing that a proposed collection of information has been submitted to the Office of Management and Budget (OMB) for review and clearance under the Paperwork Reduction Act of 1995.",
+    "link": "https://www.federalregister.gov/documents/2026/07/22/2026-14707/agency-information-collection-activities-submission-for-office-of-management-and-budget-review",
+    "date": "2026-07-22",
+    "detected_at": "2026-07-27T02:06:47.618386+00:00",
+    "unread": true
+  },
+  {
     "id": "pmda_regulatory_f409a4041bb4",
     "country": "JP",
     "doctype": "guidance",
@@ -2173,28 +2195,6 @@
     "title": "Revision of Japanese Medical Device QMS requirements",
     "summary": "",
     "link": "https://www.pmda.go.jp/english/review-services/regulatory-info/0004.html",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_7d1c91c0f410",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Regulations and Approval/Certification of Medical Devices",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/english/review-services/reviews/0004.html",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_7adc3f6af5eb",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "PMDA’s Activities Leading to Medical Device Innovation",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/files/000264825.pdf",
     "date": "",
     "detected_at": "2026-06-05T00:57:23.661072+00:00",
     "unread": true
