@@ -1,5 +1,16 @@
 [
   {
+    "id": "fda_fr_0d8d5464e987",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Radiology Devices; Reclassification of Digital Breast Tomosynthesis System",
+    "summary": "The Food and Drug Administration (FDA) is proposing to reclassify digital breast tomosynthesis (DBT) systems, product code OTE, which are postamendments class III devices, from class III (premarket approval) into class II (special controls), subject to premarket notification. FDA is also proposing a",
+    "link": "https://www.federalregister.gov/documents/2026/08/10/2026-16209/radiology-devices-reclassification-of-digital-breast-tomosynthesis-system",
+    "date": "2026-08-10",
+    "detected_at": "2026-08-10T01:05:33.467988+00:00",
+    "unread": true
+  },
+  {
     "id": "ec_mdr_guidance_6c8472a39d0c",
     "country": "EU",
     "doctype": "guidance",
@@ -2184,17 +2195,6 @@
     "title": "Notification of the Guidance for the Evaluation of Emerging Technology Medical Devices(unofficial English version)",
     "summary": "",
     "link": "https://dmd.nihs.go.jp/jisedai/tsuuchi/index.html",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_3d30bc7e4ec3",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Revision of Japanese Medical Device QMS requirements",
-    "summary": "",
-    "link": "https://www.pmda.go.jp/english/review-services/regulatory-info/0004.html",
     "date": "",
     "detected_at": "2026-06-05T00:57:23.661072+00:00",
     "unread": true
