@@ -1,5 +1,16 @@
 [
   {
+    "id": "fda_fr_0f5e931e4f69",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Gastroenterology-Urology Devices; Reclassification of Diagnostic Endoscopic Light Source Systems To Be Renamed Cystoscopic Systems Intended as an Aid for Detection of Bladder Cancer",
+    "summary": "The Food and Drug Administration (FDA) is proposing to reclassify diagnostic endoscopic light source systems (product code OAY), which are postamendments class III devices, from class III (premarket approval) into class II (special controls), subject to premarket notification. FDA is also proposing ",
+    "link": "https://www.federalregister.gov/documents/2026/08/17/2026-16728/gastroenterology-urology-devices-reclassification-of-diagnostic-endoscopic-light-source-systems-to",
+    "date": "2026-08-17",
+    "detected_at": "2026-08-17T00:45:01.230957+00:00",
+    "unread": true
+  },
+  {
     "id": "fda_fr_0d8d5464e987",
     "country": "US",
     "doctype": "guidance",
@@ -2186,17 +2197,6 @@
     "link": "https://www.mfds.go.kr./view.do?seq=14971&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
     "date": "",
     "detected_at": "2026-06-05T05:39:22.852048+00:00",
-    "unread": true
-  },
-  {
-    "id": "pmda_regulatory_13eb68727472",
-    "country": "JP",
-    "doctype": "guidance",
-    "title": "Notification of the Guidance for the Evaluation of Emerging Technology Medical Devices(unofficial English version)",
-    "summary": "",
-    "link": "https://dmd.nihs.go.jp/jisedai/tsuuchi/index.html",
-    "date": "",
-    "detected_at": "2026-06-05T00:57:23.661072+00:00",
     "unread": true
   }
 ]
