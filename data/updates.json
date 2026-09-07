@@ -1,5 +1,16 @@
 [
   {
+    "id": "fda_fr_4831d7a9b40c",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Dental Composite Resin Devices and Dental Curing Lights-Premarket Notification (510(k)) Submissions Guidances; Guidances for Industry and Food and Drug Administration Staff; Availability",
+    "summary": "The Food and Drug Administration (FDA or Agency) is announcing the availability of two final guidances titled \"Dental Composite Resin Devices--Premarket Notification (510(k)) Submissions\" and \"Dental Curing Lights--Premarket Notification (510(k)) Submissions.\" These guidance documents provide recomm",
+    "link": "https://www.federalregister.gov/documents/2026/09/02/2026-17933/dental-composite-resin-devices-and-dental-curing-lights-premarket-notification-510k-submissions",
+    "date": "2026-09-02",
+    "detected_at": "2026-09-07T02:05:27.496973+00:00",
+    "unread": true
+  },
+  {
     "id": "fda_fr_0f5e931e4f69",
     "country": "US",
     "doctype": "guidance",
@@ -2184,17 +2195,6 @@
     "title": "「식품 등 이력추적관리기준」 고시전문(식약처 고시 제2026-39호, 2026.5.15.)",
     "summary": "",
     "link": "https://www.mfds.go.kr./view.do?seq=14970&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "detected_at": "2026-06-05T05:39:22.852048+00:00",
-    "unread": true
-  },
-  {
-    "id": "mfds_law_63ffc27ec612",
-    "country": "KR",
-    "doctype": "law",
-    "title": "식품의 기준 및 규격 고시전문(제2026-40호, 2026.5.19)",
-    "summary": "",
-    "link": "https://www.mfds.go.kr./view.do?seq=14971&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
     "date": "",
     "detected_at": "2026-06-05T05:39:22.852048+00:00",
     "unread": true
