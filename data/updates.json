@@ -1,5 +1,27 @@
 [
   {
+    "id": "fda_fr_5a23de63c41b",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Medical Devices; Exemption From Premarket Notification: Radiology Computer-Aided Detection and/or Diagnosis Devices and Computer-Aided Triage and Notification Devices",
+    "summary": "The Food and Drug Administration (FDA) is publishing an order setting forth its final determination regarding a partial exemption from the premarket notification requirements for radiology computer- aided detection and/or diagnosis devices and computer-aided triage and notification devices that was ",
+    "link": "https://www.federalregister.gov/documents/2026/09/17/2026-19074/medical-devices-exemption-from-premarket-notification-radiology-computer-aided-detection-andor",
+    "date": "2026-09-17",
+    "detected_at": "2026-09-21T02:34:08.884079+00:00",
+    "unread": true
+  },
+  {
+    "id": "fda_fr_043891189c85",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Electronic Submission Template for Medical Device Premarket Approval Applications (PMAs); Draft Guidance for Industry and Food and Drug Administration Staff; Availability",
+    "summary": "The Food and Drug Administration (FDA or Agency) is announcing the availability of the draft guidance entitled \"Electronic Submission Template for Medical Device Premarket Approval Applications (PMAs).\" FDA is issuing this draft guidance for submitters of certain PMAs to the Center for Devices and R",
+    "link": "https://www.federalregister.gov/documents/2026/09/18/2026-19181/electronic-submission-template-for-medical-device-premarket-approval-applications-pmas-draft",
+    "date": "2026-09-18",
+    "detected_at": "2026-09-21T02:34:08.884079+00:00",
+    "unread": true
+  },
+  {
     "id": "ec_mdr_guidance_7f23719f50b1",
     "country": "EU",
     "doctype": "guidance",
@@ -2173,28 +2195,6 @@
     "title": "「건강기능식품의 기준 및 규격」 고시전문(고시 제2026-32호 2026.4.13. 반영)",
     "summary": "",
     "link": "https://www.mfds.go.kr./view.do?seq=14965&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "detected_at": "2026-06-05T05:39:22.852048+00:00",
-    "unread": true
-  },
-  {
-    "id": "mfds_law_227e64f6e13e",
-    "country": "KR",
-    "doctype": "law",
-    "title": "「건강기능식품 기능성 원료 및 기준·규격 인정에 관한 규정」고시전문(제2026-33호¸ 2026.4.13.)",
-    "summary": "",
-    "link": "https://www.mfds.go.kr./view.do?seq=14966&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
-    "date": "",
-    "detected_at": "2026-06-05T05:39:22.852048+00:00",
-    "unread": true
-  },
-  {
-    "id": "mfds_law_faf0e801fbdb",
-    "country": "KR",
-    "doctype": "law",
-    "title": "「마약류의 오남용 방지를 위한 조치기준」 고시 전문(제2026-35호)",
-    "summary": "",
-    "link": "https://www.mfds.go.kr./view.do?seq=14967&srchFr=&srchTo=&srchWord=&srchTp=&itm_seq_1=0&itm_seq_2=0&multi_itm_seq=0&company_cd=&company_nm=&page=1",
     "date": "",
     "detected_at": "2026-06-05T05:39:22.852048+00:00",
     "unread": true
