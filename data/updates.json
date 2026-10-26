@@ -1,5 +1,16 @@
 [
   {
+    "id": "fda_fr_bf09212cab75",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Regulatory Considerations for Prescription Drug Use-Related Software; Guidance for Industry; Availability",
+    "summary": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance for industry titled \"Regulatory Considerations for Prescription Drug Use-Related Software.\" This final guidance describes FDA's application of its drug labeling authorities to certain software outputs",
+    "link": "https://www.federalregister.gov/documents/2026/10/21/2026-21516/regulatory-considerations-for-prescription-drug-use-related-software-guidance-for-industry",
+    "date": "2026-10-21",
+    "detected_at": "2026-10-26T02:29:36.559138+00:00",
+    "unread": true
+  },
+  {
     "id": "fda_fr_11faf895dacf",
     "country": "US",
     "doctype": "guidance",
@@ -2185,17 +2196,6 @@
     "summary": "The Food and Drug Administration (FDA) is classifying the rigid sterilization container with electronic monitoring into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the rig",
     "link": "https://www.federalregister.gov/documents/2026/06/01/2026-10908/medical-devices-general-hospital-and-personal-use-devices-classification-of-the-rigid-sterilization",
     "date": "2026-06-01",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_b52306522958",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Drug and Device Manufacturer Communications With Payors, Formulary Committees, and Similar Entities-Questions and Answers; Revised Draft Guidance for Industry; Availability",
-    "summary": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a revised draft guidance for industry titled \"Drug and Device Manufacturer Communications With Payors, Formulary Committees, and Similar Entities--Questions and Answers.\" This revised draft guidance, when finalized, w",
-    "link": "https://www.federalregister.gov/documents/2026/06/03/2026-11060/drug-and-device-manufacturer-communications-with-payors-formulary-committees-and-similar",
-    "date": "2026-06-03",
     "detected_at": "2026-06-05T06:09:35.661859+00:00",
     "unread": true
   }
