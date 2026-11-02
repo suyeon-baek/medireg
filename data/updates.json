@@ -1,5 +1,38 @@
 [
   {
+    "id": "ec_mdr_guidance_df35fc1abb48",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "MDCG 2026-4 rev.1 — MDCG Position Paper: Management of SS(C)P in EUDAMED after mandatory use",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/document/download/a80332cf-e9f0-4d45-8863-3d96e8c2a675_en?filename=mdcg_2026-4_en.pdf",
+    "date": "October 2026",
+    "detected_at": "2026-11-02T03:39:22.975162+00:00",
+    "unread": true
+  },
+  {
+    "id": "fda_fr_bd567f0fdd9d",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Medical Devices; General and Plastic Surgery Devices; Classification of the Software-Aided Adjunctive Diagnostic Device for Use by Physicians on Lesions Suspicious for Skin Cancer",
+    "summary": "The Food and Drug Administration (FDA) is classifying the software-aided adjunctive diagnostic device for use by physicians on lesions suspicious for skin cancer into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the ",
+    "link": "https://www.federalregister.gov/documents/2026/10/30/2026-22179/medical-devices-general-and-plastic-surgery-devices-classification-of-the-software-aided-adjunctive",
+    "date": "2026-10-30",
+    "detected_at": "2026-11-02T03:39:22.975162+00:00",
+    "unread": true
+  },
+  {
+    "id": "fda_fr_d7e592b29a5e",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Medical Devices; Radiology Devices; Classification of the Radiology Software for Referral of Findings Related to Fibrotic Lung Disease",
+    "summary": "The Food and Drug Administration (FDA) is classifying the radiology software for referral of findings related to fibrotic lung disease into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for class",
+    "link": "https://www.federalregister.gov/documents/2026/10/30/2026-22180/medical-devices-radiology-devices-classification-of-the-radiology-software-for-referral-of-findings",
+    "date": "2026-10-30",
+    "detected_at": "2026-11-02T03:39:22.975162+00:00",
+    "unread": true
+  },
+  {
     "id": "fda_fr_bf09212cab75",
     "country": "US",
     "doctype": "guidance",
@@ -2162,39 +2195,6 @@
     "title": "Medical Devices; Gastroenterology-Urology Devices; Classification of the Orally Ingested Transient Device for Constipation",
     "summary": "The Food and Drug Administration (FDA) is classifying the orally ingested transient device for constipation into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the orally ing",
     "link": "https://www.federalregister.gov/documents/2026/06/01/2026-10904/medical-devices-gastroenterology-urology-devices-classification-of-the-orally-ingested-transient",
-    "date": "2026-06-01",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_d80551d6ec14",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; Anesthesiology Devices; Classification of the Adjunctive Pain Measurement Device for Anesthesiology",
-    "summary": "The Food and Drug Administration (FDA) is classifying the adjunctive pain measurement device for anesthesiology into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the adjunc",
-    "link": "https://www.federalregister.gov/documents/2026/06/01/2026-10905/medical-devices-anesthesiology-devices-classification-of-the-adjunctive-pain-measurement-device-for",
-    "date": "2026-06-01",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_64df86725437",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; Anesthesiology Devices; Classification of the Real-Time Ultrasound Anatomy Visualization and Labeling Device for Ultrasound Guided Regional Anesthesia",
-    "summary": "The Food and Drug Administration (FDA) is classifying the real-time ultrasound anatomy visualization and labeling device for ultrasound guided regional anesthesia into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the",
-    "link": "https://www.federalregister.gov/documents/2026/06/01/2026-10907/medical-devices-anesthesiology-devices-classification-of-the-real-time-ultrasound-anatomy",
-    "date": "2026-06-01",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_392e68ce34ee",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; General Hospital and Personal Use Devices; Classification of the Rigid Sterilization Container With Electronic Monitoring",
-    "summary": "The Food and Drug Administration (FDA) is classifying the rigid sterilization container with electronic monitoring into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the rig",
-    "link": "https://www.federalregister.gov/documents/2026/06/01/2026-10908/medical-devices-general-hospital-and-personal-use-devices-classification-of-the-rigid-sterilization",
     "date": "2026-06-01",
     "detected_at": "2026-06-05T06:09:35.661859+00:00",
     "unread": true
