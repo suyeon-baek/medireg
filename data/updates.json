@@ -1,5 +1,82 @@
 [
   {
+    "id": "ec_mdr_guidance_d2fa6a8494fb",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "MDCG 2023-3 rev.2 — Questions and Answers on vigilance terms and concepts as outlined in the Regulation (EU) 2017/745 on medical devices and Regulation (EU) 2017/746",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/document/download/af1433fd-ed64-4c53-abc7-612a7f16f976_en?filename=mdcg_2023-3_en.pdf",
+    "date": "January 2025",
+    "detected_at": "2026-11-09T03:50:56.022145+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_fa63ad8d392f",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "MDCG 2024-1-5 — DSVG 05 on Urogynaecological Surgical Mesh Implants used for Pelvic Organ Prolapse repair and Stress Urinary Incontinence",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/document/download/c8441ddc-c586-4dbf-afc8-6ec3250df54b_en?filename=mdcg_2024-1-5_en_1.pdf",
+    "date": "June 2024",
+    "detected_at": "2026-11-09T03:50:56.022145+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_197197d1701a",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "MDCG 2024-7 rev.1MDCG 2021-15/MDCG 2024-7 Annex — Preliminary assessment review (PAR) form template (MDR)Annex to Application Form & PAR Template MDR (List of documents)",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/document/download/939cc0b8-8db5-4b0d-b2b7-a15a98a44cbd_en?filename=mdcg_2024-7_en_0.docx",
+    "date": "January 2025",
+    "detected_at": "2026-11-09T03:50:56.022145+00:00",
+    "unread": true
+  },
+  {
+    "id": "ec_mdr_guidance_a766c27e191e",
+    "country": "EU",
+    "doctype": "guidance",
+    "title": "MDCG 2026-6 — Clinical evidence for orphan in vitro diagnostic medical devices",
+    "summary": "",
+    "link": "https://health.ec.europa.eu/document/download/3c335d66-18db-4ab2-9fdd-fe552e897200_en?filename=mdcg_2026-6_en.pdf",
+    "date": "November 2026",
+    "detected_at": "2026-11-09T03:50:56.022145+00:00",
+    "unread": true
+  },
+  {
+    "id": "fda_fr_106c02f11556",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Medical Devices; Orthopedic Devices; Classification of the Wearable Vibration Device for Orthopedic Use",
+    "summary": "The Food and Drug Administration (FDA) is classifying the wearable vibration device for orthopedic use into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the wearable vibrat",
+    "link": "https://www.federalregister.gov/documents/2026/11/05/2026-22589/medical-devices-orthopedic-devices-classification-of-the-wearable-vibration-device-for-orthopedic",
+    "date": "2026-11-05",
+    "detected_at": "2026-11-09T03:50:56.022145+00:00",
+    "unread": true
+  },
+  {
+    "id": "fda_fr_b1c245d98e0a",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Medical Devices; Neurological Devices; Classification of the Prognostic Assessment Software of Mild Cognitive Impairment",
+    "summary": "The Food and Drug Administration (FDA) is classifying the prognostic assessment software of mild cognitive impairment into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the ",
+    "link": "https://www.federalregister.gov/documents/2026/11/05/2026-22590/medical-devices-neurological-devices-classification-of-the-prognostic-assessment-software-of-mild",
+    "date": "2026-11-05",
+    "detected_at": "2026-11-09T03:50:56.022145+00:00",
+    "unread": true
+  },
+  {
+    "id": "fda_fr_3918ddfce7e8",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Medical Devices; Hematology and Pathology Devices; Classification of the Digital Cervical Cytology Slide Imaging System With Artificial Intelligence Algorithm",
+    "summary": "The Food and Drug Administration (FDA) is classifying the digital cervical cytology slide imaging system with artificial intelligence algorithm into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language ",
+    "link": "https://www.federalregister.gov/documents/2026/11/05/2026-22593/medical-devices-hematology-and-pathology-devices-classification-of-the-digital-cervical-cytology",
+    "date": "2026-11-05",
+    "detected_at": "2026-11-09T03:50:56.022145+00:00",
+    "unread": true
+  },
+  {
     "id": "ec_mdr_guidance_df35fc1abb48",
     "country": "EU",
     "doctype": "guidance",
@@ -2119,83 +2196,6 @@
     "summary": "The Food and Drug Administration (FDA) is announcing the renewal of the Drug Safety and Risk Management Advisory Committee by the Commissioner of Food and Drugs (the Commissioner). The Commissioner has determined that it is in the public interest to renew the Drug Safety and Risk Management Advisory",
     "link": "https://www.federalregister.gov/documents/2026/05/26/2026-10371/advisory-committee-drug-safety-and-risk-management-advisory-committee-renewal",
     "date": "2026-05-26",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_86ffc19ce3b5",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; Gastroenterology-Urology Devices; Classification of the Endoscopic Suturing Device for Altering Gastric Anatomy for Weight Loss",
-    "summary": "The Food and Drug Administration (FDA) is classifying the endoscopic suturing device for altering gastric anatomy for weight loss into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classifica",
-    "link": "https://www.federalregister.gov/documents/2026/05/28/2026-10621/medical-devices-gastroenterology-urology-devices-classification-of-the-endoscopic-suturing-device",
-    "date": "2026-05-28",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_7dfc227b6430",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; Neurological Devices; Classification of the Transcutaneous Electrical Nerve Stimulator To Treat Fibromyalgia Symptoms",
-    "summary": "The Food and Drug Administration (FDA) is classifying the transcutaneous electrical nerve stimulator to treat fibromyalgia symptoms into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classifi",
-    "link": "https://www.federalregister.gov/documents/2026/05/29/2026-10675/medical-devices-neurological-devices-classification-of-the-transcutaneous-electrical-nerve",
-    "date": "2026-05-29",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_59dbd2a59cc7",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Content of Human Factors Information in Medical Device Marketing Submissions; Guidance for Industry and Food and Drug Administration Staff; Availability",
-    "summary": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance titled \"Content of Human Factors Information in Medical Device Marketing Submissions.\" This guidance provides a risk-based framework to guide manufacturers and FDA staff on the human factors informati",
-    "link": "https://www.federalregister.gov/documents/2026/05/29/2026-10734/content-of-human-factors-information-in-medical-device-marketing-submissions-guidance-for-industry",
-    "date": "2026-05-29",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_ba782f186002",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; Ear, Nose, and Throat Devices; Classification of the Oropharyngeal Electrical Stimulator",
-    "summary": "The Food and Drug Administration (FDA) is classifying the oropharyngeal electrical stimulator into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the oropharyngeal electrical",
-    "link": "https://www.federalregister.gov/documents/2026/06/01/2026-10894/medical-devices-ear-nose-and-throat-devices-classification-of-the-oropharyngeal-electrical",
-    "date": "2026-06-01",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_25e5581271f7",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; Hematology and Pathology Devices; Classification of the Von Willebrand Factor Assay",
-    "summary": "The Food and Drug Administration (FDA) is classifying the von Willebrand factor assay into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the von Willebrand factor assay. We ",
-    "link": "https://www.federalregister.gov/documents/2026/06/01/2026-10898/medical-devices-hematology-and-pathology-devices-classification-of-the-von-willebrand-factor-assay",
-    "date": "2026-06-01",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_8c11a1d1aa78",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; Dental Devices; Classification of the Intraoral Cooling Device",
-    "summary": "The Food and Drug Administration (FDA) is classifying the intraoral cooling device into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the intraoral cooling device. We are ta",
-    "link": "https://www.federalregister.gov/documents/2026/06/01/2026-10899/medical-devices-dental-devices-classification-of-the-intraoral-cooling-device",
-    "date": "2026-06-01",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_38b5586afdf7",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Medical Devices; Gastroenterology-Urology Devices; Classification of the Orally Ingested Transient Device for Constipation",
-    "summary": "The Food and Drug Administration (FDA) is classifying the orally ingested transient device for constipation into class II (special controls). The special controls that apply to the device type are identified in this order and will be part of the codified language for classification of the orally ing",
-    "link": "https://www.federalregister.gov/documents/2026/06/01/2026-10904/medical-devices-gastroenterology-urology-devices-classification-of-the-orally-ingested-transient",
-    "date": "2026-06-01",
     "detected_at": "2026-06-05T06:09:35.661859+00:00",
     "unread": true
   }
