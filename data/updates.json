@@ -1,5 +1,16 @@
 [
   {
+    "id": "fda_fr_639cbd7ff12d",
+    "country": "US",
+    "doctype": "guidance",
+    "title": "Transfer of a Premarket Notification (510(k)) Clearance-Questions and Answers; Guidance for Industry and Food and Drug Administration Staff; Availability",
+    "summary": "The Food and Drug Administration (FDA or Agency) is announcing the availability of a final guidance titled \"Transfer of a Premarket Notification (510(k)) Clearance--Questions and Answers.\" This guidance provides information on the most frequently asked questions regarding the transfer or sale of a 5",
+    "link": "https://www.federalregister.gov/documents/2026/11/20/2026-23668/transfer-of-a-premarket-notification-510k-clearance-questions-and-answers-guidance-for-industry-and",
+    "date": "2026-11-20",
+    "detected_at": "2026-11-23T04:56:16.503377+00:00",
+    "unread": true
+  },
+  {
     "id": "ec_mdr_guidance_d2fa6a8494fb",
     "country": "EU",
     "doctype": "guidance",
@@ -2185,17 +2196,6 @@
     "summary": "The Food and Drug Administration (FDA) is classifying the device to detect and identify microorganism nucleic acids and resistance markers from patients with suspected orthopedic infection into class II (special controls). The special controls that apply to the device type are identified in this ord",
     "link": "https://www.federalregister.gov/documents/2026/05/12/2026-09335/medical-devices-immunology-and-microbiology-devices-classification-of-the-device-to-detect-and",
     "date": "2026-05-12",
-    "detected_at": "2026-06-05T06:09:35.661859+00:00",
-    "unread": true
-  },
-  {
-    "id": "fda_fr_061acc3fc244",
-    "country": "US",
-    "doctype": "guidance",
-    "title": "Advisory Committee; Drug Safety and Risk Management Advisory Committee; Renewal",
-    "summary": "The Food and Drug Administration (FDA) is announcing the renewal of the Drug Safety and Risk Management Advisory Committee by the Commissioner of Food and Drugs (the Commissioner). The Commissioner has determined that it is in the public interest to renew the Drug Safety and Risk Management Advisory",
-    "link": "https://www.federalregister.gov/documents/2026/05/26/2026-10371/advisory-committee-drug-safety-and-risk-management-advisory-committee-renewal",
-    "date": "2026-05-26",
     "detected_at": "2026-06-05T06:09:35.661859+00:00",
     "unread": true
   }
